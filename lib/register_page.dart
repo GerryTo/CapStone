@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
+
   @override
   State<RegisterPage> createState() => _RegisterPageState();
 }
@@ -11,29 +13,32 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   void initState() {
+    super.initState();
     _passwordVisible = false;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff0B3D66),
+      backgroundColor: const Color(0xff0B3D66),
       body: Stack(
         children: [
           SingleChildScrollView(
             child: SafeArea(
               child: Column(
                 children: [
-                  SizedBox(height: 60),
+                  const SizedBox(height: 60),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
-                      Text('Gazebo',
-                          style: TextStyle(
-                            fontSize: 48,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          )),
+                      Text(
+                        'Gazebo',
+                        style: TextStyle(
+                          fontSize: 48,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 15),
@@ -77,11 +82,13 @@ class _RegisterPageState extends State<RegisterPage> {
                       const SizedBox(height: 20),
                       SizedBox(
                         width: MediaQuery.of(context).size.width - 100,
-                        child: const Text('Nama Perusahaan',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.white,
-                            )),
+                        child: const Text(
+                          'Nama Perusahaan',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                       const SizedBox(height: 10),
                       Row(
@@ -149,13 +156,15 @@ class _RegisterPageState extends State<RegisterPage> {
                         ],
                       ),
                       const SizedBox(height: 20),
-                      Container(
+                      SizedBox(
                         width: MediaQuery.of(context).size.width - 100,
-                        child: Text('Kata Sandi',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.white,
-                            )),
+                        child: const Text(
+                          'Kata Sandi',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                       const SizedBox(height: 10),
                       passwordBar(context),
