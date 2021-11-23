@@ -1,7 +1,10 @@
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'modules/auth/screens/login_page.dart';
+import 'routes/routes.dart';
 
 void main() {
+  Routes.init();
   runApp(const MyApp());
 }
 
@@ -16,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LoginPage(),
+      onGenerateRoute: Routes.router.generator,
     );
   }
 }

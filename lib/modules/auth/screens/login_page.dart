@@ -1,3 +1,4 @@
+import 'package:capastone/routes/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -76,7 +77,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 40),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () =>
+                        Routes.router.navigateTo(context, Routes.registration),
                     child: const Text(
                       'Belum punya akun? Daftar disini',
                       style: TextStyle(color: Colors.white),
