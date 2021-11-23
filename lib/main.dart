@@ -1,10 +1,9 @@
-import 'package:fluro/fluro.dart';
+import 'package:capastone/register_page.dart';
 import 'package:flutter/material.dart';
-import 'modules/auth/screens/login_page.dart';
-import 'routes/routes.dart';
+
+import 'home_page.dart';
 
 void main() {
-  Routes.init();
   runApp(const MyApp());
 }
 
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      onGenerateRoute: Routes.router.generator,
+      home: HomePage(),
     );
   }
 }
