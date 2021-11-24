@@ -1,4 +1,3 @@
-
 import 'package:capstone/modules/auth/screens/login_page.dart';
 import 'package:capstone/modules/auth/screens/profile_user_page.dart';
 import 'package:capstone/modules/auth/screens/register_page.dart';
@@ -12,8 +11,7 @@ final rootHandler =
 final registrationHandler =
     Handler(handlerFunc: (context, params) => const RegisterPage());
 
-final homeHandler =
-    Handler(handlerFunc: (context, params) => HomePage());
+final homeHandler = Handler(handlerFunc: (context, params) => HomePage());
 
 final profileUserHandler =
-    Handler(handlerFunc: (context, params) => profileUserPage());
+    Handler(handlerFunc: (context, params) => const ProfileUserPage());
