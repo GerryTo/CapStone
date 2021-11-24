@@ -7,6 +7,8 @@ class Routes {
   static String root = "/";
   static String login = "/login";
   static String registration = "/registration";
+  static String home = "/home";
+  static String profileUser = "/profileUser";
 
   static void init() {
     router = FluroRouter();
@@ -17,5 +19,7 @@ class Routes {
     });
     router.define(root, handler: rootHandler);
     router.define(registration, handler: registrationHandler);
+    router.define(home, handler: homeHandler);
+    router.define(profileUser, handler: profileUserHandler);
   }
 }

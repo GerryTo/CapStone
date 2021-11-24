@@ -1,9 +1,9 @@
-import 'package:capastone/register_page.dart';
+
+import 'package:capastone/routes/routes.dart';
 import 'package:flutter/material.dart';
 
-import 'home_page.dart';
-
 void main() {
+  Routes.init();
   runApp(const MyApp());
 }
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      onGenerateRoute: Routes.router.generator,
     );
   }
 }

@@ -12,6 +12,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   late bool _passwordVisible;
 
+
   @override
   void initState() {
     super.initState();
@@ -66,7 +67,9 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width - 100,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Routes.router.navigateTo(context, Routes.home);
+                      },
                       child: const Text('Masuk',
                           style: TextStyle(
                             fontSize: 16,
@@ -101,9 +104,14 @@ class _LoginPageState extends State<LoginPage> {
           width: MediaQuery.of(context).size.width - 100,
           decoration: const BoxDecoration(
             color: Colors.white,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                bottomLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+                bottomRight: Radius.circular(20)),
           ),
           child: Padding(
-            padding: const EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.only(left: 20),
             child: TextField(
               cursorColor: Colors.black,
               style: const TextStyle(color: Colors.black),
@@ -129,9 +137,14 @@ class _LoginPageState extends State<LoginPage> {
           width: MediaQuery.of(context).size.width - 100,
           decoration: const BoxDecoration(
             color: Colors.white,
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                bottomLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+                bottomRight: Radius.circular(20)),
           ),
           child: Padding(
-            padding: const EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.only(left: 20),
             child: TextField(
               obscureText: !_passwordVisible,
               obscuringCharacter: "*",
@@ -155,7 +168,8 @@ class _LoginPageState extends State<LoginPage> {
                       });
                     },
                   )),
-              onSubmitted: (value) {},
+              onSubmitted: (value) {
+              },
             ),
           ),
         ),
