@@ -25,17 +25,17 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: ClampingScrollPhysics(),
+          physics: const ClampingScrollPhysics(),
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.network('https://dummyimage.com/78x78/000/fff'),
                     Padding(
-                      padding: EdgeInsets.only(left: 10, top: 10),
+                      padding: const EdgeInsets.only(left: 10, top: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -68,14 +68,14 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: Row(
                   children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width - 230,
+                    Expanded(
+                      // width: MediaQuery.of(context).size.width - 230,
                       child: ElevatedButton(
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           'Contact',
                           style: TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
@@ -84,18 +84,18 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
                             primary: Colors.black, elevation: 0),
                       ),
                     ),
-                    SizedBox(width: 20),
-                    Container(
-                      width: MediaQuery.of(context).size.width - 230,
+                    const SizedBox(width: 20),
+                    Expanded(
+                      // width: MediaQuery.of(context).size.width - 230,
                       child: ElevatedButton(
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           'Share',
                           style: TextStyle(
                               color: Colors.black, fontWeight: FontWeight.bold),
                         ),
                         style: ElevatedButton.styleFrom(
-                            side: BorderSide(color: Colors.black),
+                            side: const BorderSide(color: Colors.black),
                             primary: Colors.transparent,
                             elevation: 0),
                       ),
