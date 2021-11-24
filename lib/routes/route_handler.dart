@@ -1,5 +1,5 @@
-import 'package:capastone/modules/auth/screens/login_page.dart';
-import 'package:capastone/modules/auth/screens/register_page.dart';
+import 'package:capstone/modules/auth/screens/login_page.dart';
+import 'package:capstone/modules/auth/screens/register_page.dart';
 import 'package:fluro/fluro.dart';
 
 final rootHandler =

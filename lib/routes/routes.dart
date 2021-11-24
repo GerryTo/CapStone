@@ -1,4 +1,4 @@
-import 'package:capastone/routes/route_handler.dart';
+import 'package:capstone/routes/route_handler.dart';
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 
