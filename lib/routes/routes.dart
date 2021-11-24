@@ -10,6 +10,7 @@ class Routes {
   static String registration = "/registration";
   static String home = "/home";
   static String profileUser = "/profileUser";
+  static String accountSettings = '/accountSettings';
 
   static void init() {
     router = FluroRouter();
@@ -21,5 +22,6 @@ class Routes {
     router.define(registration, handler: registrationHandler);
     router.define(home, handler: homeHandler);
     router.define(profileUser, handler: profileUserHandler);
+    router.define(accountSettings, handler: accountSettingsHandler);
   }
 }

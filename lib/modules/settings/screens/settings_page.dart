@@ -1,3 +1,4 @@
+import 'package:capstone/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -22,7 +23,8 @@ class _SettingsPageState extends State<SettingsPage> {
           ListTile(
             title: const Text('Setelan Akun'),
             leading: const Icon(Icons.person),
-            onTap: () {},
+            onTap: () =>
+                Routes.router.navigateTo(context, Routes.accountSettings),
           ),
           ListTile(
             title: const Text('Mode Gelap'),
