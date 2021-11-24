@@ -197,11 +197,13 @@ class _RegisterPageState extends State<RegisterPage> {
                       const SizedBox(height: 20),
                       SizedBox(
                         width: MediaQuery.of(context).size.width - 100,
-                        child: const Text('Nomor Telepon',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.white,
-                            )),
+                        child: const Text(
+                          'Nomor Telepon',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                       const SizedBox(height: 10),
                       Row(

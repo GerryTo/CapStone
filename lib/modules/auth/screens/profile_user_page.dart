@@ -1,22 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class profileUserPage extends StatefulWidget {
+class ProfileUserPage extends StatefulWidget {
+  const ProfileUserPage({Key? key}) : super(key: key);
+
   @override
-  State<profileUserPage> createState() => _profileUserPageState();
+  State<ProfileUserPage> createState() => _ProfileUserPageState();
 }
 
-class _profileUserPageState extends State<profileUserPage> {
+class _ProfileUserPageState extends State<ProfileUserPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Arsitek A",style: TextStyle(fontFamily: 'Roboto',fontWeight: FontWeight.w900)),
+        title: Text("Arsitek A",
+            style: GoogleFonts.roboto(fontWeight: FontWeight.w900)),
         centerTitle: true,
-        backgroundColor: Color(0xff0B3D66),
+        backgroundColor: const Color(0xff0B3D66),
         leading: IconButton(
           onPressed: () => Navigator.of(context).pop(),
-          icon: Icon(Icons.arrow_back_ios, color: Colors.white),
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
         ),
       ),
       body: SafeArea(
@@ -35,15 +39,22 @@ class _profileUserPageState extends State<profileUserPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Arsitek A", style: TextStyle(fontSize: 18,fontFamily: 'Roboto',fontWeight: FontWeight.w900)),
+                          Text("Arsitek A",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w900)),
                           SizedBox(height: 15),
-                          Text('Perusahaan A', style: TextStyle(fontSize: 18,fontFamily: 'Roboto')),
+                          Text('Perusahaan A',
+                              style: TextStyle(
+                                  fontSize: 18, fontFamily: 'Roboto')),
                         ],
                       ),
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                          left: MediaQuery.of(context).size.width - 340, top: 10),
+                          left: MediaQuery.of(context).size.width - 340,
+                          top: 10),
                       child: Column(
                         children: [
                           Text('10',
@@ -66,11 +77,11 @@ class _profileUserPageState extends State<profileUserPage> {
                         onPressed: () {},
                         child: Text(
                           'Contact',
-                          style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                         style: ElevatedButton.styleFrom(
-                            primary: Colors.black,
-                            elevation: 0),
+                            primary: Colors.black, elevation: 0),
                       ),
                     ),
                     SizedBox(width: 20),
@@ -80,7 +91,8 @@ class _profileUserPageState extends State<profileUserPage> {
                         onPressed: () {},
                         child: Text(
                           'Share',
-                          style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              color: Colors.black, fontWeight: FontWeight.bold),
                         ),
                         style: ElevatedButton.styleFrom(
                             side: BorderSide(color: Colors.black),
