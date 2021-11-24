@@ -1,3 +1,4 @@
+import 'package:capstone/routes/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,10 +18,6 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
         title: Text("Arsitek A",
             style: GoogleFonts.roboto(fontWeight: FontWeight.w900)),
         centerTitle: true,
-        leading: IconButton(
-          onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -43,8 +40,11 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
                                   fontSize: 18,
                                   fontFamily: 'Roboto',
                                   fontWeight: FontWeight.w900)),
-                          SizedBox(height: 15),
+                          SizedBox(height: 10),
                           Text('Perusahaan A',
+                              style: TextStyle(
+                                  fontSize: 18, fontFamily: 'Roboto')),
+                          Text('Nama Kota',
                               style: TextStyle(
                                   fontSize: 18, fontFamily: 'Roboto')),
                         ],
@@ -74,10 +74,20 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
                       // width: MediaQuery.of(context).size.width - 230,
                       child: ElevatedButton(
                         onPressed: () {},
-                        child: const Text(
-                          'Contact',
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                        child: Wrap(
+                          children:[
+                            const Text(
+                            'Kontak',
+                            style: TextStyle(
+                                color: Colors.white, fontWeight: FontWeight.bold),
+                          ),
+                            SizedBox(width: 10),
+                            Icon(
+                              Icons.contacts,
+                              color: Colors.white,
+                              size: 19.0,
+                            )
+                          ]
                         ),
                         style: ElevatedButton.styleFrom(
                             primary: Colors.black, elevation: 0),
@@ -88,10 +98,19 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
                       // width: MediaQuery.of(context).size.width - 230,
                       child: ElevatedButton(
                         onPressed: () {},
-                        child: const Text(
-                          'Share',
-                          style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
+                        child: Wrap(
+                          children:[ const Text(
+                            'Bagikan',
+                            style: TextStyle(
+                                color: Colors.black, fontWeight: FontWeight.bold),
+                          ),
+                            SizedBox(width: 10),
+                            Icon(
+                              Icons.share,
+                              color: Colors.black,
+                              size: 20.0,
+                            ),
+                        ],
                         ),
                         style: ElevatedButton.styleFrom(
                             side: const BorderSide(color: Colors.black),
@@ -110,53 +129,101 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
                 mainAxisSpacing: 5,
                 crossAxisCount: 3,
                 children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.teal[100],
+                  GestureDetector(
+                    onTap: () =>
+                        Routes.router.navigateTo(context, Routes.detailFeed),
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.teal[100],
+                    ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.teal[100],
+                  GestureDetector(
+                    onTap: () =>
+                        Routes.router.navigateTo(context, Routes.detailFeed),
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.teal[100],
+                    ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.teal[100],
+                  GestureDetector(
+                    onTap: () =>
+                        Routes.router.navigateTo(context, Routes.detailFeed),
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.teal[100],
+                    ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.teal[100],
+                  GestureDetector(
+                    onTap: () =>
+                        Routes.router.navigateTo(context, Routes.detailFeed),
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.teal[100],
+                    ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.teal[100],
+                  GestureDetector(
+                    onTap: () =>
+                        Routes.router.navigateTo(context, Routes.detailFeed),
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.teal[100],
+                    ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.teal[100],
+                  GestureDetector(
+                    onTap: () =>
+                        Routes.router.navigateTo(context, Routes.detailFeed),
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.teal[100],
+                    ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.teal[100],
+                  GestureDetector(
+                    onTap: () =>
+                        Routes.router.navigateTo(context, Routes.detailFeed),
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.teal[100],
+                    ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.teal[100],
+                  GestureDetector(
+                    onTap: () =>
+                        Routes.router.navigateTo(context, Routes.detailFeed),
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.teal[100],
+                    ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.teal[100],
+                  GestureDetector(
+                    onTap: () =>
+                        Routes.router.navigateTo(context, Routes.detailFeed),
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.teal[100],
+                    ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.teal[100],
+                  GestureDetector(
+                    onTap: () =>
+                        Routes.router.navigateTo(context, Routes.detailFeed),
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.teal[100],
+                    ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.teal[100],
+                  GestureDetector(
+                    onTap: () =>
+                        Routes.router.navigateTo(context, Routes.detailFeed),
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.teal[100],
+                    ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    color: Colors.teal[100],
+                  GestureDetector(
+                    onTap: () =>
+                        Routes.router.navigateTo(context, Routes.detailFeed),
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      color: Colors.teal[100],
+                    ),
                   ),
                 ],
               )

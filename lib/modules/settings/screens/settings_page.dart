@@ -1,3 +1,4 @@
+import 'package:capstone/config/themes/app_colors.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -15,8 +16,9 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: const Text('Setelan'),
         centerTitle: true,
+        backgroundColor: AppColors.primaryColor,
       ),
       body: ListView(
         children: [

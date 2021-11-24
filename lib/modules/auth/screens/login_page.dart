@@ -68,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                     width: MediaQuery.of(context).size.width - 100,
                     child: ElevatedButton(
                       onPressed: () {
-                        Routes.router.navigateTo(context, Routes.home);
+                        Routes.router.navigateTo(context, Routes.home,replace: true);
                       },
                       child: const Text('Masuk',
                           style: TextStyle(

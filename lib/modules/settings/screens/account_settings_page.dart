@@ -1,3 +1,4 @@
+import 'package:capstone/config/themes/app_colors.dart';
 import 'package:capstone/config/themes/app_input_decoration.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,7 @@ class AccountSettingsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Setelan Akun'),
         centerTitle: true,
+        backgroundColor: AppColors.primaryColor,
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 32, left: 32, right: 32),
