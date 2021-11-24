@@ -1,3 +1,4 @@
+import 'package:capstone/constants/city_names.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   late bool _passwordVisible;
+  String? city;
 
   @override
   void initState() {
@@ -178,22 +180,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             )),
                       ),
                       const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width - 100,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                            ),
-                            child: Padding(
-                                padding: const EdgeInsets.only(left: 10),
-                                child: DropdownButton(
-                                  items: const [],
-                                )),
-                          ),
-                        ],
-                      ),
+                      _locationField(context),
                       const SizedBox(height: 20),
                       SizedBox(
                         width: MediaQuery.of(context).size.width - 100,
@@ -267,6 +254,38 @@ class _RegisterPageState extends State<RegisterPage> {
           )
         ],
       ),
+    );
+  }
+
+  Row _locationField(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width - 100,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: DropdownButton<String>(
+              isExpanded: true,
+              hint: const Text('Pilih kota atau kabupaten'),
+              value: city,
+              onChanged: (city) => this.city = city,
+              items: List.generate(
+                citiesData.length,
+                (index) => DropdownMenuItem(
+                  value: citiesData[index],
+                  child: Text(
+                    citiesData[index],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 
