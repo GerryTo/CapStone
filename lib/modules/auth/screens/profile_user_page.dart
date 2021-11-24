@@ -11,7 +11,7 @@ class _profileUserPageState extends State<profileUserPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Arsitek A"),
+        title: Text("Arsitek A",style: TextStyle(fontFamily: 'Roboto',fontWeight: FontWeight.w900)),
         centerTitle: true,
         backgroundColor: Color(0xff0B3D66),
         leading: IconButton(
@@ -35,9 +35,9 @@ class _profileUserPageState extends State<profileUserPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Nama A', style: TextStyle(fontSize: 18)),
-                          SizedBox(height: 10),
-                          Text('Perusahaan A', style: TextStyle(fontSize: 18)),
+                          Text("Arsitek A", style: TextStyle(fontSize: 18,fontFamily: 'Roboto',fontWeight: FontWeight.w900)),
+                          SizedBox(height: 15),
+                          Text('Perusahaan A', style: TextStyle(fontSize: 18,fontFamily: 'Roboto')),
                         ],
                       ),
                     ),
@@ -66,11 +66,10 @@ class _profileUserPageState extends State<profileUserPage> {
                         onPressed: () {},
                         child: Text(
                           'Contact',
-                          style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+                          style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
                         ),
                         style: ElevatedButton.styleFrom(
-                            side: BorderSide(color: Colors.black),
-                            primary: Colors.transparent,
+                            primary: Colors.black,
                             elevation: 0),
                       ),
                     ),
@@ -92,6 +91,64 @@ class _profileUserPageState extends State<profileUserPage> {
                   ],
                 ),
               ),
+              GridView.count(
+                shrinkWrap: true,
+                primary: false,
+                padding: const EdgeInsets.all(5),
+                crossAxisSpacing: 5,
+                mainAxisSpacing: 5,
+                crossAxisCount: 3,
+                children: <Widget>[
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    color: Colors.teal[100],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    color: Colors.teal[100],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    color: Colors.teal[100],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    color: Colors.teal[100],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    color: Colors.teal[100],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    color: Colors.teal[100],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    color: Colors.teal[100],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    color: Colors.teal[100],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    color: Colors.teal[100],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    color: Colors.teal[100],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    color: Colors.teal[100],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    color: Colors.teal[100],
+                  ),
+                ],
+              )
             ],
           ),
         ),
