@@ -1,3 +1,4 @@
+import 'package:capstone/config/themes/app_colors.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Gazebo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: AppColors.primaryColor,
       ),
       onGenerateRoute: Routes.router.generator,
     );

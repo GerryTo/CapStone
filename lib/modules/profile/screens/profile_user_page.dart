@@ -17,7 +17,6 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
         title: Text("Arsitek A",
             style: GoogleFonts.roboto(fontWeight: FontWeight.w900)),
         centerTitle: true,
-        backgroundColor: const Color(0xff0B3D66),
         leading: IconButton(
           onPressed: () => Navigator.of(context).pop(),
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white),

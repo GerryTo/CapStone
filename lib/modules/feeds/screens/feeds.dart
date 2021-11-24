@@ -12,7 +12,6 @@ class Feeds extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Gazebo"),
         centerTitle: true,
-        backgroundColor: const Color(0xff0B3D66),
       ),
       body: ListView(
         padding: EdgeInsets.zero,

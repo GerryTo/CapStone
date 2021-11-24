@@ -1,3 +1,4 @@
+import 'package:capstone/config/themes/app_colors.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   late bool _passwordVisible;
 
-
   @override
   void initState() {
     super.initState();
@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff0B3D66),
+      backgroundColor: AppColors.primaryColor,
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
@@ -168,8 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                       });
                     },
                   )),
-              onSubmitted: (value) {
-              },
+              onSubmitted: (value) {},
             ),
           ),
         ),

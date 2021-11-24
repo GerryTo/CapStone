@@ -1,3 +1,4 @@
+import 'package:capstone/config/themes/app_colors.dart';
 import 'package:capstone/constants/city_names.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff0B3D66),
+      backgroundColor: AppColors.primaryColor,
       body: Stack(
         children: [
           SingleChildScrollView(
