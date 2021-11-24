@@ -1,6 +1,7 @@
-import 'package:capastone/modules/auth/screens/login_page.dart';
-import 'package:capastone/modules/auth/screens/profile_iser_page.dart';
-import 'package:capastone/modules/auth/screens/register_page.dart';
+
+import 'package:capstone/modules/auth/screens/login_page.dart';
+import 'package:capstone/modules/auth/screens/profile_user_page.dart';
+import 'package:capstone/modules/auth/screens/register_page.dart';
 import 'package:fluro/fluro.dart';
 
 import '../modules/auth/screens/home_page.dart';

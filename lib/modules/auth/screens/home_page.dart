@@ -1,4 +1,5 @@
-import 'package:capastone/widget/card_feed.dart';
+
+import 'package:capstone/widget/card_feed.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
