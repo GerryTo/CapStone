@@ -1,4 +1,5 @@
 import 'package:capstone/modules/feeds/screens/feeds.dart';
+import 'package:capstone/modules/settings/screens/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -61,7 +62,7 @@ class _HomePageState extends State<HomePage> {
           Feeds(),
           Center(child: Text('Profil')),
           Center(child: Text('Favorit')),
-          Center(child: Text('Setelan')),
+          SettingsPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
