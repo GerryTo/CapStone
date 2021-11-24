@@ -1,9 +1,9 @@
 import 'package:capstone/modules/auth/screens/login_page.dart';
-import 'package:capstone/modules/auth/screens/profile_user_page.dart';
+import 'package:capstone/modules/profile/screens/profile_user_page.dart';
 import 'package:capstone/modules/auth/screens/register_page.dart';
 import 'package:fluro/fluro.dart';
 
-import '../modules/auth/screens/home_page.dart';
+import '../modules/home/screens/home_page.dart';
 
 final rootHandler =
     Handler(handlerFunc: (context, params) => const LoginPage());
