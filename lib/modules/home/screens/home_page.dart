@@ -1,4 +1,4 @@
-import 'package:capstone/widget/card_feed.dart';
+import 'package:capstone/modules/feeds/screens/feeds.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,10 +13,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: const Text("Gazebo"),
-          centerTitle: true,
-          backgroundColor: const Color(0xff0B3D66)),
       // drawer: Drawer(
       //   child: ListView(
       //     padding: EdgeInsets.zero,
@@ -81,22 +77,6 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'setelan'),
         ],
       ),
-    );
-  }
-}
-
-class Feeds extends StatelessWidget {
-  const Feeds({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.zero,
-      children: [
-        CardFeed(),
-      ],
     );
   }
 }
