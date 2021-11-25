@@ -26,4 +26,4 @@ final detailFeedHandeler =
     Handler(handlerFunc: (context, params) => DetailFeedsPage());
 
 final addProjectHandler =
-    Handler(handlerFunc: (context, params) => const AddProjectPage());
+    Handler(handlerFunc: (context, params) => AddProjectPage());
