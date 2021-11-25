@@ -1,16 +1,11 @@
 import 'package:capstone/config/themes/app_colors.dart';
+import 'package:capstone/modules/settings/provider/theme_notifier.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 
-class SettingsPage extends StatefulWidget {
+class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
-
-  @override
-  State<SettingsPage> createState() => _SettingsPageState();
-}
-
-class _SettingsPageState extends State<SettingsPage> {
-  bool isDarkMode = false;
 
   @override
   Widget build(BuildContext context) {
@@ -29,17 +24,28 @@ class _SettingsPageState extends State<SettingsPage> {
                 Routes.router.navigateTo(context, Routes.accountSettings),
           ),
           ListTile(
-            title: const Text('Mode Gelap'),
-            leading: const Icon(Icons.dark_mode),
-            trailing: Switch(
-              onChanged: (value) {
-                setState(() {
-                  isDarkMode = value;
-                });
-              },
-              value: isDarkMode,
-            ),
-          ),
+              title: const Text('Mode Gelap'),
+              leading: const Icon(Icons.dark_mode),
+              trailing: DropdownButton(
+                onChanged: (themeMode) => context
+                    .read<ThemeNotifier>()
+                    .saveThemePref(themeMode as ThemeMode),
+                value: context.watch<ThemeMode>(),
+                items: const [
+                  DropdownMenuItem(
+                    child: Text('Setelan sistem'),
+                    value: ThemeMode.system,
+                  ),
+                  DropdownMenuItem(
+                    child: Text('Gelap'),
+                    value: ThemeMode.dark,
+                  ),
+                  DropdownMenuItem(
+                    child: Text('Cerah'),
+                    value: ThemeMode.light,
+                  )
+                ],
+              )),
           ListTile(
             title: const Text('Tentang'),
             leading: const Icon(Icons.info),
