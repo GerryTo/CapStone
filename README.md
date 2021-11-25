@@ -1,4 +1,4 @@
-# capastone
+# capstone
 
 A new Flutter project.
 
