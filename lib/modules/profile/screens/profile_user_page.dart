@@ -1,4 +1,3 @@
-import 'package:capstone/routes/route_handler.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
