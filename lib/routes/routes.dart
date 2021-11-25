@@ -11,7 +11,8 @@ class Routes {
   static String home = "/home";
   static String profileUser = "/profileUser";
   static String accountSettings = '/accountSettings';
-  static String detailFeed= '/detailFeed';
+  static String detailFeed = '/detailFeed';
+  static const String addProject = '/addProject';
 
   static void init() {
     router = FluroRouter();
@@ -25,5 +26,6 @@ class Routes {
     router.define(profileUser, handler: profileUserHandler);
     router.define(accountSettings, handler: accountSettingsHandler);
     router.define(detailFeed, handler: detailFeedHandeler);
+    router.define(addProject, handler: addProjectHandler);
   }
 }
