@@ -3,7 +3,6 @@ import 'package:capstone/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  Routes.init();
   runApp(const MyApp());
 }
 

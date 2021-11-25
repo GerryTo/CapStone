@@ -4,18 +4,27 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 
 class Routes {
-  static late FluroRouter router;
-  static String root = "/";
-  static String login = "/login";
-  static String registration = "/registration";
-  static String home = "/home";
-  static String profileUser = "/profileUser";
-  static String accountSettings = '/accountSettings';
-  static String detailFeed = '/detailFeed';
+  static FluroRouter? _router;
+  static FluroRouter get router {
+    if (_router != null) {
+      return _router!;
+    } else {
+      _router = _init();
+      return _router!;
+    }
+  }
+
+  static const String root = "/";
+  static const String login = "/login";
+  static const String registration = "/registration";
+  static const String home = "/home";
+  static const String profileUser = "/profileUser";
+  static const String accountSettings = '/accountSettings';
+  static const String detailFeed = '/detailFeed';
   static const String addProject = '/addProject';
 
-  static void init() {
-    router = FluroRouter();
+  static FluroRouter _init() {
+    final router = FluroRouter();
     router.notFoundHandler = Handler(
       handlerFunc: (BuildContext? context, Map<String, List<String>> params) =>
           const NotFoundPage(),
@@ -27,5 +36,7 @@ class Routes {
     router.define(accountSettings, handler: accountSettingsHandler);
     router.define(detailFeed, handler: detailFeedHandeler);
     router.define(addProject, handler: addProjectHandler);
+
+    return router;
   }
 }
