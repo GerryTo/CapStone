@@ -1,3 +1,4 @@
+import 'package:capstone/routes/route_handler.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -233,7 +234,7 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => Routes.router.navigateTo(context, Routes.addProject),
         child: const Icon(Icons.add),
       ),
     );
