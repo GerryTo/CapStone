@@ -19,13 +19,19 @@ class SettingsPage extends StatelessWidget {
         children: [
           ListTile(
             title: const Text('Setelan Akun'),
-            leading: const Icon(Icons.person),
+            leading: Icon(
+              Icons.person,
+              color: Theme.of(context).iconTheme.color,
+            ),
             onTap: () =>
                 Routes.router.navigateTo(context, Routes.accountSettings),
           ),
           ListTile(
               title: const Text('Mode Gelap'),
-              leading: const Icon(Icons.dark_mode),
+              leading: Icon(
+                Icons.dark_mode,
+                color: Theme.of(context).iconTheme.color,
+              ),
               trailing: DropdownButton(
                 onChanged: (themeMode) => context
                     .read<ThemeNotifier>()
@@ -48,7 +54,10 @@ class SettingsPage extends StatelessWidget {
               )),
           ListTile(
             title: const Text('Tentang'),
-            leading: const Icon(Icons.info),
+            leading: Icon(
+              Icons.info,
+              color: Theme.of(context).iconTheme.color,
+            ),
             onTap: () {},
           ),
           ListTile(
