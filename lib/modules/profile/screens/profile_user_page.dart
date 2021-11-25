@@ -74,21 +74,20 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
                       // width: MediaQuery.of(context).size.width - 230,
                       child: ElevatedButton(
                         onPressed: () {},
-                        child: Wrap(
-                          children:[
-                            const Text(
+                        child: Wrap(children: [
+                          const Text(
                             'Kontak',
                             style: TextStyle(
-                                color: Colors.white, fontWeight: FontWeight.bold),
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
                           ),
-                            SizedBox(width: 10),
-                            Icon(
-                              Icons.contacts,
-                              color: Colors.white,
-                              size: 19.0,
-                            )
-                          ]
-                        ),
+                          SizedBox(width: 10),
+                          Icon(
+                            Icons.contacts,
+                            color: Colors.white,
+                            size: 19.0,
+                          )
+                        ]),
                         style: ElevatedButton.styleFrom(
                             primary: Colors.black, elevation: 0),
                       ),
@@ -99,18 +98,20 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
                       child: ElevatedButton(
                         onPressed: () {},
                         child: Wrap(
-                          children:[ const Text(
-                            'Bagikan',
-                            style: TextStyle(
-                                color: Colors.black, fontWeight: FontWeight.bold),
-                          ),
+                          children: [
+                            const Text(
+                              'Bagikan',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                            ),
                             SizedBox(width: 10),
                             Icon(
                               Icons.share,
                               color: Colors.black,
                               size: 20.0,
                             ),
-                        ],
+                          ],
                         ),
                         style: ElevatedButton.styleFrom(
                             side: const BorderSide(color: Colors.black),
@@ -230,6 +231,10 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.add),
       ),
     );
   }
