@@ -114,8 +114,8 @@ class _AddProjectPageState extends State<AddProjectPage> {
     return const Padding(
       padding: EdgeInsets.all(8.0),
       child: TextField(
-        minLines: 5,
-        maxLines: 8,
+        minLines: 3,
+        maxLines: 5,
         decoration:
             InputDecoration(label: Text('Deskripsi'), alignLabelWithHint: true),
       ),
