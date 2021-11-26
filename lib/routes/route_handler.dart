@@ -26,7 +26,7 @@ final profileUserHandler =
 final accountSettingsHandler =
     Handler(handlerFunc: (context, params) => const AccountSettingsPage());
 
-final detailFeedHandeler =
+final detailFeedHandler =
     Handler(handlerFunc: (context, params) => const DetailFeedsPage());
 
 final addProjectHandler =
@@ -36,8 +36,7 @@ final editProfileHandler =
     Handler(handlerFunc: (context, params) => const EditProfilePage());
 
 final detailFeedProfilKuHandeler =
-    Handler(handlerFunc: (context, params)=> DetailFeedProfileKu());
+    Handler(handlerFunc: (context, params) => DetailFeedProfileKu());
 
 final editFeedHandeler =
     Handler(handlerFunc: (context, params) => EditFeedPage());
-
