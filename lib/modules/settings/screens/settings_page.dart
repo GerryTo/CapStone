@@ -17,6 +17,16 @@ class SettingsPage extends StatelessWidget {
       ),
       body: ListView(
         children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListTile(
+              title: const Text('Arsitek A'),
+              leading: Image.network('https://dummyimage.com/96x96/000/fff'),
+              onTap: () =>
+                  Routes.router.navigateTo(context, Routes.editProfile),
+              trailing: const Icon(Icons.edit),
+            ),
+          ),
           ListTile(
             title: const Text('Setelan Akun'),
             leading: Icon(
