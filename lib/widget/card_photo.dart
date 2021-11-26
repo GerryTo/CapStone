@@ -7,13 +7,13 @@ class CardPhoto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 2,
-      height: MediaQuery.of(context).size.height * 0.6,
+      width: MediaQuery.of(context).size.width ,
+      height: MediaQuery.of(context).size.height ,
       decoration: BoxDecoration(
         image: DecorationImage(
             image: NetworkImage(
-                'https://dummyimage.com/400x200/000/fff'),
-            fit: BoxFit.cover),
+                'https://dummyimage.com/500x300/000/fff'),
+            fit: BoxFit.fill),
       ),
     );
   }
