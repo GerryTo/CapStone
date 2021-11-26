@@ -1,8 +1,10 @@
 import 'package:capstone/modules/auth/screens/login_page.dart';
 import 'package:capstone/modules/feeds/screens/detail_feed.dart';
+import 'package:capstone/modules/feeds/screens/detail_feed_profileku.dart';
 import 'package:capstone/modules/profile/screens/profile_user_page.dart';
 import 'package:capstone/modules/auth/screens/register_page.dart';
 import 'package:capstone/modules/settings/screens/account_settings_page.dart';
+import 'package:capstone/modules/settings/screens/edit_feed.dart';
 import 'package:capstone/modules/upload_project/screens/add_project_page.dart';
 import 'package:fluro/fluro.dart';
 
@@ -22,8 +24,14 @@ final profileUserHandler =
 final accountSettingsHandler =
     Handler(handlerFunc: (context, params) => const AccountSettingsPage());
 
-final detailFeedHandeler =
+final detailFeedHandler =
     Handler(handlerFunc: (context, params) => DetailFeedsPage());
 
 final addProjectHandler =
     Handler(handlerFunc: (context, params) => AddProjectPage());
+
+final detailFeedProfilKuHandeler =
+    Handler(handlerFunc: (context, params)=> DetailFeedProfileKu());
+
+final editFeedHandeler =
+    Handler(handlerFunc: (context, params) => EditFeedPage());

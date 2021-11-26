@@ -1,5 +1,5 @@
 import 'package:capstone/modules/feeds/screens/feeds.dart';
-import 'package:capstone/modules/profile/screens/profile_user_page.dart';
+import 'package:capstone/modules/profile/screens/profileku_page.dart';
 import 'package:capstone/modules/settings/screens/settings_page.dart';
 import 'package:flutter/material.dart';
 
@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
         index: pageIndex,
         children: const [
           Feeds(),
-          ProfileUserPage(),
+          ProfileKuPage(),
           Center(child: Text('Favorit')),
           SettingsPage(),
         ],
