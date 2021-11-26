@@ -1,14 +1,14 @@
-import 'package:capstone/config/themes/app_colors.dart';
 import 'package:capstone/config/themes/app_themes.dart';
 import 'package:capstone/routes/routes.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:provider/provider.dart';
-import 'package:state_notifier/state_notifier.dart';
-
 import 'modules/settings/provider/theme_notifier.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
