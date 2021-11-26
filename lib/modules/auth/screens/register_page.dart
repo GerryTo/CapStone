@@ -1,5 +1,6 @@
 import 'package:capstone/config/themes/app_colors.dart';
 import 'package:capstone/constants/city_names.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,12 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   late bool _passwordVisible;
   String? city;
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _companyController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _auth = FirebaseAuth.instance;
 
   @override
   void initState() {
@@ -49,39 +56,16 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: [
                       SizedBox(
                         width: MediaQuery.of(context).size.width - 100,
-                        child: const Text('Nama',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.white,
-                            )),
+                        child: const Text(
+                          'Nama',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                       const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width - 100,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: TextField(
-                                cursorColor: Colors.black,
-                                style: const TextStyle(color: Colors.black),
-                                decoration: const InputDecoration(
-                                  hintText: 'Nama Lengkap',
-                                  hintStyle: TextStyle(
-                                      color: Colors.grey,
-                                      fontStyle: FontStyle.italic),
-                                  border: InputBorder.none,
-                                ),
-                                onSubmitted: (value) {},
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      _nameField(context),
                       const SizedBox(height: 20),
                       SizedBox(
                         width: MediaQuery.of(context).size.width - 100,
@@ -94,32 +78,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width - 100,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: TextField(
-                                cursorColor: Colors.black,
-                                style: const TextStyle(color: Colors.black),
-                                decoration: const InputDecoration(
-                                  hintText: 'Nama Perusahaan',
-                                  hintStyle: TextStyle(
-                                      color: Colors.grey,
-                                      fontStyle: FontStyle.italic),
-                                  border: InputBorder.none,
-                                ),
-                                onSubmitted: (value) {},
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      _companyField(context),
                       const SizedBox(height: 20),
                       SizedBox(
                         width: MediaQuery.of(context).size.width - 100,
@@ -132,32 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width - 100,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: TextField(
-                                cursorColor: Colors.black,
-                                style: const TextStyle(color: Colors.black),
-                                decoration: const InputDecoration(
-                                  hintText: 'Email@email.com',
-                                  hintStyle: TextStyle(
-                                      color: Colors.grey,
-                                      fontStyle: FontStyle.italic),
-                                  border: InputBorder.none,
-                                ),
-                                onSubmitted: (value) {},
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      _emailField(context),
                       const SizedBox(height: 20),
                       SizedBox(
                         width: MediaQuery.of(context).size.width - 100,
@@ -174,11 +108,13 @@ class _RegisterPageState extends State<RegisterPage> {
                       const SizedBox(height: 20),
                       SizedBox(
                         width: MediaQuery.of(context).size.width - 100,
-                        child: const Text('Lokasi',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.white,
-                            )),
+                        child: const Text(
+                          'Lokasi',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                       const SizedBox(height: 10),
                       _locationField(context),
@@ -194,38 +130,14 @@ class _RegisterPageState extends State<RegisterPage> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width - 100,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: TextField(
-                                cursorColor: Colors.black,
-                                style: const TextStyle(color: Colors.black),
-                                decoration: const InputDecoration(
-                                  hintText: '+62',
-                                  hintStyle: TextStyle(
-                                      color: Colors.grey,
-                                      fontStyle: FontStyle.italic),
-                                  border: InputBorder.none,
-                                ),
-                                keyboardType: TextInputType.number,
-                                onSubmitted: (value) {},
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      _phoneField(context),
                       const SizedBox(height: 40),
                       SizedBox(
                         width: MediaQuery.of(context).size.width - 200,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            _register();
+                          },
                           child: const Text('Daftar',
                               style: TextStyle(
                                 fontSize: 16,
@@ -255,6 +167,123 @@ class _RegisterPageState extends State<RegisterPage> {
           )
         ],
       ),
+    );
+  }
+
+  Row _phoneField(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width - 100,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: TextField(
+              cursorColor: Colors.black,
+              style: const TextStyle(color: Colors.black),
+              decoration: const InputDecoration(
+                hintText: '+62',
+                hintStyle:
+                    TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
+                border: InputBorder.none,
+              ),
+              keyboardType: TextInputType.number,
+              controller: _phoneController,
+              onSubmitted: (value) {},
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row _emailField(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width - 100,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: TextField(
+              cursorColor: Colors.black,
+              style: const TextStyle(color: Colors.black),
+              decoration: const InputDecoration(
+                hintText: 'Email@email.com',
+                hintStyle:
+                    TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
+                border: InputBorder.none,
+              ),
+              controller: _emailController,
+              onSubmitted: (value) {},
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row _companyField(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width - 100,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: TextField(
+              cursorColor: Colors.black,
+              style: const TextStyle(color: Colors.black),
+              decoration: const InputDecoration(
+                hintText: 'Nama Perusahaan',
+                hintStyle:
+                    TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
+                border: InputBorder.none,
+              ),
+              controller: _companyController,
+              onSubmitted: (value) {},
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Row _nameField(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width - 100,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: TextField(
+              cursorColor: Colors.black,
+              style: const TextStyle(color: Colors.black),
+              decoration: const InputDecoration(
+                hintText: 'Nama Lengkap',
+                hintStyle:
+                    TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
+                border: InputBorder.none,
+              ),
+              onSubmitted: (value) {},
+              controller: _nameController,
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -302,6 +331,7 @@ class _RegisterPageState extends State<RegisterPage> {
           child: Padding(
             padding: const EdgeInsets.only(left: 10),
             child: TextField(
+              controller: _passwordController,
               obscureText: !_passwordVisible,
               obscuringCharacter: "*",
               cursorColor: Colors.black,
@@ -329,5 +359,10 @@ class _RegisterPageState extends State<RegisterPage> {
         ),
       ],
     );
+  }
+
+  void _register() async {
+    _auth.createUserWithEmailAndPassword(
+        email: _emailController.text, password: _passwordController.text);
   }
 }
