@@ -3,14 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ProfileUserPage extends StatefulWidget {
-  const ProfileUserPage({Key? key}) : super(key: key);
+class ProfileKuPage extends StatefulWidget {
+  const ProfileKuPage({Key? key}) : super(key: key);
 
   @override
-  State<ProfileUserPage> createState() => _ProfileUserPageState();
+  State<ProfileKuPage> createState() => _ProfileKuPageState();
 }
 
-class _ProfileUserPageState extends State<ProfileUserPage> {
+class _ProfileKuPageState extends State<ProfileKuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +32,10 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => Routes.router.navigateTo(context, Routes.addProject),
+        child: const Icon(Icons.add),
+      ),
     );
   }
 
@@ -42,50 +46,25 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
         children: [
           Expanded(
             child: ElevatedButton(
-              onPressed: () {},
-              child: Wrap(children: const [
-                Text(
-                  'Kontak',
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(width: 10),
-                Icon(
-                  Icons.contacts,
-                  color: Colors.white,
-                  size: 19.0,
-                )
-              ]),
-              style:
-                  ElevatedButton.styleFrom(primary: Colors.black, elevation: 0),
-            ),
-          ),
-          const SizedBox(width: 20),
-          Expanded(
-            // width: MediaQuery.of(context).size.width - 230,
-            child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () =>
+                  Routes.router.navigateTo(context, Routes.accountSettings),
               child: Wrap(
                 children: [
-                  Text('Bagikan',
+                  Text('Edit Akun',
                       style: Theme.of(context)
                           .textTheme
                           .button
                           ?.copyWith(fontWeight: FontWeight.bold)),
                   const SizedBox(width: 10),
                   Icon(
-                    Icons.share,
+                    Icons.edit,
                     color: Theme.of(context).iconTheme.color,
                     size: 20.0,
                   ),
                 ],
               ),
-              style: ElevatedButton.styleFrom(
-                  side: BorderSide(
-                      color: Theme.of(context).textTheme.button?.color ??
-                          Colors.grey),
-                  primary: Colors.transparent,
-                  elevation: 0),
+              style:
+              ElevatedButton.styleFrom(primary: Colors.black, elevation: 0),
             ),
           ),
         ],
@@ -144,7 +123,7 @@ class _ProfileUserPageState extends State<ProfileUserPage> {
 
   GestureDetector _profileFeedCard(BuildContext context) {
     return GestureDetector(
-      onTap: () => Routes.router.navigateTo(context, Routes.detailFeed),
+      onTap: () => Routes.router.navigateTo(context, Routes.detailFeedProfilKu),
       child: Container(
         padding: const EdgeInsets.all(8),
         color: Colors.teal[100],

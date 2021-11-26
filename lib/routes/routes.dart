@@ -22,7 +22,11 @@ class Routes {
   static const String accountSettings = '/accountSettings';
   static const String detailFeed = '/detailFeed';
   static const String addProject = '/addProject';
+
   static const String editProfile = '/editProfile';
+  static const String detailFeedProfilKu = '/detailFeedProfilKu';
+  static const String editFeed = '/editFeed';
+
 
   static FluroRouter _init() {
     final router = FluroRouter();
@@ -35,9 +39,12 @@ class Routes {
     router.define(home, handler: homeHandler);
     router.define(profileUser, handler: profileUserHandler);
     router.define(accountSettings, handler: accountSettingsHandler);
-    router.define(detailFeed, handler: detailFeedHandeler);
+    router.define(detailFeed, handler: detailFeedHandler);
     router.define(addProject, handler: addProjectHandler);
     router.define(editProfile, handler: editProfileHandler);
+    router.define(detailFeedProfilKu, handler: detailFeedProfilKuHandeler);
+    router.define(editFeed, handler: editFeedHandeler);
+
 
     return router;
   }
