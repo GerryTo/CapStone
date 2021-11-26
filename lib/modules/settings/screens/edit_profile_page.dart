@@ -96,7 +96,7 @@ class EditProfilePage extends StatelessWidget {
                     child: const Text('Batal'),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: onSubmit,
                     child: const Text('Simpan'),
                   ),
                 ],
