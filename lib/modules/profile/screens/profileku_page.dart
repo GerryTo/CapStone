@@ -63,8 +63,12 @@ class _ProfileKuPageState extends State<ProfileKuPage> {
                   ),
                 ],
               ),
-              style:
-              ElevatedButton.styleFrom(primary: Colors.black, elevation: 0),
+              style: ElevatedButton.styleFrom(
+                  side: BorderSide(
+                      color: Theme.of(context).textTheme.button?.color ??
+                          Colors.grey),
+                  primary: Colors.transparent,
+                  elevation: 0),
             ),
           ),
         ],

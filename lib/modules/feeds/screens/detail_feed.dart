@@ -14,7 +14,7 @@ class DetailFeedsPage extends StatefulWidget {
 class _DetailFeedsPageState extends State<DetailFeedsPage> {
   late bool _isFavorited;
   int _currentIndex = 0;
-  List<int> cardList = [1,1];
+  List<int> cardList = [1, 1];
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -50,11 +50,11 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
                 else
                   _onlyOnePhoto(context),
                 Padding(
-                  padding: EdgeInsets.only(top: 30, left: 20),
+                  padding: const EdgeInsets.only(top: 30, left: 20),
                   child: Text('Judul Projek', style: TextStyle(fontSize: 18)),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 20, left: 20),
+                  padding: const EdgeInsets.only(top: 20, left: 20),
                   child: Text('Deskripsi Projek A',
                       style: TextStyle(fontSize: 14)),
                 ),
@@ -79,17 +79,17 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
           ),
         ));
   }
+
   Container _onlyOnePhoto(BuildContext context) {
     return Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height-450,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(
-                            'https://dummyimage.com/500x300/000/fff'),
-                        fit: BoxFit.fill),
-                  ),
-                );
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height - 450,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: NetworkImage('https://dummyimage.com/500x300/000/fff'),
+            fit: BoxFit.fill),
+      ),
+    );
   }
 
   Center _sliderPhotos() {

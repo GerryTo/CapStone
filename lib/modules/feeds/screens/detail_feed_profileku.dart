@@ -11,9 +11,8 @@ class DetailFeedProfileKu extends StatefulWidget {
 }
 
 class _DetailFeedProfileKuState extends State<DetailFeedProfileKu> {
-
   int _currentIndex = 0;
-  List<int> cardList = [1,1];
+  List<int> cardList = [1, 1];
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -62,11 +61,10 @@ class _DetailFeedProfileKuState extends State<DetailFeedProfileKu> {
   Container _onlyOnePhoto(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height-450,
+      height: MediaQuery.of(context).size.height - 450,
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: NetworkImage(
-                'https://dummyimage.com/500x300/000/fff'),
+            image: NetworkImage('https://dummyimage.com/500x300/000/fff'),
             fit: BoxFit.fill),
       ),
     );
@@ -94,11 +92,12 @@ class _DetailFeedProfileKuState extends State<DetailFeedProfileKu> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: map<Widget>(
               cardList,
-                  (index, url) {
+              (index, url) {
                 return Container(
                   width: _currentIndex == index ? 15 : 10.0,
                   height: 10.0,
-                  margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: 2.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     color: _currentIndex == index
@@ -135,15 +134,16 @@ class _DetailFeedProfileKuState extends State<DetailFeedProfileKu> {
                   size: 19.0,
                 )
               ]),
-              style:
-              ElevatedButton.styleFrom(primary: Color(0xffF23535), elevation: 0),
+              style: ElevatedButton.styleFrom(
+                  primary: Color(0xffF23535), elevation: 0),
             ),
           ),
           const SizedBox(width: 20),
           Expanded(
             // width: MediaQuery.of(context).size.width - 230,
             child: ElevatedButton(
-              onPressed: () => Routes.router.navigateTo(context, Routes.editFeed),
+              onPressed: () =>
+                  Routes.router.navigateTo(context, Routes.editFeed),
               child: Wrap(
                 children: [
                   Text('Edit',

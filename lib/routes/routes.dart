@@ -27,7 +27,6 @@ class Routes {
   static const String detailFeedProfilKu = '/detailFeedProfilKu';
   static const String editFeed = '/editFeed';
 
-
   static FluroRouter _init() {
     final router = FluroRouter();
     router.notFoundHandler = Handler(
@@ -44,7 +43,6 @@ class Routes {
     router.define(editProfile, handler: editProfileHandler);
     router.define(detailFeedProfilKu, handler: detailFeedProfilKuHandeler);
     router.define(editFeed, handler: editFeedHandeler);
-
 
     return router;
   }
