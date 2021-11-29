@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DetailFeedProfileKu extends StatefulWidget {
+  const DetailFeedProfileKu({Key? key}) : super(key: key);
+
   @override
   State<DetailFeedProfileKu> createState() => _DetailFeedProfileKuState();
 }
@@ -135,7 +137,7 @@ class _DetailFeedProfileKuState extends State<DetailFeedProfileKu> {
                 )
               ]),
               style: ElevatedButton.styleFrom(
-                  primary: Color(0xffF23535), elevation: 0),
+                  primary: const Color(0xffF23535), elevation: 0),
             ),
           ),
           const SizedBox(width: 20),

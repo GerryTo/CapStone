@@ -1,5 +1,6 @@
 import 'package:capstone/config/themes/app_colors.dart';
 import 'package:capstone/routes/routes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,10 +13,15 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   late bool _passwordVisible;
+  late bool _isLoading;
+  final _auth = FirebaseAuth.instance;
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+    _isLoading =false;
     _passwordVisible = false;
   }
 
@@ -30,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 70),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text('Gazebo',
                       style: TextStyle(
                         fontSize: 96,
@@ -51,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                         )),
                   ),
                   const SizedBox(height: 10),
-                  emailBar(context),
+                  _emailField(context),
                   const SizedBox(height: 10),
                   SizedBox(
                     width: MediaQuery.of(context).size.width - 100,
@@ -62,14 +68,13 @@ class _LoginPageState extends State<LoginPage> {
                         )),
                   ),
                   const SizedBox(height: 10),
-                  passwordBar(context),
+                  _passwordField(context),
                   const SizedBox(height: 40),
                   SizedBox(
                     width: MediaQuery.of(context).size.width - 100,
                     child: ElevatedButton(
                       onPressed: () {
-                        Routes.router
-                            .navigateTo(context, Routes.home, replace: true);
+                        _login();
                       },
                       child: const Text('Masuk',
                           style: TextStyle(
@@ -97,7 +102,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget emailBar(BuildContext context) {
+  Widget _emailField(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -114,6 +119,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Padding(
             padding: const EdgeInsets.only(left: 20),
             child: TextField(
+              controller: _emailController,
               cursorColor: Colors.black,
               style: const TextStyle(color: Colors.black),
               decoration: const InputDecoration(
@@ -130,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget passwordBar(BuildContext context) {
+  Widget _passwordField(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -147,6 +153,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Padding(
             padding: const EdgeInsets.only(left: 20),
             child: TextField(
+              controller: _passwordController,
               obscureText: !_passwordVisible,
               obscuringCharacter: "*",
               cursorColor: Colors.black,
@@ -175,5 +182,24 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ],
     );
+  }
+
+  void _login() async{
+    try{
+      final email =_emailController.text;
+      final password = _passwordController.text;
+
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      Routes.router.navigateTo(context, Routes.home,replace: true);
+    }catch(e){
+      final snackbar = SnackBar(content: Text(e.toString()));
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    }
+  }
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }

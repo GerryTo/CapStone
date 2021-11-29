@@ -1,8 +1,10 @@
 import 'package:capstone/config/themes/app_colors.dart';
 import 'package:capstone/constants/city_names.dart';
+import 'package:capstone/routes/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -20,6 +22,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final _companyController = TextEditingController();
   final _phoneController = TextEditingController();
   final _auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   void initState() {
@@ -137,6 +140,11 @@ class _RegisterPageState extends State<RegisterPage> {
                         child: ElevatedButton(
                           onPressed: () {
                             _register();
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  _showDialog(context),
+                            );
                           },
                           child: const Text('Daftar',
                               style: TextStyle(
@@ -167,6 +175,20 @@ class _RegisterPageState extends State<RegisterPage> {
           )
         ],
       ),
+    );
+  }
+
+  AlertDialog _showDialog(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Berhasil Mendaftar.'),
+      content: const Text(
+          'Anda telah berhasil mendaftar. kembali Ke Halaman Login.'),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () => Routes.router.navigateTo(context, Routes.root),
+          child: const Text('Kembali'),
+        )
+      ],
     );
   }
 
@@ -347,9 +369,11 @@ class _RegisterPageState extends State<RegisterPage> {
                     color: Colors.black,
                   ),
                   onPressed: () {
-                    setState(() {
-                      _passwordVisible = !_passwordVisible;
-                    });
+                    setState(
+                      () {
+                        _passwordVisible = !_passwordVisible;
+                      },
+                    );
                   },
                 ),
               ),
@@ -362,7 +386,26 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void _register() async {
+    firestore.collection('users').add({
+      'avatar_url': null,
+      'name': _nameController.text,
+      'company': _companyController.text,
+      'email': _emailController.text,
+      'phone': _phoneController.text,
+      'location': city,
+      'projects':[],
+    });
     _auth.createUserWithEmailAndPassword(
         email: _emailController.text, password: _passwordController.text);
+  }
+
+  @override
+  void dispose() {
+    _companyController.dispose();
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _phoneController.dispose();
+    super.dispose();
   }
 }

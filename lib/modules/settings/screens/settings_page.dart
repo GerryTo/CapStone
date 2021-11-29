@@ -1,6 +1,7 @@
 import 'package:capstone/config/themes/app_colors.dart';
 import 'package:capstone/modules/settings/provider/theme_notifier.dart';
 import 'package:capstone/routes/routes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
 
@@ -9,6 +10,7 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _auth = FirebaseAuth.instance;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Setelan'),
@@ -76,7 +78,10 @@ class SettingsPage extends StatelessWidget {
               Icons.logout,
               color: Colors.red,
             ),
-            onTap: () {},
+            onTap: () async{
+              await _auth.signOut();
+              Routes.router.navigateTo(context, Routes.root);
+            },
           ),
         ],
       ),
