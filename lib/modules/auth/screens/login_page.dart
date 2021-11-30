@@ -18,6 +18,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool _passwordVisible = false;
   bool _isLoading = false;
+  final _auth = FirebaseAuth.instance;
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -207,8 +208,8 @@ class _LoginPageState extends State<LoginPage> {
     try {
       final email = _emailController.text;
       final password = _passwordController.text;
-      final auth = Provider.of<FirebaseAuth>(context, listen: false);
-      await auth.signInWithEmailAndPassword(email: email, password: password);
+
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
 
       Routes.router.navigateTo(context, Routes.home, replace: true);
     } catch (e) {
