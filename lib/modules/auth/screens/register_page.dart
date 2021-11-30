@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/src/provider.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -22,7 +23,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final _companyController = TextEditingController();
   final _phoneController = TextEditingController();
   final _auth = FirebaseAuth.instance;
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
   void initState() {
@@ -139,7 +139,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         width: MediaQuery.of(context).size.width - 200,
                         child: ElevatedButton(
                           onPressed: () {
-                            _register();
+                            _register(context);
                             showDialog<String>(
                               context: context,
                               builder: (BuildContext context) =>
@@ -385,7 +385,8 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  void _register() async {
+  void _register(BuildContext context) async {
+    final firestore = context.read<FirebaseFirestore>();
     firestore.collection('users').add({
       'avatar_url': null,
       'name': _nameController.text,
