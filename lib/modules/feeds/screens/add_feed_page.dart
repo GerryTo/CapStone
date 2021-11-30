@@ -41,12 +41,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('Gagal mengupload')));
       } else if (status == AddFeedStatus.success) {
-        //kalau gak di pakai bool success nanti bakal pop terus
-        if (!success) {
-          success = true;
-        } else {
-          Routes.router.pop(context);
-        }
+        Routes.router.navigateTo(context, Routes.home, clearStack: true);
       }
     });
 

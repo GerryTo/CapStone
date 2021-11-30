@@ -20,6 +20,14 @@ class AddFeedPageViewModel extends ChangeNotifier {
     return auth.currentUser?.email ?? '';
   }
 
+  Future<DocumentReference> getUserRef() async {
+    final snap = await firestore
+        .collection('users')
+        .where('email', isEqualTo: _getUserEmail())
+        .get();
+    return snap.docs.first.reference;
+  }
+
   Future<List<String>> uploadImages(List<XFile> files) {
     return Future.wait(files.map((file) async {
       final task = await storage
@@ -37,17 +45,28 @@ class AddFeedPageViewModel extends ChangeNotifier {
       status = AddFeedStatus.loading;
       notifyListeners();
       final imageURLs = await uploadImages(files);
+      final userRef = await getUserRef();
+      log('USER REF : ${userRef.id}');
 
-      firestore
-          .collection('projects')
-          .add(Feed(title: title, description: description, images: imageURLs)
-              .toMap())
-          .whenComplete(() {
+      final feed = Feed(
+        title: title,
+        description: description,
+        images: imageURLs,
+        userReference: userRef,
+      ).toMap();
+      //store the new project entity
+      final project = await firestore.collection('projects').add(feed);
+      //update user entity to include new project
+      final res = firestore.collection('users').doc(userRef.id).update({
+        'projects': FieldValue.arrayUnion([project])
+      });
+
+      res.whenComplete(() {
         status = AddFeedStatus.success;
         notifyListeners();
       });
-    } catch (e) {
-      log('Error: ' + e.toString());
+    } catch (e, s) {
+      log('ADD_FEED_PAGE', error: e, stackTrace: s);
       status = AddFeedStatus.fail;
       notifyListeners();
     }

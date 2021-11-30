@@ -1,45 +1,26 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Feed {
   String? description;
   List<String>? images;
   String? title;
+  DocumentReference? userReference;
 
-  Feed({this.description, this.images, this.title});
+  Feed({this.description, this.images, this.title, this.userReference});
 
   factory Feed.fromMap(Map<String, dynamic> data) => Feed(
         description: data['description'] as String?,
         images: data['images'] as List<String>?,
-        title: data['name'] as String?,
+        title: data['title'] as String?,
+        userReference: data['userReference'] as DocumentReference?,
       );
 
   Map<String, dynamic> toMap() => {
         'description': description,
         'images': images,
-        'name': title,
+        'title': title,
+        'userReference': userReference
       };
-
-  /// `dart:convert`
-  ///
-  /// Parses the string and returns the resulting Json object as [Feed].
-  factory Feed.fromJson(String data) {
-    return Feed.fromMap(json.decode(data) as Map<String, dynamic>);
-  }
-
-  /// `dart:convert`
-  ///
-  /// Converts [Feed] to a JSON string.
-  String toJson() => json.encode(toMap());
-
-  Feed copyWith({
-    String? description,
-    List<String>? images,
-    String? name,
-  }) {
-    return Feed(
-      description: description ?? this.description,
-      images: images ?? this.images,
-      title: name ?? this.title,
-    );
-  }
 }
