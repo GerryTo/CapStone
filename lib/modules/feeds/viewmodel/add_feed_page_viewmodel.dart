@@ -16,14 +16,14 @@ class AddFeedPageViewModel extends ChangeNotifier {
   final auth = FirebaseAuth.instance;
   final firestore = FirebaseFirestore.instance;
 
-  String _getUserName() {
+  String _getUserEmail() {
     return auth.currentUser?.email ?? '';
   }
 
   Future<List<String>> uploadImages(List<XFile> files) {
     return Future.wait(files.map((file) async {
       final task = await storage
-          .ref('gambar-feed/${_getUserName()}-${file.name}')
+          .ref('gambar-feed/${_getUserEmail()}-${file.name}')
           .putFile(File(file.path));
       return await task.ref.getDownloadURL();
     }));
