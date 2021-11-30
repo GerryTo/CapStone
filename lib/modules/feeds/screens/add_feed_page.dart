@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:capstone/modules/feeds/viewmodel/add_feed_page_viewmodel.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class AddFeedPage extends StatefulWidget {
   const AddFeedPage({Key? key}) : super(key: key);
@@ -20,12 +22,28 @@ class _AddFeedPageState extends State<AddFeedPage> {
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (_) => AddFeedPageViewModel(),
+      builder: (context, _) {
+        return _content(context);
+      },
+    );
+  }
+
+  Scaffold _content(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Tambah Proyek'),
         centerTitle: true,
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.send))],
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.read<AddFeedPageViewModel>().send();
+            },
+            icon: const Icon(Icons.send),
+          )
+        ],
       ),
       body: Column(
         children: [
