@@ -393,7 +393,7 @@ class _RegisterPageState extends State<RegisterPage> {
       'email': _emailController.text,
       'phone': _phoneController.text,
       'location': city,
-      'projects':[],
+      'projects': [],
     });
     _auth.createUserWithEmailAndPassword(
         email: _emailController.text, password: _passwordController.text);

@@ -102,6 +102,7 @@ class _EditFeedPageState extends State<EditFeedPage> {
       ),
     );
   }
+
   Widget _projectTitleField() {
     return const Padding(
       padding: EdgeInsets.all(8.0),
@@ -118,7 +119,7 @@ class _EditFeedPageState extends State<EditFeedPage> {
         minLines: 3,
         maxLines: 5,
         decoration:
-        InputDecoration(label: Text('Deskripsi'), alignLabelWithHint: true),
+            InputDecoration(label: Text('Deskripsi'), alignLabelWithHint: true),
       ),
     );
   }

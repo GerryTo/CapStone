@@ -173,5 +173,4 @@ class _DetailFeedProfileKuState extends State<DetailFeedProfileKu> {
       ),
     );
   }
-
 }

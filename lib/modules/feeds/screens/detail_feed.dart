@@ -118,7 +118,8 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
                 return Container(
                   width: _currentIndex == index ? 15 : 10.0,
                   height: 10.0,
-                  margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: 2.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     color: _currentIndex == index

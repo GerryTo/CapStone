@@ -78,7 +78,7 @@ class SettingsPage extends StatelessWidget {
               Icons.logout,
               color: Colors.red,
             ),
-            onTap: () async{
+            onTap: () async {
               await _auth.signOut();
               Routes.router.navigateTo(context, Routes.root);
             },
