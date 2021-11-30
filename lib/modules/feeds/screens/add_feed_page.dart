@@ -4,14 +4,14 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class AddProjectPage extends StatefulWidget {
-  const AddProjectPage({Key? key}) : super(key: key);
+class AddFeedPage extends StatefulWidget {
+  const AddFeedPage({Key? key}) : super(key: key);
 
   @override
-  State<AddProjectPage> createState() => _AddProjectPageState();
+  State<AddFeedPage> createState() => _AddFeedPageState();
 }
 
-class _AddProjectPageState extends State<AddProjectPage> {
+class _AddFeedPageState extends State<AddFeedPage> {
   final ImagePicker _picker = ImagePicker();
 
   final List<XFile> _files = [];

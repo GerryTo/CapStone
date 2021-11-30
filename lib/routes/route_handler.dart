@@ -7,7 +7,7 @@ import 'package:capstone/modules/profile/screens/profile_user_page.dart';
 import 'package:capstone/modules/auth/screens/register_page.dart';
 import 'package:capstone/modules/settings/screens/account_settings_page.dart';
 import 'package:capstone/modules/feeds/screens/edit_feed.dart';
-import 'package:capstone/modules/upload_project/screens/add_project_page.dart';
+import 'package:capstone/modules/feeds/screens/add_feed_page.dart';
 import 'package:fluro/fluro.dart';
 
 import '../modules/home/screens/home_page.dart';
@@ -30,7 +30,7 @@ final detailFeedHandler =
     Handler(handlerFunc: (context, params) => const DetailFeedsPage());
 
 final addProjectHandler =
-    Handler(handlerFunc: (context, params) => const AddProjectPage());
+    Handler(handlerFunc: (context, params) => const AddFeedPage());
 
 final editProfileHandler =
     Handler(handlerFunc: (context, params) => const EditProfilePage());
