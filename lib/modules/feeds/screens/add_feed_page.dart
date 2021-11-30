@@ -15,6 +15,8 @@ class AddFeedPage extends StatefulWidget {
 
 class _AddFeedPageState extends State<AddFeedPage> {
   final ImagePicker _picker = ImagePicker();
+  final _nameController = TextEditingController();
+  final _descController = TextEditingController();
 
   final List<XFile> _files = [];
   // ignore: unused_field
@@ -39,7 +41,10 @@ class _AddFeedPageState extends State<AddFeedPage> {
         actions: [
           IconButton(
             onPressed: () {
-              context.read<AddFeedPageViewModel>().send();
+              context.read<AddFeedPageViewModel>().send(
+                  name: _nameController.text,
+                  description: _descController.text,
+                  files: _files);
             },
             icon: const Icon(Icons.send),
           )
