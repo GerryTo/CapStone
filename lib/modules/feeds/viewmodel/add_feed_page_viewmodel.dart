@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
-enum AddFeedStatus { init, success, fail }
+enum AddFeedStatus { init, loading, success, fail }
 
 class AddFeedPageViewModel extends ChangeNotifier {
   var status = AddFeedStatus.init;
@@ -29,18 +29,27 @@ class AddFeedPageViewModel extends ChangeNotifier {
     }));
   }
 
-  void send(
+  Future send(
       {required String title,
       required String description,
       required List<XFile> files}) async {
     try {
+      status = AddFeedStatus.loading;
+      notifyListeners();
       final imageURLs = await uploadImages(files);
 
-      firestore.collection('projects').add(
-          Feed(title: title, description: description, images: imageURLs)
-              .toMap());
+      firestore
+          .collection('projects')
+          .add(Feed(title: title, description: description, images: imageURLs)
+              .toMap())
+          .whenComplete(() {
+        status = AddFeedStatus.success;
+        notifyListeners();
+      });
     } catch (e) {
       log('Error: ' + e.toString());
+      status = AddFeedStatus.fail;
+      notifyListeners();
     }
   }
 }

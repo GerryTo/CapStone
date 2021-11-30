@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:capstone/modules/feeds/viewmodel/add_feed_page_viewmodel.dart';
+import 'package:capstone/routes/routes.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -17,6 +18,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
   final ImagePicker _picker = ImagePicker();
   final _titleController = TextEditingController();
   final _descController = TextEditingController();
+  bool success = false;
 
   final List<XFile> _files = [];
   // ignore: unused_field
@@ -33,11 +35,27 @@ class _AddFeedPageState extends State<AddFeedPage> {
   }
 
   Scaffold _content(BuildContext context) {
+    context.watch<AddFeedPageViewModel>().addListener(() {
+      final status = context.read<AddFeedPageViewModel>().status;
+      if (status == AddFeedStatus.fail) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text('Gagal mengupload')));
+      } else if (status == AddFeedStatus.success) {
+        //kalau gak di pakai bool success nanti bakal pop terus
+        if (!success) {
+          success = true;
+        } else {
+          Routes.router.pop(context);
+        }
+      }
+    });
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Tambah Proyek'),
         centerTitle: true,
+        bottom: _loadingBar(context),
         actions: [
           IconButton(
             onPressed: () {
@@ -163,5 +181,14 @@ class _AddFeedPageState extends State<AddFeedPage> {
         color: Colors.grey.withAlpha(200),
       ),
     );
+  }
+
+  PreferredSize? _loadingBar(BuildContext context) {
+    final status = context.watch<AddFeedPageViewModel>().status;
+    if (status == AddFeedStatus.loading) {
+      return const PreferredSize(
+          preferredSize: Size.fromHeight(4.0),
+          child: LinearProgressIndicator());
+    }
   }
 }
