@@ -23,6 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final _companyController = TextEditingController();
   final _phoneController = TextEditingController();
   final _auth = FirebaseAuth.instance;
+  final _firestore = FirebaseFirestore.instance;
 
   @override
   void initState() {
@@ -386,8 +387,7 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void _register(BuildContext context) async {
-    final firestore = context.read<FirebaseFirestore>();
-    firestore.collection('users').add({
+    _firestore.collection('users').add({
       'avatar_url': null,
       'name': _nameController.text,
       'company': _companyController.text,

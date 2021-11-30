@@ -31,8 +31,7 @@ class _LoginPageState extends State<LoginPage> {
 
   void checkLoginStatus(BuildContext context) async {
     try {
-      final currentUser =
-          Provider.of<FirebaseAuth>(context, listen: false).currentUser;
+      final currentUser = _auth.currentUser;
       if (currentUser != null) {
         //navigate ke home apabila user telah login
         SchedulerBinding.instance?.addPostFrameCallback((_) {
