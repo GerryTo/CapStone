@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:capstone/config/themes/app_colors.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -12,17 +16,32 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  late bool _passwordVisible;
-  late bool _isLoading;
-  final _auth = FirebaseAuth.instance;
+  bool _passwordVisible = false;
+  bool _isLoading = false;
+
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _isLoading =false;
-    _passwordVisible = false;
+    checkLoginStatus(context);
+  }
+
+  void checkLoginStatus(BuildContext context) async {
+    try {
+      final currentUser =
+          Provider.of<FirebaseAuth>(context, listen: false).currentUser;
+      if (currentUser != null) {
+        //navigate ke home apabila user telah login
+        SchedulerBinding.instance?.addPostFrameCallback((_) {
+          Routes.router.navigateTo(context, Routes.home, replace: true);
+        });
+      }
+    } on Exception catch (e) {
+      log(e.toString());
+      return;
+    }
   }
 
   @override
@@ -74,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                     width: MediaQuery.of(context).size.width - 100,
                     child: ElevatedButton(
                       onPressed: () {
-                        _login();
+                        _login(context);
                       },
                       child: const Text('Masuk',
                           style: TextStyle(
@@ -184,18 +203,20 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _login() async{
-    try{
-      final email =_emailController.text;
+  void _login(BuildContext context) async {
+    try {
+      final email = _emailController.text;
       final password = _passwordController.text;
+      final auth = Provider.of<FirebaseAuth>(context, listen: false);
+      await auth.signInWithEmailAndPassword(email: email, password: password);
 
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
-      Routes.router.navigateTo(context, Routes.home,replace: true);
-    }catch(e){
+      Routes.router.navigateTo(context, Routes.home, replace: true);
+    } catch (e) {
       final snackbar = SnackBar(content: Text(e.toString()));
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
     }
   }
+
   @override
   void dispose() {
     _emailController.dispose();
