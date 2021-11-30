@@ -28,17 +28,12 @@ class MyApp extends StatelessWidget {
           create: (_) => FirebaseAuth.instance,
         )
       ],
-      //menggunakan Builder agar themeMode context.watch bisa digunakan
-      child: Consumer<ThemeMode>(
-        builder: (context, themeMode, _) {
-          return MaterialApp(
-            title: 'Gazebo',
-            theme: AppThemes.lightTheme,
-            darkTheme: AppThemes.darkTheme,
-            onGenerateRoute: Routes.router.generator,
-            themeMode: context.watch<ThemeMode>(),
-          );
-        },
+      builder: (context, _) => MaterialApp(
+        title: 'Gazebo',
+        theme: AppThemes.lightTheme,
+        darkTheme: AppThemes.darkTheme,
+        onGenerateRoute: Routes.router.generator,
+        themeMode: context.watch<ThemeMode>(),
       ),
     );
   }
