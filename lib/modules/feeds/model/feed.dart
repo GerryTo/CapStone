@@ -3,20 +3,20 @@ import 'dart:convert';
 class Feed {
   String? description;
   List<String>? images;
-  String? name;
+  String? title;
 
-  Feed({this.description, this.images, this.name});
+  Feed({this.description, this.images, this.title});
 
   factory Feed.fromMap(Map<String, dynamic> data) => Feed(
         description: data['description'] as String?,
         images: data['images'] as List<String>?,
-        name: data['name'] as String?,
+        title: data['name'] as String?,
       );
 
   Map<String, dynamic> toMap() => {
         'description': description,
         'images': images,
-        'name': name,
+        'name': title,
       };
 
   /// `dart:convert`
@@ -39,7 +39,7 @@ class Feed {
     return Feed(
       description: description ?? this.description,
       images: images ?? this.images,
-      name: name ?? this.name,
+      title: name ?? this.title,
     );
   }
 }

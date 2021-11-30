@@ -15,7 +15,7 @@ class AddFeedPage extends StatefulWidget {
 
 class _AddFeedPageState extends State<AddFeedPage> {
   final ImagePicker _picker = ImagePicker();
-  final _nameController = TextEditingController();
+  final _titleController = TextEditingController();
   final _descController = TextEditingController();
 
   final List<XFile> _files = [];
@@ -42,7 +42,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
           IconButton(
             onPressed: () {
               context.read<AddFeedPageViewModel>().send(
-                  name: _nameController.text,
+                  title: _titleController.text,
                   description: _descController.text,
                   files: _files);
             },
@@ -125,22 +125,26 @@ class _AddFeedPageState extends State<AddFeedPage> {
   }
 
   Widget _projectTitleField() {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: TextField(
-        decoration: InputDecoration(label: Text('Judul Proyek')),
+        controller: _titleController,
+        decoration: const InputDecoration(
+          label: Text('Judul Proyek'),
+        ),
       ),
     );
   }
 
   Widget _projectDescriptionField() {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
       child: TextField(
+        controller: _descController,
         minLines: 3,
         maxLines: 5,
-        decoration:
-            InputDecoration(label: Text('Deskripsi'), alignLabelWithHint: true),
+        decoration: const InputDecoration(
+            label: Text('Deskripsi'), alignLabelWithHint: true),
       ),
     );
   }
