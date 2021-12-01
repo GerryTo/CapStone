@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 class EditProfilePage extends StatelessWidget {
   EditProfilePage({Key? key}) : super(key: key);
   final nameController = TextEditingController();
-  final locationController = TextEditingController();
+
   final companyController = TextEditingController();
 
   @override
