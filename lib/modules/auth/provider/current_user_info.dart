@@ -29,6 +29,7 @@ class CurrentUserInfo {
       return _userRef;
     } else {
       _userRef = await _getUserRef();
+      return _userRef;
     }
   }
 }
