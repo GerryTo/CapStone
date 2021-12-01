@@ -19,33 +19,37 @@ class _ProfileKuPageState extends State<ProfileKuPage> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => ShowUserProfileViewModel(),
-      builder:(context , _){
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(context.watch<ShowUserProfileViewModel>().user?.name ?? '',
-                style: GoogleFonts.roboto(fontWeight: FontWeight.w900)),
-            centerTitle: true,
-          ),
-          body: SingleChildScrollView(
-            physics: const ClampingScrollPhysics(),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: _profileDetail(),
+        child: Consumer<ShowUserProfileViewModel>(
+          builder: (context, value, child){
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(value.user?.name ?? '',
+                    style: GoogleFonts.roboto(fontWeight: FontWeight.w900)),
+                centerTitle: true,
+              ),
+              body: SingleChildScrollView(
+                physics: const ClampingScrollPhysics(),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: _profileDetail(context),
+                    ),
+                    _buttons(context),
+                    _feedGrid(context)
+                  ],
                 ),
-                _buttons(context),
-                _feedGrid(context)
-              ],
-            ),
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () => Routes.router.navigateTo(context, Routes.addProject),
-            child: const Icon(Icons.add),
-          ),
-        );
-      }
+              ),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () => Routes.router.navigateTo(context, Routes.addProject),
+                child: const Icon(Icons.add),
+              ),
+            );
+          },
+        )
     );
+
+
   }
 
   Padding _buttons(BuildContext context) {
@@ -99,11 +103,11 @@ class _ProfileKuPageState extends State<ProfileKuPage> {
     );
   }
 
-  Widget _profileDetail() {
+  Widget _profileDetail(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Image.network(context.watch<ShowUserProfileViewModel>().user?.avatarUrl ?? ''),
+        Image.network(context.watch<ShowUserProfileViewModel>().user?.avatarUrl ?? 'https://via.placeholder.com/300/09f/fff.png', width: 96, height: 96),
         const SizedBox(width: 16),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
