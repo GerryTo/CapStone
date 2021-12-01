@@ -1,15 +1,18 @@
+import 'dart:io';
+
 import 'package:capstone/config/themes/app_colors.dart';
 import 'package:capstone/constants/city_names.dart';
 import 'package:capstone/modules/settings/viewmodel/edit_profile_viewmodel.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class EditProfilePage extends StatelessWidget {
   EditProfilePage({Key? key}) : super(key: key);
   final nameController = TextEditingController();
-
   final companyController = TextEditingController();
+  final ImagePicker _picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +112,14 @@ class EditProfilePage extends StatelessWidget {
           bottom: -8,
           right: -16,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () async {
+              final image =
+                  await _picker.pickImage(source: ImageSource.gallery);
+              final path = image?.path;
+              if (path != null) {
+                context.read<EditProfileViewModel>().updateAvatar(File(path));
+              }
+            },
             child: const Icon(
               Icons.edit,
               color: Colors.white,

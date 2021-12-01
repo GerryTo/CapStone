@@ -1,14 +1,17 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:capstone/constants/city_names.dart';
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/service_locator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 class EditProfileViewModel extends ChangeNotifier {
   final firestore = FirebaseFirestore.instance;
   final currentUserInfo = ServiceLocator.getIt.get<CurrentUserInfo>();
+  final storage = FirebaseStorage.instance;
 
   String? _avatarUrl;
   String? _name;
@@ -72,6 +75,24 @@ class EditProfileViewModel extends ChangeNotifier {
           .collection('users')
           .doc(userRef?.id)
           .update({"location": location});
+    } on Exception catch (e, s) {
+      log("edit_profile_viewmodel", error: e, stackTrace: s);
+    } finally {
+      fetchData();
+    }
+  }
+
+  Future<void> updateAvatar(File imageFile) async {
+    try {
+      final avatar = await storage
+          .ref('avatar/${currentUserInfo.email}')
+          .putFile(imageFile);
+      final avatarUrl = await avatar.ref.getDownloadURL();
+      final userRef = await currentUserInfo.userRef;
+      firestore
+          .collection('users')
+          .doc(userRef?.id)
+          .update({"avatar_url": avatarUrl});
     } on Exception catch (e, s) {
       log("edit_profile_viewmodel", error: e, stackTrace: s);
     } finally {
