@@ -1,4 +1,5 @@
 import 'package:capstone/config/themes/app_colors.dart';
+import 'package:capstone/constants/city_names.dart';
 import 'package:capstone/modules/settings/viewmodel/edit_profile_viewmodel.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:flutter/material.dart';
@@ -41,15 +42,23 @@ class EditProfilePage extends StatelessWidget {
   ListTile _location(BuildContext context) {
     return ListTile(
       leading: const Icon(Icons.map),
-      title: Text(context.read<EditProfileViewModel>().location),
-      trailing: const Icon(Icons.edit),
-      onTap: () => _showEditDialog(
-        context,
-        label: 'Masukan Lokasi',
-        onSubmit: () => context
-            .read<EditProfileViewModel>()
-            .updateLocation(locationController.text),
-        controller: locationController,
+      title: DropdownButton<String>(
+        isExpanded: true,
+        value: context.watch<EditProfileViewModel>().location,
+        items: List.generate(
+          citiesData.length,
+          (index) => DropdownMenuItem(
+            value: citiesData[index],
+            child: Text(
+              citiesData[index],
+            ),
+          ),
+        ),
+        onChanged: (location) {
+          if (location != null) {
+            context.read<EditProfileViewModel>().updateLocation(location);
+          }
+        },
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:capstone/constants/city_names.dart';
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/service_locator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -37,7 +38,7 @@ class EditProfileViewModel extends ChangeNotifier {
   String get avatarUrl => _avatarUrl ?? "https://dummyimage.com/96x96/000/fff";
   String get name => _name ?? "...";
   String get company => _company ?? "...";
-  String get location => _location ?? "...";
+  String get location => _location ?? citiesData.first;
 
   Future<void> updateName(String newName) async {
     try {
