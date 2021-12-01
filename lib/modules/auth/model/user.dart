@@ -26,7 +26,9 @@ class User {
         location: json['location'] as String?,
         name: json['name'] as String?,
         phone: json['phone'] as String?,
-        projects: json['projects'] as List<DocumentReference>?,
+        projects: (json['projects'] as List<dynamic>?)
+            ?.map((e) => e as DocumentReference)
+            .toList(),
       );
 
   Map<String, dynamic> toMap() => {
