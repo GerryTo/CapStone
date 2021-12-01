@@ -1,5 +1,6 @@
 import 'package:capstone/config/themes/app_themes.dart';
 import 'package:capstone/routes/routes.dart';
+import 'package:capstone/service_locator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -9,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'modules/settings/provider/theme_notifier.dart';
 
 void main() async {
+  ServiceLocator.registerServices();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
