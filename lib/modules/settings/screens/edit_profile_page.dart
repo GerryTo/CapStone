@@ -16,60 +16,76 @@ class EditProfilePage extends StatelessWidget {
             child: Wrap(
               alignment: WrapAlignment.center,
               children: [
-                Stack(
-                  clipBehavior: Clip.none,
-                  alignment: Alignment.center,
-                  children: [
-                    Image.network(
-                      'https://dummyimage.com/96x96/000/fff',
-                      width: 128,
-                      height: 128,
-                    ),
-                    Positioned(
-                      bottom: -8,
-                      right: -16,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: const Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(),
-                          padding: const EdgeInsets.all(8),
-                          primary: AppColors.primaryColor,
-                          onPrimary: Colors.red,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
+                _avatar(),
               ],
             ),
           ),
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text('Nama'),
-            trailing: const Icon(Icons.edit),
-            onTap: () => _showEditDialog(context,
-                label: 'Masukan Nama', onSubmit: () {}),
-          ),
-          ListTile(
-            leading: const Icon(Icons.work),
-            title: const Text('Nama Perusahaan'),
-            trailing: const Icon(Icons.edit),
-            onTap: () => _showEditDialog(context,
-                label: 'Masukan Nama Perusahaan', onSubmit: () {}),
-          ),
-          ListTile(
-            leading: const Icon(Icons.map),
-            title: const Text('Lokasi'),
-            trailing: const Icon(Icons.edit),
-            onTap: () => _showEditDialog(context,
-                label: 'Masukan Lokasi', onSubmit: () {}),
-          ),
+          _name(context),
+          _company(context),
+          _location(context),
         ],
       ),
+    );
+  }
+
+  ListTile _location(BuildContext context) {
+    return ListTile(
+      leading: const Icon(Icons.map),
+      title: const Text('Lokasi'),
+      trailing: const Icon(Icons.edit),
+      onTap: () =>
+          _showEditDialog(context, label: 'Masukan Lokasi', onSubmit: () {}),
+    );
+  }
+
+  ListTile _company(BuildContext context) {
+    return ListTile(
+      leading: const Icon(Icons.work),
+      title: const Text('Nama Perusahaan'),
+      trailing: const Icon(Icons.edit),
+      onTap: () => _showEditDialog(context,
+          label: 'Masukan Nama Perusahaan', onSubmit: () {}),
+    );
+  }
+
+  ListTile _name(BuildContext context) {
+    return ListTile(
+      leading: const Icon(Icons.person),
+      title: const Text('Nama'),
+      trailing: const Icon(Icons.edit),
+      onTap: () =>
+          _showEditDialog(context, label: 'Masukan Nama', onSubmit: () {}),
+    );
+  }
+
+  Stack _avatar() {
+    return Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.center,
+      children: [
+        Image.network(
+          'https://dummyimage.com/96x96/000/fff',
+          width: 128,
+          height: 128,
+        ),
+        Positioned(
+          bottom: -8,
+          right: -16,
+          child: ElevatedButton(
+            onPressed: () {},
+            child: const Icon(
+              Icons.edit,
+              color: Colors.white,
+            ),
+            style: ElevatedButton.styleFrom(
+              shape: const CircleBorder(),
+              padding: const EdgeInsets.all(8),
+              primary: AppColors.primaryColor,
+              onPrimary: Colors.red,
+            ),
+          ),
+        )
+      ],
     );
   }
 
