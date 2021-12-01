@@ -19,22 +19,6 @@ class AccountSettingsPage extends StatelessWidget {
           children: [
             const TextField(
               decoration: InputDecoration(
-                label: Text('Nama'),
-                focusedBorder: inputFocusBorder,
-                enabledBorder: inputEnabledBorder,
-              ),
-            ),
-            const SizedBox(height: 16),
-            const TextField(
-              decoration: InputDecoration(
-                label: Text('Nama Perusahaan'),
-                focusedBorder: inputFocusBorder,
-                enabledBorder: inputEnabledBorder,
-              ),
-            ),
-            const SizedBox(height: 16),
-            const TextField(
-              decoration: InputDecoration(
                 label: Text('email'),
                 focusedBorder: inputFocusBorder,
                 enabledBorder: inputEnabledBorder,

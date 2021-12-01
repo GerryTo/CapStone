@@ -52,7 +52,6 @@ class AddFeedPageViewModel extends ChangeNotifier {
       final res = firestore.collection('users').doc(userRef?.id).update({
         'projects': FieldValue.arrayUnion([project])
       });
-
       res.whenComplete(() {
         status = AddFeedStatus.success;
         notifyListeners();

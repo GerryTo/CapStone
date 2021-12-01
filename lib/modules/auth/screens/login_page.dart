@@ -17,7 +17,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _passwordVisible = false;
-  bool _isLoading = false;
   final _auth = FirebaseAuth.instance;
 
   final _emailController = TextEditingController();

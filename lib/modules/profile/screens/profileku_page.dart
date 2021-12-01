@@ -1,7 +1,9 @@
+import 'package:capstone/modules/profile/viewmodel/show_user_profile.viewmodel.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ProfileKuPage extends StatefulWidget {
   const ProfileKuPage({Key? key}) : super(key: key);
@@ -11,31 +13,38 @@ class ProfileKuPage extends StatefulWidget {
 }
 
 class _ProfileKuPageState extends State<ProfileKuPage> {
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Arsitek A",
-            style: GoogleFonts.roboto(fontWeight: FontWeight.w900)),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: _profileDetail(),
+    return ChangeNotifierProvider(
+      create: (_) => ShowUserProfileViewModel(),
+      builder:(context , _){
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(context.watch<ShowUserProfileViewModel>().user?.name ?? '',
+                style: GoogleFonts.roboto(fontWeight: FontWeight.w900)),
+            centerTitle: true,
+          ),
+          body: SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: _profileDetail(),
+                ),
+                _buttons(context),
+                _feedGrid(context)
+              ],
             ),
-            _buttons(context),
-            _feedGrid(context)
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Routes.router.navigateTo(context, Routes.addProject),
-        child: const Icon(Icons.add),
-      ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => Routes.router.navigateTo(context, Routes.addProject),
+            child: const Icon(Icons.add),
+          ),
+        );
+      }
     );
   }
 
@@ -94,30 +103,30 @@ class _ProfileKuPageState extends State<ProfileKuPage> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Image.network('https://dummyimage.com/96x96/000/fff'),
+        Image.network(context.watch<ShowUserProfileViewModel>().user?.avatarUrl ?? ''),
         const SizedBox(width: 16),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
-          children: const [
-            Text("Arsitek A",
-                style: TextStyle(
+          children:  [
+            Text(context.watch<ShowUserProfileViewModel>().user?.name ?? '',
+                style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'Roboto',
                     fontWeight: FontWeight.w900)),
-            SizedBox(height: 10),
-            Text('Perusahaan A',
-                style: TextStyle(fontSize: 18, fontFamily: 'Roboto')),
-            Text('Nama Kota',
-                style: TextStyle(fontSize: 18, fontFamily: 'Roboto')),
+            const SizedBox(height: 10),
+            Text(context.watch<ShowUserProfileViewModel>().user?.company ?? '',
+                style: const TextStyle(fontSize: 18, fontFamily: 'Roboto')),
+            Text(context.watch<ShowUserProfileViewModel>().user?.location ?? '',
+                style: const TextStyle(fontSize: 18, fontFamily: 'Roboto')),
           ],
         ),
         Expanded(
           child: Column(
-            children: const [
-              Text('10',
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
-              Text('Proyek', style: TextStyle(fontSize: 24)),
+            children: [
+              Text((context.watch<ShowUserProfileViewModel>().user?.projects?.length).toString(),
+                  style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+              const Text('Proyek', style: TextStyle(fontSize: 24)),
             ],
           ),
         )
