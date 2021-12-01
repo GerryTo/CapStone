@@ -103,10 +103,10 @@ class EditProfilePage extends StatelessWidget {
       clipBehavior: Clip.none,
       alignment: Alignment.center,
       children: [
-        Image.network(
-          context.watch<EditProfileViewModel>().avatarUrl,
-          width: 128,
-          height: 128,
+        CircleAvatar(
+          backgroundImage:
+              NetworkImage(context.watch<EditProfileViewModel>().avatarUrl),
+          radius: 64,
         ),
         Positioned(
           bottom: -8,
