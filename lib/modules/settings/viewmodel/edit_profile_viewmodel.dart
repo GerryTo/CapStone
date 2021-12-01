@@ -49,4 +49,32 @@ class EditProfileViewModel extends ChangeNotifier {
       fetchData();
     }
   }
+
+  Future<void> updateCompany(String company) async {
+    try {
+      final userRef = await currentUserInfo.userRef;
+      firestore
+          .collection('users')
+          .doc(userRef?.id)
+          .update({"company": company});
+    } on Exception catch (e, s) {
+      log("edit_profile_viewmodel", error: e, stackTrace: s);
+    } finally {
+      fetchData();
+    }
+  }
+
+  Future<void> updateLocation(String location) async {
+    try {
+      final userRef = await currentUserInfo.userRef;
+      firestore
+          .collection('users')
+          .doc(userRef?.id)
+          .update({"location": location});
+    } on Exception catch (e, s) {
+      log("edit_profile_viewmodel", error: e, stackTrace: s);
+    } finally {
+      fetchData();
+    }
+  }
 }

@@ -46,7 +46,9 @@ class EditProfilePage extends StatelessWidget {
       onTap: () => _showEditDialog(
         context,
         label: 'Masukan Lokasi',
-        onSubmit: () {},
+        onSubmit: () => context
+            .read<EditProfileViewModel>()
+            .updateLocation(locationController.text),
         controller: locationController,
       ),
     );
@@ -60,7 +62,9 @@ class EditProfilePage extends StatelessWidget {
       onTap: () => _showEditDialog(
         context,
         label: 'Masukan Nama Perusahaan',
-        onSubmit: () {},
+        onSubmit: () => context
+            .read<EditProfileViewModel>()
+            .updateCompany(companyController.text),
         controller: companyController,
       ),
     );
@@ -141,7 +145,10 @@ class EditProfilePage extends StatelessWidget {
                     child: const Text('Batal'),
                   ),
                   TextButton(
-                    onPressed: onSubmit,
+                    onPressed: () {
+                      onSubmit();
+                      Routes.router.pop(context);
+                    },
                     child: const Text('Simpan'),
                   ),
                 ],
