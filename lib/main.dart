@@ -25,12 +25,6 @@ class MyApp extends StatelessWidget {
         //ini untuk darkmode
         StateNotifierProvider<ThemeNotifier, ThemeMode>(
             create: (_) => ThemeNotifier()),
-        Provider<FirebaseAuth>(
-          create: (_) => FirebaseAuth.instance,
-        ),
-        Provider<FirebaseFirestore>(
-          create: (_) => FirebaseFirestore.instance,
-        )
       ],
       builder: (context, _) => MaterialApp(
         title: 'Gazebo',
