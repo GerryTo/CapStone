@@ -1,30 +1,40 @@
 import 'package:capstone/config/themes/app_colors.dart';
+import 'package:capstone/modules/settings/viewmodel/edit_profile_viewmodel.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class EditProfilePage extends StatelessWidget {
-  const EditProfilePage({Key? key}) : super(key: key);
+  EditProfilePage({Key? key}) : super(key: key);
+  final nameController = TextEditingController();
+  final locationController = TextEditingController();
+  final companyController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: ListView(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Wrap(
-              alignment: WrapAlignment.center,
-              children: [
-                _avatar(),
-              ],
-            ),
+    return ChangeNotifierProvider(
+      create: (_) => EditProfileViewModel(),
+      child: Builder(builder: (context) {
+        return Scaffold(
+          appBar: AppBar(),
+          body: ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Wrap(
+                  alignment: WrapAlignment.center,
+                  children: [
+                    _avatar(context),
+                  ],
+                ),
+              ),
+              _name(context),
+              _company(context),
+              _location(context),
+            ],
           ),
-          _name(context),
-          _company(context),
-          _location(context),
-        ],
-      ),
+        );
+      }),
     );
   }
 
@@ -58,13 +68,13 @@ class EditProfilePage extends StatelessWidget {
     );
   }
 
-  Stack _avatar() {
+  Stack _avatar(BuildContext context) {
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
       children: [
         Image.network(
-          'https://dummyimage.com/96x96/000/fff',
+          context.read<EditProfileViewModel>().avatarUrl,
           width: 128,
           height: 128,
         ),

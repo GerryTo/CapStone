@@ -33,7 +33,7 @@ final addProjectHandler =
     Handler(handlerFunc: (context, params) => const AddFeedPage());
 
 final editProfileHandler =
-    Handler(handlerFunc: (context, params) => const EditProfilePage());
+    Handler(handlerFunc: (context, params) => EditProfilePage());
 
 final detailFeedProfilKuHandeler =
     Handler(handlerFunc: (context, params) => DetailFeedProfileKu());

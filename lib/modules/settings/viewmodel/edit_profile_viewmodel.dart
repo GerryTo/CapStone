@@ -9,6 +9,7 @@ class EditProfileViewModel extends ChangeNotifier {
   final firestore = FirebaseFirestore.instance;
   final currentUserInfo = ServiceLocator.getIt.get<CurrentUserInfo>();
 
+  String? _avatarUrl;
   String? _name;
   String? _company;
   String? _location;
@@ -19,6 +20,7 @@ class EditProfileViewModel extends ChangeNotifier {
       final user = await firestore.collection('users').doc(userRef?.id).get();
       final userData = user.data();
 
+      _avatarUrl = userData?['avatar_url'];
       _name = userData?['name'];
       _company = userData?['company'];
       _location = userData?['location'];
@@ -28,6 +30,7 @@ class EditProfileViewModel extends ChangeNotifier {
     }
   }
 
+  String get avatarUrl => _avatarUrl ?? "https://dummyimage.com/96x96/000/fff";
   String get name => _name ?? "";
   String get company => _company ?? "";
   String get location => _location ?? "";
