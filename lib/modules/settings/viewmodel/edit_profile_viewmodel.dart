@@ -14,6 +14,10 @@ class EditProfileViewModel extends ChangeNotifier {
   String? _company;
   String? _location;
 
+  EditProfileViewModel() {
+    fetchData();
+  }
+
   Future<void> fetchData() async {
     try {
       final userRef = await currentUserInfo.userRef;
@@ -31,7 +35,18 @@ class EditProfileViewModel extends ChangeNotifier {
   }
 
   String get avatarUrl => _avatarUrl ?? "https://dummyimage.com/96x96/000/fff";
-  String get name => _name ?? "";
-  String get company => _company ?? "";
-  String get location => _location ?? "";
+  String get name => _name ?? "...";
+  String get company => _company ?? "...";
+  String get location => _location ?? "...";
+
+  Future<void> updateName(String newName) async {
+    try {
+      final userRef = await currentUserInfo.userRef;
+      firestore.collection('users').doc(userRef?.id).update({"name": newName});
+    } on Exception catch (e, s) {
+      log("edit_profile_viewmodel", error: e, stackTrace: s);
+    } finally {
+      fetchData();
+    }
+  }
 }

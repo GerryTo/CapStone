@@ -41,30 +41,44 @@ class EditProfilePage extends StatelessWidget {
   ListTile _location(BuildContext context) {
     return ListTile(
       leading: const Icon(Icons.map),
-      title: const Text('Lokasi'),
+      title: Text(context.read<EditProfileViewModel>().location),
       trailing: const Icon(Icons.edit),
-      onTap: () =>
-          _showEditDialog(context, label: 'Masukan Lokasi', onSubmit: () {}),
+      onTap: () => _showEditDialog(
+        context,
+        label: 'Masukan Lokasi',
+        onSubmit: () {},
+        controller: locationController,
+      ),
     );
   }
 
   ListTile _company(BuildContext context) {
     return ListTile(
       leading: const Icon(Icons.work),
-      title: const Text('Nama Perusahaan'),
+      title: Text(context.watch<EditProfileViewModel>().company),
       trailing: const Icon(Icons.edit),
-      onTap: () => _showEditDialog(context,
-          label: 'Masukan Nama Perusahaan', onSubmit: () {}),
+      onTap: () => _showEditDialog(
+        context,
+        label: 'Masukan Nama Perusahaan',
+        onSubmit: () {},
+        controller: companyController,
+      ),
     );
   }
 
   ListTile _name(BuildContext context) {
     return ListTile(
       leading: const Icon(Icons.person),
-      title: const Text('Nama'),
+      title: Text(context.watch<EditProfileViewModel>().name),
       trailing: const Icon(Icons.edit),
-      onTap: () =>
-          _showEditDialog(context, label: 'Masukan Nama', onSubmit: () {}),
+      onTap: () => _showEditDialog(
+        context,
+        label: 'Masukan Nama',
+        onSubmit: () {
+          context.read<EditProfileViewModel>().updateName(nameController.text);
+        },
+        controller: nameController,
+      ),
     );
   }
 
@@ -74,7 +88,7 @@ class EditProfilePage extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Image.network(
-          context.read<EditProfileViewModel>().avatarUrl,
+          context.watch<EditProfileViewModel>().avatarUrl,
           width: 128,
           height: 128,
         ),
@@ -99,8 +113,12 @@ class EditProfilePage extends StatelessWidget {
     );
   }
 
-  void _showEditDialog(BuildContext context,
-      {required String label, required void Function() onSubmit}) {
+  void _showEditDialog(
+    BuildContext context, {
+    required String label,
+    required void Function() onSubmit,
+    required TextEditingController controller,
+  }) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -109,6 +127,7 @@ class EditProfilePage extends StatelessWidget {
           child: Column(
             children: [
               TextField(
+                controller: controller,
                 decoration: InputDecoration(label: Text(label)),
               ),
               const SizedBox(
