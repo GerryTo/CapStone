@@ -10,9 +10,9 @@ import 'package:provider/provider.dart';
 import 'modules/settings/provider/theme_notifier.dart';
 
 void main() async {
-  ServiceLocator.registerServices();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  ServiceLocator.registerServices();
   runApp(const MyApp());
 }
 
