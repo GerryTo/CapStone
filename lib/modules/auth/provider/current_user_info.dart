@@ -7,17 +7,37 @@ class CurrentUserInfo {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   DocumentReference? _userRef;
+  User? _userData;
 
   String? get email {
     return _auth.currentUser?.email;
   }
 
+  Future<User?> get userData async {
+    if (_userData != null) {
+      return _userData;
+    } else {
+      _userData = await _getUserData();
+      return _userData;
+    }
+  }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> _getUserSnapshot() async {
+    final snap = await _firestore
+        .collection('users')
+        .where('email', isEqualTo: email)
+        .get();
+    return snap;
+  }
+
+  Future<User> _getUserData() async {
+    final snap = await _getUserSnapshot();
+    return snap.docs.first.data() as User;
+  }
+
   Future<DocumentReference?> _getUserRef() async {
     try {
-      final snap = await _firestore
-          .collection('users')
-          .where('email', isEqualTo: email)
-          .get();
+      final snap = await _getUserSnapshot();
       return snap.docs.first.reference;
     } on Exception catch (e, s) {
       log("current_user_info", error: e, stackTrace: s);
