@@ -24,7 +24,7 @@ class _ProfileKuPageState extends State<ProfileKuPage> {
             return Scaffold(
               appBar: AppBar(
                 title: Text(value.user?.name ?? '',
-                    style: GoogleFonts.roboto(fontWeight: FontWeight.w900)),
+                    style: GoogleFonts.roboto(fontWeight: FontWeight.w900,fontSize: 24)),
                 centerTitle: true,
               ),
               body: SingleChildScrollView(
@@ -48,8 +48,6 @@ class _ProfileKuPageState extends State<ProfileKuPage> {
           },
         )
     );
-
-
   }
 
   Padding _buttons(BuildContext context) {
@@ -99,7 +97,7 @@ class _ProfileKuPageState extends State<ProfileKuPage> {
           crossAxisSpacing: 5,
           mainAxisSpacing: 5,
           crossAxisCount: 3,
-          children: List.generate(12, (index) => _profileFeedCard(context))),
+          children: List.generate(context.watch<ShowUserProfileViewModel>().user?.projects?.length ?? 0, (index) => _profileFeedCard(context))),
     );
   }
 
@@ -107,27 +105,33 @@ class _ProfileKuPageState extends State<ProfileKuPage> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Image.network(context.watch<ShowUserProfileViewModel>().user?.avatarUrl ?? 'https://via.placeholder.com/300/09f/fff.png', width: 96, height: 96),
+        Image.network(context.watch<ShowUserProfileViewModel>().user?.avatarUrl ?? 'https://via.placeholder.com/300/09f/fff.png', width: 96, height: 96,fit: BoxFit.cover),
         const SizedBox(width: 16),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children:  [
-            Text(context.watch<ShowUserProfileViewModel>().user?.name ?? '',
-                style: const TextStyle(
-                    fontSize: 18,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.w900)),
-            const SizedBox(height: 10),
-            Text(context.watch<ShowUserProfileViewModel>().user?.company ?? '',
-                style: const TextStyle(fontSize: 18, fontFamily: 'Roboto')),
-            Text(context.watch<ShowUserProfileViewModel>().user?.location ?? '',
-                style: const TextStyle(fontSize: 18, fontFamily: 'Roboto')),
-          ],
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children:[
+              Text(context.watch<ShowUserProfileViewModel>().user?.name ?? '',
+                  style: const TextStyle(
+                      fontSize: 24,
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w900)),
+              const SizedBox(height: 10),
+              Text(context.watch<ShowUserProfileViewModel>().user?.company ?? '',
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style: const TextStyle(fontSize: 16, fontFamily: 'Roboto')),
+              Text(context.watch<ShowUserProfileViewModel>().user?.location ?? '',
+                  style: const TextStyle(fontSize: 16, fontFamily: 'Roboto')),
+            ],
+          ),
         ),
+
         Expanded(
           child: Column(
             children: [
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               Text((context.watch<ShowUserProfileViewModel>().user?.projects?.length).toString(),
                   style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
               const Text('Proyek', style: TextStyle(fontSize: 24)),
