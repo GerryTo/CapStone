@@ -24,7 +24,7 @@ class SettingsPage extends StatelessWidget {
           (BuildContext context, currentUserInfo, SettingsViewModel? previous) {
         return SettingsViewModel(currentUserInfo);
       },
-      child: Builder(builder: (context) {
+      builder: (context, child) {
         return Scaffold(
           appBar: AppBar(
             title: const Text('Setelan'),
@@ -112,7 +112,7 @@ class SettingsPage extends StatelessWidget {
             ],
           ),
         );
-      }),
+      },
     );
   }
 }
