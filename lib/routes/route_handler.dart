@@ -24,7 +24,7 @@ final profileUserHandler =
     Handler(handlerFunc: (context, params) => const ProfileUserPage());
 
 final accountSettingsHandler =
-    Handler(handlerFunc: (context, params) => const AccountSettingsPage());
+    Handler(handlerFunc: (context, params) => AccountSettingsPage());
 
 final detailFeedHandler =
     Handler(handlerFunc: (context, params) => const DetailFeedsPage());
