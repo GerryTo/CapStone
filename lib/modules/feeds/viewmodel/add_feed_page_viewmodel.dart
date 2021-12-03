@@ -17,7 +17,9 @@ class AddFeedPageViewModel extends ChangeNotifier {
   final storage = firebase_storage.FirebaseStorage.instance;
   final auth = FirebaseAuth.instance;
   final firestore = FirebaseFirestore.instance;
-  final currentUserInfo = ServiceLocator.getIt.get<CurrentUserInfo>();
+  final CurrentUserInfo currentUserInfo;
+
+  AddFeedPageViewModel(this.currentUserInfo) : super();
 
   Future<List<String>> uploadImages(List<XFile> files) {
     final userEmail = currentUserInfo.email;

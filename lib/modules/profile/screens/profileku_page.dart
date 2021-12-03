@@ -1,3 +1,4 @@
+import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/profile/viewmodel/show_user_profile.viewmodel.dart';
 import 'package:capstone/modules/profile/widgets/feed_grid_item.dart';
 import 'package:capstone/routes/routes.dart';
@@ -17,8 +18,14 @@ class ProfileKuPage extends StatefulWidget {
 class _ProfileKuPageState extends State<ProfileKuPage> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (_) => ShowUserProfileViewModel(),
+    return ChangeNotifierProxyProvider<CurrentUserInfo,
+            ShowUserProfileViewModel>(
+        create: (_) =>
+            ShowUserProfileViewModel(context.read<CurrentUserInfo>()),
+        update: (BuildContext context, currentUserInfo,
+            ShowUserProfileViewModel? previous) {
+          return ShowUserProfileViewModel(currentUserInfo);
+        },
         child: Consumer<ShowUserProfileViewModel>(
           builder: (context, value, child) {
             return Scaffold(

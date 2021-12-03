@@ -4,30 +4,30 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../service_locator.dart';
+
 enum ShowDataStatus { init, loading, success, fail }
 
-class ShowUserProfileViewModel extends ChangeNotifier{
+class ShowUserProfileViewModel extends ChangeNotifier {
+  ShowUserProfileViewModel(this.currentUserInfo) {
+    getData();
+  }
 
-   ShowUserProfileViewModel(){
-     getData();
-   }
+  User? user;
+  final fireStore = FirebaseFirestore.instance.collection('users');
+  final CurrentUserInfo currentUserInfo;
 
-   User? user;
-   final fireStore = FirebaseFirestore.instance.collection('users');
-   final currentUserInfo = ServiceLocator.getIt.get<CurrentUserInfo>();
-
-   var status = ShowDataStatus.init;
-   Future<void>getData()async{
-     try{
-       status = ShowDataStatus.loading;
-       notifyListeners();
-       user = await currentUserInfo.userData;
-       notifyListeners();
-       status = ShowDataStatus.success;
-       notifyListeners();
-     }catch(e){
-       status = ShowDataStatus.fail;
-       notifyListeners();
-     }
-   }
+  var status = ShowDataStatus.init;
+  Future<void> getData() async {
+    try {
+      status = ShowDataStatus.loading;
+      notifyListeners();
+      user = await currentUserInfo.userData;
+      notifyListeners();
+      status = ShowDataStatus.success;
+      notifyListeners();
+    } catch (e) {
+      status = ShowDataStatus.fail;
+      notifyListeners();
+    }
+  }
 }

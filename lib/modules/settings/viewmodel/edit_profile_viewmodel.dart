@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 
 class EditProfileViewModel extends ChangeNotifier {
   final firestore = FirebaseFirestore.instance;
-  final currentUserInfo = ServiceLocator.getIt.get<CurrentUserInfo>();
+  final CurrentUserInfo currentUserInfo;
   final storage = FirebaseStorage.instance;
 
   String? _avatarUrl;
@@ -18,7 +18,9 @@ class EditProfileViewModel extends ChangeNotifier {
   String? _company;
   String? _location;
 
-  EditProfileViewModel() {
+  bool _disposed = false;
+
+  EditProfileViewModel(this.currentUserInfo) {
     fetchData();
   }
 
@@ -97,6 +99,19 @@ class EditProfileViewModel extends ChangeNotifier {
       log("edit_profile_viewmodel", error: e, stackTrace: s);
     } finally {
       fetchData();
+    }
+  }
+
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
+  @override
+  void notifyListeners() {
+    if (!_disposed) {
+      super.notifyListeners();
     }
   }
 }
