@@ -8,6 +8,7 @@ import 'package:capstone/modules/auth/screens/register_page.dart';
 import 'package:capstone/modules/settings/screens/account_settings_page.dart';
 import 'package:capstone/modules/feeds/screens/edit_feed.dart';
 import 'package:capstone/modules/feeds/screens/add_feed_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluro/fluro.dart';
 
 import '../modules/home/screens/home_page.dart';
@@ -36,7 +37,10 @@ final editProfileHandler =
     Handler(handlerFunc: (context, params) => EditProfilePage());
 
 final detailFeedProfilKuHandeler =
-    Handler(handlerFunc: (context, params) => DetailFeedProfileKu());
+    Handler(handlerFunc: (context, params)  {
+        final args = context?.arguments as DocumentReference;
+        return DetailFeedProfileKu(args);
+    });
 
 final editFeedHandeler =
     Handler(handlerFunc: (context, params) => EditFeedPage());
