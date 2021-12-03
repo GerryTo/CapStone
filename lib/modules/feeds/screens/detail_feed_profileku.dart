@@ -1,20 +1,20 @@
 import 'package:capstone/routes/routes.dart';
-import 'package:capstone/widget/card_photo.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DetailFeedProfileKu extends StatefulWidget {
-  const DetailFeedProfileKu({Key? key}) : super(key: key);
-
+  const DetailFeedProfileKu(this.project, {Key? key}) : super(key: key);
+  final DocumentReference project;
   @override
   State<DetailFeedProfileKu> createState() => _DetailFeedProfileKuState();
 }
 
 class _DetailFeedProfileKuState extends State<DetailFeedProfileKu> {
   int _currentIndex = 0;
-  List<int> cardList = [1, 1];
+  List<int> cardList = [];
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -26,53 +26,72 @@ class _DetailFeedProfileKuState extends State<DetailFeedProfileKu> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Arsitek A",
-            style: GoogleFonts.roboto(fontWeight: FontWeight.w900)),
-        centerTitle: true,
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (cardList.length > 1)
-                _sliderPhotos()
-              else
-                _onlyOnePhoto(context),
-              Padding(
-                padding: EdgeInsets.only(top: 30, left: 20),
-                child: Text('Judul Projek', style: TextStyle(fontSize: 18)),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 20, left: 20),
-                child:
-                    Text('Deskripsi Projek A', style: TextStyle(fontSize: 14)),
-              ),
-              const SizedBox(height: 10),
-              _buttons(context),
-            ],
-          ),
-        ),
-      ),
+    return FutureBuilder<DocumentSnapshot>(
+      future: widget.project.get(),
+      builder: (context,snapshot) {
+       if(snapshot.hasData){
+         final data = snapshot.data?.data() as Map<String , dynamic>?;
+         return Scaffold(
+           appBar: AppBar(
+             title: Text('SDFDF',
+                 style: GoogleFonts.roboto(fontWeight: FontWeight.w900)),
+             centerTitle: true,
+           ),
+           body: SafeArea(
+             child: SingleChildScrollView(
+               physics: const ClampingScrollPhysics(),
+               child: Column(
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   if ((data?['images'] as List).length > 1)
+                     _sliderPhotos(context, (data?['images'] as List) )
+                   else
+                     _onlyOnePhoto(context, (data?['images'] as List?)?.first),
+                   Padding(
+                     padding: EdgeInsets.only(top: 30, left: 20),
+                     child:
+                     Text(data?['title'], style: TextStyle(fontSize: 18)),
+                   ),
+                   Padding(
+                     padding: EdgeInsets.only(top: 20, left: 20),
+                     child: Text(data?['description'],
+                         style: TextStyle(fontSize: 14)),
+                   ),
+                   const SizedBox(height: 10),
+                   _buttons(context),
+                 ],
+               ),
+             ),
+           ),
+         );
+       }
+       if(snapshot.hasError){
+         return Placeholder();
+       }
+       return Placeholder();
+      },
     );
   }
 
-  Container _onlyOnePhoto(BuildContext context) {
+  Container _onlyOnePhoto(BuildContext context,String images ) {
     return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height - 450,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height - 450,
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: NetworkImage('https://dummyimage.com/500x300/000/fff'),
+            image: NetworkImage(images),
             fit: BoxFit.fill),
       ),
     );
   }
 
-  Center _sliderPhotos() {
+  Center _sliderPhotos(BuildContext context, List images) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -86,15 +105,23 @@ class _DetailFeedProfileKuState extends State<DetailFeedProfileKu> {
                     _currentIndex = index;
                   });
                 }),
-            items: cardList.map((item) {
-              return CardPhoto();
+            items: images.map((item) {
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: NetworkImage(item),
+                      fit: BoxFit.fill),
+                ),
+              );
             }).toList(),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: map<Widget>(
-              cardList,
-              (index, url) {
+              images,
+                  (index, url) {
                 return Container(
                   width: _currentIndex == index ? 15 : 10.0,
                   height: 10.0,
@@ -149,21 +176,29 @@ class _DetailFeedProfileKuState extends State<DetailFeedProfileKu> {
               child: Wrap(
                 children: [
                   Text('Edit',
-                      style: Theme.of(context)
+                      style: Theme
+                          .of(context)
                           .textTheme
                           .button
                           ?.copyWith(fontWeight: FontWeight.bold)),
                   const SizedBox(width: 10),
                   Icon(
                     Icons.edit,
-                    color: Theme.of(context).iconTheme.color,
+                    color: Theme
+                        .of(context)
+                        .iconTheme
+                        .color,
                     size: 20.0,
                   ),
                 ],
               ),
               style: ElevatedButton.styleFrom(
                   side: BorderSide(
-                      color: Theme.of(context).textTheme.button?.color ??
+                      color: Theme
+                          .of(context)
+                          .textTheme
+                          .button
+                          ?.color ??
                           Colors.grey),
                   primary: Colors.transparent,
                   elevation: 0),
