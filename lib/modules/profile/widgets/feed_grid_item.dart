@@ -12,25 +12,26 @@ class FeedGridItem extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Image.network(
-              'https://via.placeholder.com/300x300.webp?text=Error');
+              'https://via.placeholder.com/300x300.webp?text=Error',fit: BoxFit.cover);
         }
 
         if (snapshot.hasData && !snapshot.data!.exists) {
           return Image.network(
-              'https://via.placeholder.com/300x300.webp?text=No+Data');
+              'https://via.placeholder.com/300x300.webp?text=No+Data',fit: BoxFit.cover);
         }
 
         if (snapshot.hasData) {
           final data = snapshot.data?.data() as Map<String, dynamic>?;
           return GestureDetector(
               onTap: () =>
-                  Routes.router.navigateTo(context, Routes.detailFeedProfilKu),
+                  Routes.router.navigateTo(context, Routes.detailFeedProfilKu,
+                      routeSettings: RouteSettings(arguments: project as DocumentReference)),
               child: Image.network((data?['images'] as List?)?.first ??
-                  'https://via.placeholder.com/300x300.webp?text=No+Pic'));
+                  'https://via.placeholder.com/300x300.webp?text=No+Pic',fit: BoxFit.cover));
         }
 
         return Image.network(
-            'https://via.placeholder.com/300x300.webp?text=Loading');
+            'https://via.placeholder.com/300x300.webp?text=Loading',fit: BoxFit.cover);
       },
     );
   }
