@@ -8,20 +8,19 @@ class CurrentUserInfo {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   DocumentReference? _userRef;
+  app.User? _userData;
 
   String? get email {
     return _auth.currentUser?.email;
   }
 
   Future<app.User?> get userData async {
-    final userData = await getUserData();
-    return userData;
-  }
-
-  Future<app.User> getUserData() async {
-    final snap = await _getUserSnapshot();
-    final data = snap.docs.first.data();
-    return app.User.fromMap(data);
+    if (_userData != null) {
+      return _userData;
+    } else {
+      _userData = await _getUserData();
+      return _userData;
+    }
   }
 
   Future<QuerySnapshot<Map<String, dynamic>>> _getUserSnapshot() async {
@@ -30,6 +29,14 @@ class CurrentUserInfo {
         .where('email', isEqualTo: email)
         .get();
     return snap;
+  }
+
+  Future<app.User> _getUserData() async {
+    final snap = await _getUserSnapshot();
+    final data = snap.docs.first.data();
+    final user = app.User.fromMap(data);
+
+    return user;
   }
 
   Future<DocumentReference?> _getUserRef() async {
