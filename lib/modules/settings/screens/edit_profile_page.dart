@@ -13,6 +13,8 @@ class EditProfilePage extends StatelessWidget {
   EditProfilePage({Key? key}) : super(key: key);
   final nameController = TextEditingController();
   final companyController = TextEditingController();
+  final phoneController = TextEditingController();
+
   final ImagePicker _picker = ImagePicker();
 
   @override
@@ -192,7 +194,11 @@ class EditProfilePage extends StatelessWidget {
       trailing: const Icon(Icons.edit),
       title: Text(context.watch<EditProfileViewModel>().phone),
       onTap: () {
-        // context.watch<EditProfileViewModel>()
+        _showEditDialog(context, label: 'No. Telpon', onSubmit: () {
+          context
+              .read<EditProfileViewModel>()
+              .updatePhone(phoneController.text);
+        }, controller: phoneController);
       },
     );
   }

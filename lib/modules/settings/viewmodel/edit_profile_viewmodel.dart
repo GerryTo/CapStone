@@ -105,6 +105,17 @@ class EditProfileViewModel extends ChangeNotifier {
     }
   }
 
+  Future<void> updatePhone(String phone) async {
+    try {
+      final userRef = await currentUserInfo.userRef;
+      firestore.collection('users').doc(userRef?.id).update({"phone": phone});
+    } on Exception catch (e, s) {
+      log("edit_profile_viewmodel", error: e, stackTrace: s);
+    } finally {
+      fetchData();
+    }
+  }
+
   @override
   void dispose() {
     _disposed = true;
