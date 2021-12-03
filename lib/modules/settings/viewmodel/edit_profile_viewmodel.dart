@@ -17,6 +17,7 @@ class EditProfileViewModel extends ChangeNotifier {
   String? _name;
   String? _company;
   String? _location;
+  String? _phone;
 
   EditProfileViewModel() {
     fetchData();
@@ -32,6 +33,7 @@ class EditProfileViewModel extends ChangeNotifier {
       _name = userData?['name'];
       _company = userData?['company'];
       _location = userData?['location'];
+      _phone = userData?['phone'];
       notifyListeners();
     } on Exception catch (e, s) {
       log("edit_profile_viewmodel", error: e, stackTrace: s);
@@ -42,6 +44,7 @@ class EditProfileViewModel extends ChangeNotifier {
   String get name => _name ?? "...";
   String get company => _company ?? "...";
   String get location => _location ?? citiesData.first;
+  String get phone => _phone ?? '...';
 
   Future<void> updateName(String newName) async {
     try {
