@@ -4,10 +4,10 @@ import 'package:capstone/service_locator.dart';
 import 'package:flutter/material.dart';
 
 class SettingsViewModel extends ChangeNotifier {
-  final currentUserInfo = ServiceLocator.getIt.get<CurrentUserInfo>();
+  final CurrentUserInfo currentUserInfo;
   User? user;
 
-  SettingsViewModel() {
+  SettingsViewModel(this.currentUserInfo) {
     getUserData();
   }
 

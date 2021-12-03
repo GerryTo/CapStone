@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:capstone/config/themes/app_colors.dart';
 import 'package:capstone/constants/city_names.dart';
+import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/settings/viewmodel/edit_profile_viewmodel.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +17,13 @@ class EditProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => EditProfileViewModel(),
+    return ChangeNotifierProxyProvider<CurrentUserInfo, EditProfileViewModel>(
+      create: (context) =>
+          EditProfileViewModel(context.read<CurrentUserInfo>()),
+      update: (BuildContext context, currentUserInfo,
+          EditProfileViewModel? previous) {
+        return EditProfileViewModel(currentUserInfo);
+      },
       child: Builder(builder: (context) {
         return Scaffold(
           appBar: AppBar(),
@@ -164,7 +170,7 @@ class EditProfilePage extends StatelessWidget {
                     child: const Text('Batal'),
                   ),
                   TextButton(
-                    onPressed: () {
+                    onPressed: () async {
                       onSubmit();
                       Routes.router.pop(context);
                     },

@@ -1,4 +1,5 @@
 import 'package:capstone/config/themes/app_themes.dart';
+import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:capstone/service_locator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -24,6 +25,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (context) => CurrentUserInfo(),
+        ),
         //ini untuk darkmode
         StateNotifierProvider<ThemeNotifier, ThemeMode>(
             create: (_) => ThemeNotifier()),
