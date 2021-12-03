@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:capstone/config/themes/app_colors.dart';
+import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/settings/provider/theme_notifier.dart';
 import 'package:capstone/modules/settings/viewmodel/settings_viewmodel.dart';
 import 'package:capstone/routes/routes.dart';
+import 'package:capstone/service_locator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,9 +18,13 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _auth = FirebaseAuth.instance;
-    return ChangeNotifierProvider(
-      create: (_) => SettingsViewModel(),
-      child: Builder(builder: (context) {
+    return ChangeNotifierProxyProvider<CurrentUserInfo, SettingsViewModel>(
+      create: (context) => SettingsViewModel(context.read<CurrentUserInfo>()),
+      update:
+          (BuildContext context, currentUserInfo, SettingsViewModel? previous) {
+        return SettingsViewModel(currentUserInfo);
+      },
+      builder: (context, child) {
         return Scaffold(
           appBar: AppBar(
             title: const Text('Setelan'),
@@ -36,8 +44,13 @@ class SettingsPage extends StatelessWidget {
                         context.watch<SettingsViewModel>().user?.avatarUrl ??
                             'https://dummyimage.com/96x96/000/fff'),
                   ),
-                  onTap: () =>
-                      Routes.router.navigateTo(context, Routes.editProfile),
+                  onTap: () async {
+                    Routes.router
+                        .navigateTo(context, Routes.editProfile)
+                        .then((value) {
+                      return context.read<CurrentUserInfo>().getUserData();
+                    });
+                  },
                   trailing: const Icon(Icons.edit),
                 ),
               ),
@@ -99,7 +112,7 @@ class SettingsPage extends StatelessWidget {
             ],
           ),
         );
-      }),
+      },
     );
   }
 }

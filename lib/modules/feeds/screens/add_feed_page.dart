@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/feeds/viewmodel/add_feed_page_viewmodel.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -26,10 +27,15 @@ class _AddFeedPageState extends State<AddFeedPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => AddFeedPageViewModel(),
+    return ChangeNotifierProxyProvider<CurrentUserInfo, AddFeedPageViewModel>(
+      create: (context) =>
+          AddFeedPageViewModel(context.read<CurrentUserInfo>()),
       builder: (context, _) {
         return _content(context);
+      },
+      update: (BuildContext context, currentUserInfo,
+          AddFeedPageViewModel? previous) {
+        return AddFeedPageViewModel(currentUserInfo);
       },
     );
   }
