@@ -31,6 +31,7 @@ class AccountSettingsPage extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: Builder(builder: (context) {
                 return ListView(
+                  // child: ListView(
                   children: [
                     ListTile(
                       leading: const Icon(Icons.email),
@@ -47,6 +48,7 @@ class AccountSettingsPage extends StatelessWidget {
                       trailing: const Icon(Icons.edit),
                     ),
                   ],
+                  // ),
                 );
               }),
             ),
@@ -55,9 +57,12 @@ class AccountSettingsPage extends StatelessWidget {
   }
 
   void _showEditEmailSheet(BuildContext context) {
-    showModalBottomSheet(
+    _emailController.text =
+        context.read<AccountSettingsViewModel>().userEmail ?? '';
+    showBottomSheet(
       context: context,
-      builder: (context) {
+      builder: (_) {
+        log(context.read<AccountSettingsViewModel>().userEmail ?? 'NO EMAIL');
         // ignore: prefer_const_constructors
         return EditDataModalBottomSheet(
           fields: [
@@ -69,14 +74,22 @@ class AccountSettingsPage extends StatelessWidget {
           ],
           onSubmit: () async {
             try {
+              log('SUBMIT EDIT EMAIL');
               await context
                   .read<AccountSettingsViewModel>()
-                  .updateEmail(_emailController.text);
+                  .updateEmail(_emailController.text)
+                  .then((value) {
+                Routes.router.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Berhasil update email'),
+                  ),
+                );
+              });
             } on FirebaseAuthException catch (e) {
+              log(e.message ?? "ERROR");
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(e.message ?? ''),
-                ),
+                SnackBar(content: Text(e.message ?? 'Error')),
               );
             }
           },
@@ -84,13 +97,6 @@ class AccountSettingsPage extends StatelessWidget {
       },
     );
   }
-
-// Routes.router.pop(context);
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         const SnackBar(
-//           content: Text('Berhasil update email'),
-//         ),
-//       );
 
   void _showEditPasswordSheet(BuildContext context) {
     showBottomSheet(
@@ -123,7 +129,15 @@ class AccountSettingsPage extends StatelessWidget {
             try {
               await context
                   .read<AccountSettingsViewModel>()
-                  .updateEmail(_passwordController.text);
+                  .updatePassword(_passwordController.text)
+                  .then((value) {
+                Routes.router.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Berhasil update password'),
+                  ),
+                );
+              });
             } on FirebaseAuthException catch (e) {
               log(e.message!);
               ScaffoldMessenger.of(context).showSnackBar(
