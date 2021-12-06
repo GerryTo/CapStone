@@ -1,4 +1,7 @@
+import 'package:capstone/modules/error/screens/not_found_page.dart';
+import 'package:capstone/modules/feeds/model/feed.dart';
 import 'package:capstone/widget/card_photo.dart';
+import 'package:capstone/widget/loading.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -33,6 +36,24 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder<DocumentSnapshot>(
+      future: widget.projectRef.get(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final data = snapshot.data?.data();
+          final project = Feed.fromMap(data as Map<String, dynamic>);
+          return _content(context, project);
+        }
+
+        if (snapshot.hasError) {
+          return const NotFoundPage();
+        }
+        return const LoadingScreen();
+      },
+    );
+  }
+
+  Scaffold _content(BuildContext context, Feed project) {
     return Scaffold(
         appBar: AppBar(
           title: Text("Arsitek A",
@@ -52,11 +73,12 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
                   _onlyOnePhoto(context),
                 Padding(
                   padding: const EdgeInsets.only(top: 30, left: 20),
-                  child: Text('Judul Projek', style: TextStyle(fontSize: 18)),
+                  child:
+                      Text(project.title ?? '', style: TextStyle(fontSize: 18)),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20, left: 20),
-                  child: Text('Deskripsi Projek A',
+                  child: Text(project.description ?? '',
                       style: TextStyle(fontSize: 14)),
                 ),
               ],
