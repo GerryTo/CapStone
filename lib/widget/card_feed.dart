@@ -27,35 +27,65 @@ class CardFeed extends StatelessWidget {
               ),
             ]),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      UserAvatar(userRef),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8),
-                        child: Column(
-                          children: [
-                            Text(feed.title ?? ""),
-                            Text(feed.description ?? ""),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                  IconButton(
-                    onPressed: () =>
-                        Routes.router.navigateTo(context, Routes.profileUser),
-                    icon: const Icon(Icons.arrow_right),
-                  )
-                ],
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              child: _cardInfo(context, userRef),
             )
           ],
         ),
       ),
+    );
+  }
+
+  Widget _cardInfo(BuildContext context, DocumentReference<Object?>? userRef) {
+    return FutureBuilder<DocumentSnapshot>(
+      future: userRef?.get(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          Map<String, dynamic> data =
+              snapshot.data!.data() as Map<String, dynamic>;
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                feed.title ?? "",
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              const SizedBox(height: 8),
+              GestureDetector(
+                onTap: () =>
+                    Routes.router.navigateTo(context, Routes.profileUser),
+                child: Row(
+                  children: [
+                    CachedNetworkImage(
+                      height: 32,
+                      width: 32,
+                      imageUrl: data["avatar_url"],
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) =>
+                              CircularProgressIndicator(
+                                  value: downloadProgress.progress),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      data["name"] ?? "",
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    const SizedBox(width: 16),
+                    Text(
+                      data["company"] ?? "",
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          );
+        }
+        return const SizedBox(
+          height: 32,
+        );
+      },
     );
   }
 }
