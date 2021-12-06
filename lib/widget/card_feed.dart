@@ -1,10 +1,11 @@
+import 'package:capstone/modules/feeds/model/feed.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CardFeed extends StatelessWidget {
-  const CardFeed({Key? key}) : super(key: key);
-
+  const CardFeed(this.feed, {Key? key}) : super(key: key);
+  final Feed feed;
   @override
   Widget build(BuildContext context) {
     return Padding(
