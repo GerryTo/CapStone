@@ -18,7 +18,6 @@ class DetailFeedsPage extends StatefulWidget {
 class _DetailFeedsPageState extends State<DetailFeedsPage> {
   late bool _isFavorited;
   int _currentIndex = 0;
-  List<int> cardList = [1, 1];
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -67,10 +66,10 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _profileWidget(),
-                if (cardList.length > 1)
-                  _sliderPhotos()
+                if ((project.images?.length ?? 0) > 1)
+                  _sliderPhotos(project.images ?? [])
                 else
-                  _onlyOnePhoto(context),
+                  _onlyOnePhoto(context, project.images?.first),
                 Padding(
                   padding: const EdgeInsets.only(top: 30, left: 20),
                   child:
@@ -103,19 +102,20 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
         ));
   }
 
-  Container _onlyOnePhoto(BuildContext context) {
+  Container _onlyOnePhoto(BuildContext context, String? photo) {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height - 450,
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: NetworkImage('https://dummyimage.com/500x300/000/fff'),
+            image:
+                NetworkImage(photo ?? 'https://dummyimage.com/500x300/000/fff'),
             fit: BoxFit.fill),
       ),
     );
   }
 
-  Center _sliderPhotos() {
+  Center _sliderPhotos(List<String> photos) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -129,14 +129,14 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
                     _currentIndex = index;
                   });
                 }),
-            items: cardList.map((item) {
-              return CardPhoto();
+            items: photos.map((photo) {
+              return CardPhoto(photo);
             }).toList(),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: map<Widget>(
-              cardList,
+              photos,
               (index, url) {
                 return Container(
                   width: _currentIndex == index ? 15 : 10.0,

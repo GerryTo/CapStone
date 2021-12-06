@@ -65,19 +65,19 @@ class _EditFeedPageState extends State<EditFeedPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CarouselSlider(
-            options: CarouselOptions(
-                enableInfiniteScroll: false,
-                viewportFraction: 1,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _currentIndex = index;
-                  });
-                }),
-            items: cardList.map((item) {
-              return CardPhoto();
-            }).toList(),
-          ),
+          // CarouselSlider(
+          //   options: CarouselOptions(
+          //       enableInfiniteScroll: false,
+          //       viewportFraction: 1,
+          //       onPageChanged: (index, reason) {
+          //         setState(() {
+          //           _currentIndex = index;
+          //         });
+          //       }),
+          //   items: cardList.map((item) {
+          //     return CardPhoto();
+          //   }).toList(),
+          // ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: map<Widget>(
