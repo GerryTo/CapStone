@@ -1,4 +1,5 @@
 import 'package:capstone/modules/feeds/viewmodel/feeds_viewmodel.dart';
+import 'package:capstone/routes/routes.dart';
 import 'package:capstone/widget/card_feed.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +24,10 @@ class Feeds extends StatelessWidget {
             padding: EdgeInsets.zero,
             children: List.generate(
               feeds.length,
-              (index) => CardFeed(feeds[index]),
+              (index) => GestureDetector(
+                  onTap: () =>
+                      Routes.router.navigateTo(context, Routes.detailFeed),
+                  child: CardFeed(feeds[index])),
             ),
           );
         },
