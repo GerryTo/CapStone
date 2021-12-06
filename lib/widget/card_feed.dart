@@ -72,6 +72,7 @@ class CardFeed extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyText1,
                     ),
                     const SizedBox(width: 16),
+                    Spacer(),
                     Text(
                       data["company"] ?? "",
                       style: Theme.of(context).textTheme.bodyText2,
