@@ -45,4 +45,7 @@ final editProfileHandler =
 // });
 
 final editFeedHandeler =
-    Handler(handlerFunc: (context, params) => EditFeedPage());
+Handler(handlerFunc: (context, params) {
+  final args = context?.arguments as DocumentReference;
+  return EditFeedPage(args);
+  });
