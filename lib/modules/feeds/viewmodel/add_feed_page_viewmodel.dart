@@ -39,7 +39,7 @@ class AddFeedPageViewModel extends ChangeNotifier {
       status = AddFeedStatus.loading;
       notifyListeners();
       final imageURLs = await uploadImages(files);
-      final userRef = await currentUserInfo.userRef;
+      final userRef = currentUserInfo.userRef;
       log('USER REF : ${userRef?.id}');
 
       final feed = Feed(

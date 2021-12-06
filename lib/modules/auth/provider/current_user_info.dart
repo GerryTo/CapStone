@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 class CurrentUserInfo extends ChangeNotifier {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
-  DocumentReference? _userRef;
   app.User? _userData;
 
   String? get email {
