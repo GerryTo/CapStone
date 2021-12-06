@@ -43,5 +43,6 @@ class CurrentUserInfo extends ChangeNotifier {
     }
   }
 
-  DocumentReference? get userRef => _firestore.collection("users").doc('aaa');
+  DocumentReference? get userRef =>
+      _firestore.collection("users").doc(_auth.currentUser?.uid);
 }

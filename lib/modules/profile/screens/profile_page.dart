@@ -1,5 +1,5 @@
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
-import 'package:capstone/modules/profile/viewmodel/show_user_profile.viewmodel.dart';
+import 'package:capstone/modules/profile/viewmodel/profile_viewmodel.dart';
 import 'package:capstone/modules/profile/widgets/feed_grid_item.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -8,54 +8,44 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class ProfileKuPage extends StatefulWidget {
-  const ProfileKuPage({Key? key}) : super(key: key);
-
-  @override
-  State<ProfileKuPage> createState() => _ProfileKuPageState();
-}
-
-class _ProfileKuPageState extends State<ProfileKuPage> {
+class ProfilePage extends StatelessWidget {
+  const ProfilePage(this.userRef, {Key? key}) : super(key: key);
+  final DocumentReference userRef;
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProxyProvider<CurrentUserInfo,
-            ShowUserProfileViewModel>(
-        create: (_) =>
-            ShowUserProfileViewModel(context.read<CurrentUserInfo>()),
-        update: (BuildContext context, currentUserInfo,
-            ShowUserProfileViewModel? previous) {
-          return ShowUserProfileViewModel(currentUserInfo);
+    return ChangeNotifierProvider<ProfileViewModel>(
+      create: (_) => ProfileViewModel(userRef),
+      child: Consumer<ProfileViewModel>(
+        builder: (context, value, child) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(value.user?.name ?? '',
+                  style: GoogleFonts.roboto(
+                      fontWeight: FontWeight.w900, fontSize: 24)),
+              centerTitle: true,
+            ),
+            body: SingleChildScrollView(
+              physics: const ClampingScrollPhysics(),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: _profileDetail(context),
+                  ),
+                  _buttons(context),
+                  _feedGrid(context)
+                ],
+              ),
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () =>
+                  Routes.router.navigateTo(context, Routes.addProject),
+              child: const Icon(Icons.add),
+            ),
+          );
         },
-        child: Consumer<ShowUserProfileViewModel>(
-          builder: (context, value, child) {
-            return Scaffold(
-              appBar: AppBar(
-                title: Text(value.user?.name ?? '',
-                    style: GoogleFonts.roboto(
-                        fontWeight: FontWeight.w900, fontSize: 24)),
-                centerTitle: true,
-              ),
-              body: SingleChildScrollView(
-                physics: const ClampingScrollPhysics(),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: _profileDetail(context),
-                    ),
-                    _buttons(context),
-                    _feedGrid(context)
-                  ],
-                ),
-              ),
-              floatingActionButton: FloatingActionButton(
-                onPressed: () =>
-                    Routes.router.navigateTo(context, Routes.addProject),
-                child: const Icon(Icons.add),
-              ),
-            );
-          },
-        ));
+      ),
+    );
   }
 
   Padding _buttons(BuildContext context) {
@@ -111,7 +101,7 @@ class _ProfileKuPageState extends State<ProfileKuPage> {
   }
 
   List<Widget> _projectList(BuildContext context) {
-    final projects = context.watch<ShowUserProfileViewModel>().user?.projects;
+    final projects = context.watch<ProfileViewModel>().user?.projects;
     return List.generate(
       projects?.length ?? 0,
       (index) {
@@ -129,7 +119,7 @@ class _ProfileKuPageState extends State<ProfileKuPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Image.network(
-            context.watch<ShowUserProfileViewModel>().user?.avatarUrl ??
+            context.watch<ProfileViewModel>().user?.avatarUrl ??
                 'https://via.placeholder.com/300/09f/fff.png',
             width: 96,
             height: 96,
@@ -140,20 +130,17 @@ class _ProfileKuPageState extends State<ProfileKuPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(context.watch<ShowUserProfileViewModel>().user?.name ?? '',
+              Text(context.watch<ProfileViewModel>().user?.name ?? '',
                   style: const TextStyle(
                       fontSize: 24,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w900)),
               const SizedBox(height: 10),
-              Text(
-                  context.watch<ShowUserProfileViewModel>().user?.company ?? '',
+              Text(context.watch<ProfileViewModel>().user?.company ?? '',
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2,
                   style: const TextStyle(fontSize: 16, fontFamily: 'Roboto')),
-              Text(
-                  context.watch<ShowUserProfileViewModel>().user?.location ??
-                      '',
+              Text(context.watch<ProfileViewModel>().user?.location ?? '',
                   style: const TextStyle(fontSize: 16, fontFamily: 'Roboto')),
             ],
           ),
@@ -163,11 +150,7 @@ class _ProfileKuPageState extends State<ProfileKuPage> {
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               Text(
-                  (context
-                          .watch<ShowUserProfileViewModel>()
-                          .user
-                          ?.projects
-                          ?.length)
+                  (context.watch<ProfileViewModel>().user?.projects?.length)
                       .toString(),
                   style: const TextStyle(
                       fontSize: 32, fontWeight: FontWeight.bold)),
