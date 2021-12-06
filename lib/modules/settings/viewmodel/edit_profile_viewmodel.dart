@@ -27,7 +27,7 @@ class EditProfileViewModel extends ChangeNotifier {
 
   Future<void> fetchData() async {
     try {
-      final userRef = await currentUserInfo.userRef;
+      final userRef = currentUserInfo.userRef;
       final user = await firestore.collection('users').doc(userRef?.id).get();
       final userData = user.data();
 
@@ -50,7 +50,7 @@ class EditProfileViewModel extends ChangeNotifier {
 
   Future<void> updateName(String newName) async {
     try {
-      final userRef = await currentUserInfo.userRef;
+      final userRef = currentUserInfo.userRef;
       firestore.collection('users').doc(userRef?.id).update({"name": newName});
     } on Exception catch (e, s) {
       log("edit_profile_viewmodel", error: e, stackTrace: s);
@@ -61,7 +61,7 @@ class EditProfileViewModel extends ChangeNotifier {
 
   Future<void> updateCompany(String company) async {
     try {
-      final userRef = await currentUserInfo.userRef;
+      final userRef = currentUserInfo.userRef;
       firestore
           .collection('users')
           .doc(userRef?.id)
@@ -75,7 +75,7 @@ class EditProfileViewModel extends ChangeNotifier {
 
   Future<void> updateLocation(String location) async {
     try {
-      final userRef = await currentUserInfo.userRef;
+      final userRef = currentUserInfo.userRef;
       firestore
           .collection('users')
           .doc(userRef?.id)
@@ -93,7 +93,7 @@ class EditProfileViewModel extends ChangeNotifier {
           .ref('avatar/${currentUserInfo.email}')
           .putFile(imageFile);
       final avatarUrl = await avatar.ref.getDownloadURL();
-      final userRef = await currentUserInfo.userRef;
+      final userRef = currentUserInfo.userRef;
       firestore
           .collection('users')
           .doc(userRef?.id)
@@ -107,7 +107,7 @@ class EditProfileViewModel extends ChangeNotifier {
 
   Future<void> updatePhone(String phone) async {
     try {
-      final userRef = await currentUserInfo.userRef;
+      final userRef = currentUserInfo.userRef;
       firestore.collection('users').doc(userRef?.id).update({"phone": phone});
     } on Exception catch (e, s) {
       log("edit_profile_viewmodel", error: e, stackTrace: s);
