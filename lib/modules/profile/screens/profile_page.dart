@@ -53,34 +53,43 @@ class ProfilePage extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Row(
         children: [
-          Expanded(
-            child: ElevatedButton(
-              onPressed: () =>
-                  Routes.router.navigateTo(context, Routes.accountSettings),
-              child: Wrap(
-                children: [
-                  Text('Edit Akun',
-                      style: Theme.of(context)
-                          .textTheme
-                          .button
-                          ?.copyWith(fontWeight: FontWeight.bold)),
-                  const SizedBox(width: 10),
-                  Icon(
-                    Icons.edit,
-                    color: Theme.of(context).iconTheme.color,
-                    size: 20.0,
-                  ),
-                ],
-              ),
-              style: ElevatedButton.styleFrom(
-                  side: BorderSide(
-                      color: Theme.of(context).textTheme.button?.color ??
-                          Colors.grey),
-                  primary: Colors.transparent,
-                  elevation: 0),
-            ),
-          ),
+          _editAccount(context),
         ],
+      ),
+    );
+  }
+
+  Widget _editAccount(BuildContext context) {
+    final currentUserId = context.read<CurrentUserInfo>().id;
+    final profileId = userRef.id;
+    if (currentUserId != profileId) {
+      return Container();
+    }
+    return Expanded(
+      child: ElevatedButton(
+        onPressed: () =>
+            Routes.router.navigateTo(context, Routes.accountSettings),
+        child: Wrap(
+          children: [
+            Text('Edit Akun',
+                style: Theme.of(context)
+                    .textTheme
+                    .button
+                    ?.copyWith(fontWeight: FontWeight.bold)),
+            const SizedBox(width: 10),
+            Icon(
+              Icons.edit,
+              color: Theme.of(context).iconTheme.color,
+              size: 20.0,
+            ),
+          ],
+        ),
+        style: ElevatedButton.styleFrom(
+            side: BorderSide(
+                color:
+                    Theme.of(context).textTheme.button?.color ?? Colors.grey),
+            primary: Colors.transparent,
+            elevation: 0),
       ),
     );
   }
