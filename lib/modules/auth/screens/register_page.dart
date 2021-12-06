@@ -387,17 +387,31 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void _register(BuildContext context) async {
-    _firestore.collection('users').add({
-      'avatar_url': null,
-      'name': _nameController.text,
-      'company': _companyController.text,
-      'email': _emailController.text,
-      'phone': _phoneController.text,
-      'location': city,
-      'projects': [],
-    });
-    _auth.createUserWithEmailAndPassword(
-        email: _emailController.text, password: _passwordController.text);
+    try {
+      final userCred = await _auth.createUserWithEmailAndPassword(
+          email: _emailController.text, password: _passwordController.text);
+
+      final uid = userCred.user?.uid;
+      if (uid != null) {
+        _firestore.collection('users').doc(uid).set({
+          'avatar_url': null,
+          'name': _nameController.text,
+          'company': _companyController.text,
+          'email': _emailController.text,
+          'phone': _phoneController.text,
+          'location': city,
+          'projects': [],
+        });
+      }
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.toString())),
+      );
+    } on Exception catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.toString())),
+      );
+    }
   }
 
   @override

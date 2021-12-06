@@ -2,9 +2,11 @@ import 'dart:developer';
 
 import 'package:capstone/config/themes/app_colors.dart';
 import 'package:capstone/config/themes/app_input_decoration.dart';
+import 'package:capstone/modules/settings/viewmodel/account_settings_viewmodel.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AccountSettingsPage extends StatelessWidget {
   final _emailController = TextEditingController();
@@ -13,44 +15,54 @@ class AccountSettingsPage extends StatelessWidget {
   final _passwordConfirmController = TextEditingController();
 
   AccountSettingsPage({Key? key}) : super(key: key);
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Setelan Akun'),
-        centerTitle: true,
-        backgroundColor: AppColors.primaryColor,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Builder(builder: (context) {
-          return ListView(
-            children: [
-              ListTile(
-                leading: const Icon(Icons.email),
-                title: Text(_auth.currentUser?.email ?? ''),
-                onTap: () => _showEditEmailSheet(context),
-                trailing: const Icon(Icons.edit),
-              ),
-              ListTile(
-                leading: const Icon(Icons.password),
-                title: const Text('Password'),
-                onTap: () => _showEditPasswordSheet(context),
-                trailing: const Icon(Icons.edit),
-              ),
-            ],
+    return ChangeNotifierProvider(
+        create: (_) => AccountSettingsViewModel(),
+        builder: (context, _) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Setelan Akun'),
+              centerTitle: true,
+              backgroundColor: AppColors.primaryColor,
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Builder(builder: (context) {
+                return ListView(
+                  // child: ListView(
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.email),
+                      title: Text(
+                          context.watch<AccountSettingsViewModel>().userEmail ??
+                              'N/A'),
+                      onTap: () => _showEditEmailSheet(context),
+                      trailing: const Icon(Icons.edit),
+                    ),
+                    ListTile(
+                      leading: const Icon(Icons.password),
+                      title: const Text('Password'),
+                      onTap: () => _showEditPasswordSheet(context),
+                      trailing: const Icon(Icons.edit),
+                    ),
+                  ],
+                  // ),
+                );
+              }),
+            ),
           );
-        }),
-      ),
-    );
+        });
   }
 
   void _showEditEmailSheet(BuildContext context) {
-    showModalBottomSheet(
+    _emailController.text =
+        context.read<AccountSettingsViewModel>().userEmail ?? '';
+    showBottomSheet(
       context: context,
-      builder: (context) {
+      builder: (_) {
+        log(context.read<AccountSettingsViewModel>().userEmail ?? 'NO EMAIL');
         // ignore: prefer_const_constructors
         return EditDataModalBottomSheet(
           fields: [
@@ -62,12 +74,22 @@ class AccountSettingsPage extends StatelessWidget {
           ],
           onSubmit: () async {
             try {
-              await _auth.currentUser?.updateEmail(_emailController.text);
+              log('SUBMIT EDIT EMAIL');
+              await context
+                  .read<AccountSettingsViewModel>()
+                  .updateEmail(_emailController.text)
+                  .then((value) {
+                Routes.router.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Berhasil update email'),
+                  ),
+                );
+              });
             } on FirebaseAuthException catch (e) {
+              log(e.message ?? "ERROR");
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(e.message ?? ''),
-                ),
+                SnackBar(content: Text(e.message ?? 'Error')),
               );
             }
           },
@@ -105,7 +127,17 @@ class AccountSettingsPage extends StatelessWidget {
           ],
           onSubmit: () async {
             try {
-              await _auth.currentUser?.updatePassword(_passwordController.text);
+              await context
+                  .read<AccountSettingsViewModel>()
+                  .updatePassword(_passwordController.text)
+                  .then((value) {
+                Routes.router.pop(context);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Berhasil update password'),
+                  ),
+                );
+              });
             } on FirebaseAuthException catch (e) {
               log(e.message!);
               ScaffoldMessenger.of(context).showSnackBar(
