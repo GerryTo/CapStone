@@ -67,11 +67,10 @@ class ProfilePage extends StatelessWidget {
     }
     return Expanded(
       child: ElevatedButton(
-        onPressed: () =>
-            Routes.router.navigateTo(context, Routes.accountSettings),
+        onPressed: () => Routes.router.navigateTo(context, Routes.editProfile),
         child: Wrap(
           children: [
-            Text('Edit Akun',
+            Text('Edit Profil',
                 style: Theme.of(context)
                     .textTheme
                     .button
