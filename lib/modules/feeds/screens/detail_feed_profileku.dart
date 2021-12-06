@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 class DetailFeedProfileKu extends StatefulWidget {
   const DetailFeedProfileKu(this.project, {Key? key}) : super(key: key);
   final DocumentReference project;
+
   @override
   State<DetailFeedProfileKu> createState() => _DetailFeedProfileKuState();
 }
@@ -28,65 +29,57 @@ class _DetailFeedProfileKuState extends State<DetailFeedProfileKu> {
   Widget build(BuildContext context) {
     return FutureBuilder<DocumentSnapshot>(
       future: widget.project.get(),
-      builder: (context,snapshot) {
-       if(snapshot.hasData){
-         final data = snapshot.data?.data() as Map<String , dynamic>?;
-         return Scaffold(
-           appBar: AppBar(
-             title: Text('SDFDF',
-                 style: GoogleFonts.roboto(fontWeight: FontWeight.w900)),
-             centerTitle: true,
-           ),
-           body: SafeArea(
-             child: SingleChildScrollView(
-               physics: const ClampingScrollPhysics(),
-               child: Column(
-                 crossAxisAlignment: CrossAxisAlignment.start,
-                 children: [
-                   if ((data?['images'] as List).length > 1)
-                     _sliderPhotos(context, (data?['images'] as List) )
-                   else
-                     _onlyOnePhoto(context, (data?['images'] as List?)?.first),
-                   Padding(
-                     padding: EdgeInsets.only(top: 30, left: 20),
-                     child:
-                     Text(data?['title'], style: TextStyle(fontSize: 18)),
-                   ),
-                   Padding(
-                     padding: EdgeInsets.only(top: 20, left: 20),
-                     child: Text(data?['description'],
-                         style: TextStyle(fontSize: 14)),
-                   ),
-                   const SizedBox(height: 10),
-                   _buttons(context,data),
-                 ],
-               ),
-             ),
-           ),
-         );
-       }
-       if(snapshot.hasError){
-         return Container();
-       }
-       return Container();
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final data = snapshot.data?.data() as Map<String, dynamic>?;
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('Feeds',
+                  style: GoogleFonts.roboto(fontWeight: FontWeight.w900)),
+              centerTitle: true,
+            ),
+            body: SafeArea(
+              child: SingleChildScrollView(
+                physics: const ClampingScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if ((data?['images'] as List).length > 1)
+                      _sliderPhotos(context, (data?['images'] as List))
+                    else
+                      _onlyOnePhoto(context, (data?['images'] as List?)?.first),
+                    Padding(
+                      padding: EdgeInsets.only(top: 30, left: 20),
+                      child:
+                          Text(data?['title'], style: TextStyle(fontSize: 18)),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 20, left: 20),
+                      child: Text(data?['description'],
+                          style: TextStyle(fontSize: 14)),
+                    ),
+                    const SizedBox(height: 10),
+                    _buttons(context, data),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+        if (snapshot.hasError) {
+          return Container();
+        }
+        return Container();
       },
     );
   }
 
-  Container _onlyOnePhoto(BuildContext context,String images ) {
+  Container _onlyOnePhoto(BuildContext context, String images) {
     return Container(
-      width: MediaQuery
-          .of(context)
-          .size
-          .width,
-      height: MediaQuery
-          .of(context)
-          .size
-          .height - 450,
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height - 450,
       decoration: BoxDecoration(
-        image: DecorationImage(
-            image: NetworkImage(images),
-            fit: BoxFit.fill),
+        image: DecorationImage(image: NetworkImage(images), fit: BoxFit.fill),
       ),
     );
   }
@@ -111,8 +104,7 @@ class _DetailFeedProfileKuState extends State<DetailFeedProfileKu> {
                 height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: NetworkImage(item),
-                      fit: BoxFit.fill),
+                      image: NetworkImage(item), fit: BoxFit.fill),
                 ),
               );
             }).toList(),
@@ -121,7 +113,7 @@ class _DetailFeedProfileKuState extends State<DetailFeedProfileKu> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: map<Widget>(
               images,
-                  (index, url) {
+              (index, url) {
                 return Container(
                   width: _currentIndex == index ? 15 : 10.0,
                   height: 10.0,
@@ -169,36 +161,28 @@ class _DetailFeedProfileKuState extends State<DetailFeedProfileKu> {
           ),
           const SizedBox(width: 20),
           Expanded(
-            // width: MediaQuery.of(context).size.width - 230,
             child: ElevatedButton(
-              onPressed: () =>
-                  Routes.router.navigateTo(context, Routes.editFeed, routeSettings: RouteSettings(arguments: widget.project)),
+              onPressed: () => Routes.router.navigateTo(
+                  context, Routes.editFeed,
+                  routeSettings: RouteSettings(arguments: widget.project)),
               child: Wrap(
                 children: [
                   Text('Edit',
-                      style: Theme
-                          .of(context)
+                      style: Theme.of(context)
                           .textTheme
                           .button
                           ?.copyWith(fontWeight: FontWeight.bold)),
                   const SizedBox(width: 10),
                   Icon(
                     Icons.edit,
-                    color: Theme
-                        .of(context)
-                        .iconTheme
-                        .color,
+                    color: Theme.of(context).iconTheme.color,
                     size: 20.0,
                   ),
                 ],
               ),
               style: ElevatedButton.styleFrom(
                   side: BorderSide(
-                      color: Theme
-                          .of(context)
-                          .textTheme
-                          .button
-                          ?.color ??
+                      color: Theme.of(context).textTheme.button?.color ??
                           Colors.grey),
                   primary: Colors.transparent,
                   elevation: 0),
