@@ -13,7 +13,7 @@ class CardFeed extends StatelessWidget {
   Widget build(BuildContext context) {
     final userRef = feed.userReference;
     return Padding(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(8),
       child: Card(
         child: Column(
           children: [
@@ -35,7 +35,7 @@ class CardFeed extends StatelessWidget {
                     children: [
                       UserAvatar(userRef),
                       Padding(
-                        padding: EdgeInsets.only(left: 10),
+                        padding: const EdgeInsets.only(left: 8),
                         child: Column(
                           children: [
                             Text(feed.title ?? ""),
@@ -48,7 +48,7 @@ class CardFeed extends StatelessWidget {
                   IconButton(
                     onPressed: () =>
                         Routes.router.navigateTo(context, Routes.profileUser),
-                    icon: Icon(Icons.arrow_right),
+                    icon: const Icon(Icons.arrow_right),
                   )
                 ],
               ),
