@@ -24,25 +24,26 @@ class CurrentUserInfo extends ChangeNotifier {
     }
   }
 
-  Future<QuerySnapshot<Map<String, dynamic>>> _getUserSnapshot() async {
-    final snap = await _firestore
-        .collection('users')
-        .where('email', isEqualTo: email)
-        .get();
+  Future<DocumentSnapshot<Map<String, dynamic>>> _getUserSnapshot() async {
+    final snap =
+        await _firestore.collection('users').doc(_auth.currentUser?.uid).get();
+
     return snap;
   }
 
   Future<void> getUserData() async {
     final snap = await _getUserSnapshot();
-    final data = snap.docs.first.data();
-    _userData = app.User.fromMap(data);
-    notifyListeners();
+    final data = snap.data();
+    if (data != null) {
+      _userData = app.User.fromMap(data);
+      notifyListeners();
+    }
   }
 
   Future<DocumentReference?> _getUserRef() async {
     try {
       final snap = await _getUserSnapshot();
-      return snap.docs.first.reference;
+      return snap.reference;
     } on Exception catch (e, s) {
       log("current_user_info", error: e, stackTrace: s);
     }
