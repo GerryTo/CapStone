@@ -62,7 +62,7 @@ class AccountSettingsPage extends StatelessWidget {
           ],
           onSubmit: () async {
             try {
-              await _auth.currentUser?.updateEmail(_emailController.text);
+              await _updateEmail(context);
             } on FirebaseAuthException catch (e) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -74,6 +74,17 @@ class AccountSettingsPage extends StatelessWidget {
         );
       },
     );
+  }
+
+  Future<void> _updateEmail(BuildContext context) async {
+    await _auth.currentUser?.updateEmail(_emailController.text).then((value) {
+      Routes.router.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Berhasil update email'),
+        ),
+      );
+    });
   }
 
   void _showEditPasswordSheet(BuildContext context) {
