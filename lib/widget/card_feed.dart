@@ -28,7 +28,11 @@ class CardFeed extends StatelessWidget {
             ]),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              child: _cardInfo(context, userRef),
+              child: GestureDetector(
+                onTap: () =>
+                    Routes.router.navigateTo(context, Routes.profileUser),
+                child: _cardInfo(context, userRef),
+              ),
             )
           ],
         ),
@@ -51,34 +55,30 @@ class CardFeed extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline5,
               ),
               const SizedBox(height: 8),
-              GestureDetector(
-                onTap: () =>
-                    Routes.router.navigateTo(context, Routes.profileUser),
-                child: Row(
-                  children: [
-                    CachedNetworkImage(
-                      height: 32,
-                      width: 32,
-                      imageUrl: data["avatar_url"],
-                      progressIndicatorBuilder:
-                          (context, url, downloadProgress) =>
-                              CircularProgressIndicator(
-                                  value: downloadProgress.progress),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      data["name"] ?? "",
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ),
-                    const SizedBox(width: 16),
-                    Spacer(),
-                    Text(
-                      data["company"] ?? "",
-                      style: Theme.of(context).textTheme.bodyText2,
-                    ),
-                  ],
-                ),
+              Row(
+                children: [
+                  CachedNetworkImage(
+                    height: 32,
+                    width: 32,
+                    imageUrl: data["avatar_url"],
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) =>
+                            CircularProgressIndicator(
+                                value: downloadProgress.progress),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
+                  const SizedBox(width: 8),
+                  Text(
+                    data["name"] ?? "",
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  const SizedBox(width: 16),
+                  Spacer(),
+                  Text(
+                    data["company"] ?? "",
+                    style: Theme.of(context).textTheme.bodyText2,
+                  ),
+                ],
               ),
             ],
           );
