@@ -27,8 +27,10 @@ final profileUserHandler =
 final accountSettingsHandler =
     Handler(handlerFunc: (context, params) => AccountSettingsPage());
 
-final detailFeedHandler =
-    Handler(handlerFunc: (context, params) => const DetailFeedsPage());
+final detailFeedHandler = Handler(handlerFunc: (context, params) {
+  final args = context?.settings?.arguments as DocumentReference;
+  return DetailFeedsPage(args);
+});
 
 final addProjectHandler =
     Handler(handlerFunc: (context, params) => const AddFeedPage());
@@ -36,11 +38,10 @@ final addProjectHandler =
 final editProfileHandler =
     Handler(handlerFunc: (context, params) => EditProfilePage());
 
-final detailFeedProfilKuHandeler =
-    Handler(handlerFunc: (context, params)  {
-        final args = context?.arguments as DocumentReference;
-        return DetailFeedProfileKu(args);
-    });
+final detailFeedProfilKuHandeler = Handler(handlerFunc: (context, params) {
+  final args = context?.arguments as DocumentReference;
+  return DetailFeedProfileKu(args);
+});
 
 final editFeedHandeler =
     Handler(handlerFunc: (context, params) => EditFeedPage());

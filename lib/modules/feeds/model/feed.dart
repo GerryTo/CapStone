@@ -19,6 +19,7 @@ class Feed {
       this.timestamp});
 
   factory Feed.fromMap(Map<String, dynamic> data) => Feed(
+        ref: data['ref'] as DocumentReference?,
         description: data['description'] as String?,
         images: (data['images'] as List).map((e) => e.toString()).toList(),
         title: data['title'] as String?,

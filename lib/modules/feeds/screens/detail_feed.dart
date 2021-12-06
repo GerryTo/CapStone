@@ -1,12 +1,13 @@
 import 'package:capstone/widget/card_photo.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DetailFeedsPage extends StatefulWidget {
-  const DetailFeedsPage({Key? key}) : super(key: key);
-
+  DetailFeedsPage(this.projectRef, {Key? key}) : super(key: key);
+  DocumentReference projectRef;
   @override
   State<DetailFeedsPage> createState() => _DetailFeedsPageState();
 }
