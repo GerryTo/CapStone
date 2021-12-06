@@ -1,9 +1,11 @@
 import 'package:capstone/config/themes/app_colors.dart';
-import 'package:capstone/widget/card_photo.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class EditFeedPage extends StatefulWidget {
+  const EditFeedPage(this.project,   {Key? key}) : super(key: key);
+  final DocumentReference project;
   @override
   State<EditFeedPage> createState() => _EditFeedPageState();
 }
@@ -20,31 +22,42 @@ class _EditFeedPageState extends State<EditFeedPage> {
     }
     return result;
   }
+  final titleController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Edit unggahan'),
-        centerTitle: true,
-        backgroundColor: AppColors.primaryColor,
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (cardList.length > 1)
-                _sliderPhotos()
-              else
-                _onlyOnePhoto(context),
-              _projectTitleField(),
-              _projectDescriptionField(),
-            ],
-          ),
-        ),
-      ),
+    return FutureBuilder<DocumentSnapshot>(
+      future: widget.project.get(),
+      builder: (context,snapshot){
+        if(snapshot.hasData){
+          final data = snapshot.data?.data() as Map<String , dynamic>?;
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Edit unggahan'),
+              centerTitle: true,
+              backgroundColor: AppColors.primaryColor,
+            ),
+            body: SafeArea(
+              child: SingleChildScrollView(
+                physics: const ClampingScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (cardList.length > 1)
+                      _sliderPhotos()
+                    else
+                      _onlyOnePhoto(context),
+                    _projectTitleField(data?['title']),
+                    _projectDescriptionField(data?['description']),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+
+        return Container();
+      },
     );
   }
 
@@ -74,9 +87,10 @@ class _EditFeedPageState extends State<EditFeedPage> {
                     _currentIndex = index;
                   });
                 }),
-            items: cardList.map((item) {
-              return CardPhoto();
-            }).toList(),
+            items: [],
+            // items: cardList.map((item) {
+            //   return CardPhoto();
+            // }).toList(),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -103,19 +117,21 @@ class _EditFeedPageState extends State<EditFeedPage> {
     );
   }
 
-  Widget _projectTitleField() {
-    return const Padding(
+  Widget _projectTitleField(String title) {
+    return Padding(
       padding: EdgeInsets.all(8.0),
       child: TextField(
-        decoration: InputDecoration(label: Text('Judul Proyek')),
+        controller: TextEditingController(text: title),
+        decoration: InputDecoration(label: Text('Judul projek')),
       ),
     );
   }
 
-  Widget _projectDescriptionField() {
-    return const Padding(
+  Widget _projectDescriptionField(String desc) {
+    return Padding(
       padding: EdgeInsets.all(8.0),
       child: TextField(
+        controller: TextEditingController(text: desc),
         minLines: 3,
         maxLines: 5,
         decoration:
