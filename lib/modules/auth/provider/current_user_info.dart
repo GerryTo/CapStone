@@ -44,20 +44,5 @@ class CurrentUserInfo extends ChangeNotifier {
     }
   }
 
-  DocumentReference? _getUserRef() {
-    try {
-      return _firestore.collection("users").doc('aaa');
-    } on Exception catch (e, s) {
-      log("current_user_info", error: e, stackTrace: s);
-    }
-  }
-
-  Future<DocumentReference<Object?>?> get userRef async {
-    if (_userRef != null) {
-      return _userRef;
-    } else {
-      _userRef = await _getUserRef();
-      return _userRef;
-    }
-  }
+  DocumentReference? get userRef => _firestore.collection("users").doc('aaa');
 }
