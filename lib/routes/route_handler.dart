@@ -1,8 +1,8 @@
 import 'package:capstone/modules/auth/screens/login_page.dart';
 import 'package:capstone/modules/feeds/screens/detail_feed.dart';
+import 'package:capstone/modules/profile/screens/profile_page.dart';
 
 import 'package:capstone/modules/settings/screens/edit_profile_page.dart';
-import 'package:capstone/modules/profile/screens/profile_user_page.dart';
 import 'package:capstone/modules/auth/screens/register_page.dart';
 import 'package:capstone/modules/settings/screens/account_settings_page.dart';
 import 'package:capstone/modules/feeds/screens/edit_feed.dart';
@@ -20,8 +20,10 @@ final registrationHandler =
 
 final homeHandler = Handler(handlerFunc: (context, params) => const HomePage());
 
-final profileUserHandler =
-    Handler(handlerFunc: (context, params) => const ProfileUserPage());
+final profileUserHandler = Handler(handlerFunc: (context, params) {
+  final args = context?.settings?.arguments as DocumentReference;
+  return ProfilePage(args);
+});
 
 final accountSettingsHandler =
     Handler(handlerFunc: (context, params) => AccountSettingsPage());
