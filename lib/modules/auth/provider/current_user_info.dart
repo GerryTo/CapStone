@@ -8,11 +8,14 @@ import 'package:flutter/material.dart';
 class CurrentUserInfo extends ChangeNotifier {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
-  DocumentReference? _userRef;
   app.User? _userData;
 
   String? get email {
     return _auth.currentUser?.email;
+  }
+
+  String? get id {
+    return _auth.currentUser?.uid;
   }
 
   Future<app.User?> get userData async {
@@ -40,21 +43,6 @@ class CurrentUserInfo extends ChangeNotifier {
     }
   }
 
-  Future<DocumentReference?> _getUserRef() async {
-    try {
-      final snap = await _getUserSnapshot();
-      return snap.reference;
-    } on Exception catch (e, s) {
-      log("current_user_info", error: e, stackTrace: s);
-    }
-  }
-
-  Future<DocumentReference<Object?>?> get userRef async {
-    if (_userRef != null) {
-      return _userRef;
-    } else {
-      _userRef = await _getUserRef();
-      return _userRef;
-    }
-  }
+  DocumentReference? get userRef =>
+      _firestore.collection("users").doc(_auth.currentUser?.uid);
 }

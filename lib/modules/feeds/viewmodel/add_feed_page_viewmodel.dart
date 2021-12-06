@@ -39,7 +39,7 @@ class AddFeedPageViewModel extends ChangeNotifier {
       status = AddFeedStatus.loading;
       notifyListeners();
       final imageURLs = await uploadImages(files);
-      final userRef = await currentUserInfo.userRef;
+      final userRef = currentUserInfo.userRef;
       log('USER REF : ${userRef?.id}');
 
       final feed = Feed(
@@ -47,6 +47,7 @@ class AddFeedPageViewModel extends ChangeNotifier {
         description: description,
         images: imageURLs,
         userReference: userRef,
+        timestamp: Timestamp.now(),
       ).toMap();
       //store the new project entity
       final project = await firestore.collection('projects').add(feed);

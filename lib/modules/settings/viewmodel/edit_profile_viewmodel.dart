@@ -27,8 +27,8 @@ class EditProfileViewModel extends ChangeNotifier {
 
   Future<void> fetchData() async {
     try {
-      final userRef = await currentUserInfo.userRef;
-      final user = await firestore.collection('users').doc(userRef?.id).get();
+      final user =
+          await firestore.collection('users').doc(currentUserInfo.id).get();
       final userData = user.data();
 
       _avatarUrl = userData?['avatar_url'];
@@ -50,8 +50,10 @@ class EditProfileViewModel extends ChangeNotifier {
 
   Future<void> updateName(String newName) async {
     try {
-      final userRef = await currentUserInfo.userRef;
-      firestore.collection('users').doc(userRef?.id).update({"name": newName});
+      firestore
+          .collection('users')
+          .doc(currentUserInfo.id)
+          .update({"name": newName});
     } on Exception catch (e, s) {
       log("edit_profile_viewmodel", error: e, stackTrace: s);
     } finally {
@@ -61,10 +63,9 @@ class EditProfileViewModel extends ChangeNotifier {
 
   Future<void> updateCompany(String company) async {
     try {
-      final userRef = await currentUserInfo.userRef;
       firestore
           .collection('users')
-          .doc(userRef?.id)
+          .doc(currentUserInfo.id)
           .update({"company": company});
     } on Exception catch (e, s) {
       log("edit_profile_viewmodel", error: e, stackTrace: s);
@@ -75,10 +76,9 @@ class EditProfileViewModel extends ChangeNotifier {
 
   Future<void> updateLocation(String location) async {
     try {
-      final userRef = await currentUserInfo.userRef;
       firestore
           .collection('users')
-          .doc(userRef?.id)
+          .doc(currentUserInfo.id)
           .update({"location": location});
     } on Exception catch (e, s) {
       log("edit_profile_viewmodel", error: e, stackTrace: s);
@@ -93,10 +93,9 @@ class EditProfileViewModel extends ChangeNotifier {
           .ref('avatar/${currentUserInfo.email}')
           .putFile(imageFile);
       final avatarUrl = await avatar.ref.getDownloadURL();
-      final userRef = await currentUserInfo.userRef;
       firestore
           .collection('users')
-          .doc(userRef?.id)
+          .doc(currentUserInfo.id)
           .update({"avatar_url": avatarUrl});
     } on Exception catch (e, s) {
       log("edit_profile_viewmodel", error: e, stackTrace: s);
@@ -107,8 +106,10 @@ class EditProfileViewModel extends ChangeNotifier {
 
   Future<void> updatePhone(String phone) async {
     try {
-      final userRef = await currentUserInfo.userRef;
-      firestore.collection('users').doc(userRef?.id).update({"phone": phone});
+      firestore
+          .collection('users')
+          .doc(currentUserInfo.id)
+          .update({"phone": phone});
     } on Exception catch (e, s) {
       log("edit_profile_viewmodel", error: e, stackTrace: s);
     } finally {

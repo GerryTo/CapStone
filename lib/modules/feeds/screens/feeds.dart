@@ -1,4 +1,5 @@
 import 'package:capstone/modules/feeds/viewmodel/feeds_viewmodel.dart';
+import 'package:capstone/routes/routes.dart';
 import 'package:capstone/widget/card_feed.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,11 +20,23 @@ class Feeds extends StatelessWidget {
         create: (_) => FeedsViewModel(),
         builder: (context, _) {
           final feeds = context.watch<FeedsViewModel>().feeds;
-          return ListView(
-            padding: EdgeInsets.zero,
-            children: List.generate(
-              feeds.length,
-              (index) => CardFeed(feeds[index]),
+          return RefreshIndicator(
+            onRefresh: () => context.read<FeedsViewModel>().getFeeds(),
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: List.generate(
+                feeds.length,
+                (index) => GestureDetector(
+                  onTap: () {
+                    Routes.router.navigateTo(
+                      context,
+                      Routes.detailFeed,
+                      routeSettings: RouteSettings(arguments: feeds[index].ref),
+                    );
+                  },
+                  child: CardFeed(feeds[index]),
+                ),
+              ),
             ),
           );
         },

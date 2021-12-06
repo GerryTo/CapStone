@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 class CardPhoto extends StatelessWidget {
-  const CardPhoto({Key? key}) : super(key: key);
-
+  CardPhoto(this.photoUrl, {Key? key}) : super(key: key);
+  String? photoUrl;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -10,7 +10,8 @@ class CardPhoto extends StatelessWidget {
       height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: NetworkImage('https://dummyimage.com/500x300/000/fff'),
+            image: NetworkImage(
+                photoUrl ?? 'https://dummyimage.com/500x300/000/fff'),
             fit: BoxFit.fill),
       ),
     );

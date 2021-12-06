@@ -1,7 +1,9 @@
+import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/feeds/screens/feeds.dart';
-import 'package:capstone/modules/profile/screens/profileku_page.dart';
+import 'package:capstone/modules/profile/screens/profile_page.dart';
 import 'package:capstone/modules/settings/screens/settings_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -15,55 +17,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // drawer: Drawer(
-      //   child: ListView(
-      //     padding: EdgeInsets.zero,
-      //     children: [
-      //       DrawerHeader(
-      //         decoration: const BoxDecoration(
-      //           color: Color(0xff0B3D66),
-      //         ),
-      //         child: Row(
-      //           children: [
-      //             const Icon(Icons.person, size: 100, color: Colors.white),
-      //             Column(
-      //               crossAxisAlignment: CrossAxisAlignment.start,
-      //               mainAxisAlignment: MainAxisAlignment.center,
-      //               children: const [
-      //                 Text("Nama ",
-      //                     style: TextStyle(color: Colors.white, fontSize: 16)),
-      //                 Text("Email@email.com",
-      //                     style: TextStyle(color: Colors.white, fontSize: 16))
-      //               ],
-      //             )
-      //           ],
-      //         ),
-      //       ),
-      //       ListTile(
-      //         leading: const Icon(Icons.person, size: 30),
-      //         title: const Text('Profil', style: TextStyle(fontSize: 16)),
-      //         onTap: () {},
-      //       ),
-      //       ListTile(
-      //         leading: const Icon(Icons.favorite, size: 30),
-      //         title: const Text('Favori', style: TextStyle(fontSize: 16)),
-      //         onTap: () {},
-      //       ),
-      //       ListTile(
-      //         leading: const Icon(Icons.settings, size: 30),
-      //         title: const Text('Setingan', style: TextStyle(fontSize: 16)),
-      //         onTap: () {},
-      //       ),
-      //     ],
-      //   ),
-      // ),
       body: IndexedStack(
         index: pageIndex,
-        children: const [
-          Feeds(),
-          ProfileKuPage(),
-          Center(child: Text('Favorit')),
-          SettingsPage(),
+        children: [
+          const Feeds(),
+          ProfilePage(context.read<CurrentUserInfo>().userRef!),
+          const Center(child: Text('Favorit')),
+          const SettingsPage(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
