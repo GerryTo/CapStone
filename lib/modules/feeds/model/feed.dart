@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Feed {
+  String? id;
   String? description;
   List<String>? images;
   String? title;
@@ -31,4 +32,20 @@ class Feed {
         'userReference': userReference,
         'timestamp': timestamp,
       };
+
+  Feed copyWith({
+    String? id,
+    String? description,
+    List<String>? images,
+    String? title,
+    DocumentReference? userReference,
+    Timestamp? timestamp,
+  }) {
+    return Feed(
+        description: description ?? this.description,
+        images: images ?? this.images,
+        title: title ?? this.title,
+        userReference: userReference ?? this.userReference,
+        timestamp: timestamp ?? this.timestamp);
+  }
 }
