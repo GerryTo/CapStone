@@ -13,7 +13,9 @@ class FeedsViewModel extends ChangeNotifier {
     final snap =
         await firestore.collection('projects').orderBy('timestamp').get();
     final feeds = snap.docs.map((doc) {
-      return Feed.fromMap(doc.data());
+      final data = doc.data();
+      data['ref'] = doc.reference;
+      return Feed.fromMap(data);
     }).toList();
 
     this.feeds.addAll(feeds);
