@@ -1,13 +1,12 @@
 import 'package:capstone/modules/auth/screens/login_page.dart';
-import 'package:capstone/modules/feeds/screens/detail_feed.dart';
-
-import 'package:capstone/modules/settings/screens/edit_profile_page.dart';
-import 'package:capstone/modules/feeds/screens/detail_feed_profileku.dart';
-import 'package:capstone/modules/profile/screens/profile_user_page.dart';
 import 'package:capstone/modules/auth/screens/register_page.dart';
-import 'package:capstone/modules/settings/screens/account_settings_page.dart';
-import 'package:capstone/modules/feeds/screens/edit_feed.dart';
 import 'package:capstone/modules/feeds/screens/add_feed_page.dart';
+import 'package:capstone/modules/feeds/screens/detail_feed.dart';
+import 'package:capstone/modules/feeds/screens/detail_feed_profileku.dart';
+import 'package:capstone/modules/feeds/screens/edit_feed.dart';
+import 'package:capstone/modules/profile/screens/profile_user_page.dart';
+import 'package:capstone/modules/settings/screens/account_settings_page.dart';
+import 'package:capstone/modules/settings/screens/edit_profile_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluro/fluro.dart';
 
@@ -43,4 +42,7 @@ final detailFeedProfilKuHandeler =
     });
 
 final editFeedHandeler =
-    Handler(handlerFunc: (context, params) => EditFeedPage());
+    Handler(handlerFunc: (context, params) {
+        final args = context?.arguments as DocumentReference;
+        return EditFeedPage(args);
+    });

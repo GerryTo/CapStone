@@ -58,7 +58,7 @@ class _DetailFeedProfileKuState extends State<DetailFeedProfileKu> {
                          style: TextStyle(fontSize: 14)),
                    ),
                    const SizedBox(height: 10),
-                   _buttons(context),
+                   _buttons(context,data),
                  ],
                ),
              ),
@@ -66,9 +66,9 @@ class _DetailFeedProfileKuState extends State<DetailFeedProfileKu> {
          );
        }
        if(snapshot.hasError){
-         return Placeholder();
+         return Container();
        }
-       return Placeholder();
+       return Container();
       },
     );
   }
@@ -142,7 +142,7 @@ class _DetailFeedProfileKuState extends State<DetailFeedProfileKu> {
     );
   }
 
-  Padding _buttons(BuildContext context) {
+  Padding _buttons(BuildContext context, data) {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Row(
@@ -172,7 +172,7 @@ class _DetailFeedProfileKuState extends State<DetailFeedProfileKu> {
             // width: MediaQuery.of(context).size.width - 230,
             child: ElevatedButton(
               onPressed: () =>
-                  Routes.router.navigateTo(context, Routes.editFeed),
+                  Routes.router.navigateTo(context, Routes.editFeed, routeSettings: RouteSettings(arguments: widget.project)),
               child: Wrap(
                 children: [
                   Text('Edit',
