@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone/modules/feeds/model/feed.dart';
 import 'package:capstone/routes/routes.dart';
-import 'package:capstone/widget/user_avatar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,8 +28,13 @@ class CardFeed extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: GestureDetector(
-                onTap: () =>
-                    Routes.router.navigateTo(context, Routes.profileUser),
+                onTap: () => Routes.router.navigateTo(
+                  context,
+                  Routes.profileUser,
+                  routeSettings: RouteSettings(
+                    arguments: userRef,
+                  ),
+                ),
                 child: _cardInfo(context, userRef),
               ),
             )
