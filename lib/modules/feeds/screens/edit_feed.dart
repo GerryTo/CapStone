@@ -88,7 +88,6 @@ class _EditFeedPageState extends State<EditFeedPage> {
         children: [
           const SizedBox(width: 20),
           Expanded(
-            // width: MediaQuery.of(context).size.width - 230,
             child: ElevatedButton(
               onPressed: () {
                 showDialog<String>(

@@ -112,7 +112,7 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
       if (user.id != project.userReference?.id) {
         return Container();
       }
-      return MyFeedAction();
+      return MyFeedAction(widget.projectRef);
     });
   }
 
