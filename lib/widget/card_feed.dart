@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone/modules/feeds/model/feed.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:capstone/widget/user_avatar.dart';
@@ -17,8 +18,13 @@ class CardFeed extends StatelessWidget {
         child: Column(
           children: [
             Column(children: [
-              Image.network(feed.images?.first ??
-                  "https://via.placeholder.com/480x360?text=No+Picture")
+              CachedNetworkImage(
+                imageUrl: feed.images?.first ??
+                    "https://via.placeholder.com/480x360?text=No+Picture",
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+              ),
             ]),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
