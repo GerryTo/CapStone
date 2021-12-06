@@ -20,19 +20,23 @@ class Feeds extends StatelessWidget {
         create: (_) => FeedsViewModel(),
         builder: (context, _) {
           final feeds = context.watch<FeedsViewModel>().feeds;
-          return ListView(
-            padding: EdgeInsets.zero,
-            children: List.generate(
-              feeds.length,
-              (index) => GestureDetector(
-                  onTap: () {
-                    Routes.router.navigateTo(
-                      context,
-                      Routes.detailFeed,
-                      routeSettings: RouteSettings(arguments: feeds[index].ref),
-                    );
-                  },
-                  child: CardFeed(feeds[index])),
+          return RefreshIndicator(
+            onRefresh: () => context.read<FeedsViewModel>().getFeeds(),
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: List.generate(
+                feeds.length,
+                (index) => GestureDetector(
+                    onTap: () {
+                      Routes.router.navigateTo(
+                        context,
+                        Routes.detailFeed,
+                        routeSettings:
+                            RouteSettings(arguments: feeds[index].ref),
+                      );
+                    },
+                    child: CardFeed(feeds[index])),
+              ),
             ),
           );
         },
