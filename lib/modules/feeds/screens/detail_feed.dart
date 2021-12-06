@@ -12,8 +12,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class DetailFeedsPage extends StatefulWidget {
-  DetailFeedsPage(this.projectRef, {Key? key}) : super(key: key);
-  DocumentReference projectRef;
+  const DetailFeedsPage(this.projectRef, {Key? key}) : super(key: key);
+  final DocumentReference projectRef;
   @override
   State<DetailFeedsPage> createState() => _DetailFeedsPageState();
 }
