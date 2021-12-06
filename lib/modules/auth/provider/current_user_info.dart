@@ -15,6 +15,10 @@ class CurrentUserInfo extends ChangeNotifier {
     return _auth.currentUser?.email;
   }
 
+  String? get id {
+    return _auth.currentUser?.uid;
+  }
+
   Future<app.User?> get userData async {
     if (_userData != null) {
       return _userData;
@@ -40,10 +44,9 @@ class CurrentUserInfo extends ChangeNotifier {
     }
   }
 
-  Future<DocumentReference?> _getUserRef() async {
+  DocumentReference? _getUserRef() {
     try {
-      final snap = await _getUserSnapshot();
-      return snap.reference;
+      return _firestore.collection("users").doc('aaa');
     } on Exception catch (e, s) {
       log("current_user_info", error: e, stackTrace: s);
     }

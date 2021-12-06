@@ -1,5 +1,7 @@
+import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/error/screens/not_found_page.dart';
 import 'package:capstone/modules/feeds/model/feed.dart';
+import 'package:capstone/modules/feeds/widgets/my_feed_actions.dart';
 import 'package:capstone/widget/card_photo.dart';
 import 'package:capstone/widget/loading.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -7,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class DetailFeedsPage extends StatefulWidget {
   DetailFeedsPage(this.projectRef, {Key? key}) : super(key: key);
@@ -54,52 +57,63 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
 
   Scaffold _content(BuildContext context, Feed project) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Arsitek A",
-              style: GoogleFonts.roboto(fontWeight: FontWeight.w900)),
-          centerTitle: true,
-        ),
-        body: SafeArea(
-          child: SingleChildScrollView(
-            physics: const ClampingScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _profileWidget(),
-                if ((project.images?.length ?? 0) > 1)
-                  _sliderPhotos(project.images ?? [])
-                else
-                  _onlyOnePhoto(context, project.images?.first),
-                Padding(
-                  padding: const EdgeInsets.only(top: 30, left: 20),
-                  child:
-                      Text(project.title ?? '', style: TextStyle(fontSize: 18)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20, left: 20),
-                  child: Text(project.description ?? '',
-                      style: TextStyle(fontSize: 14)),
-                ),
-              ],
-            ),
+      appBar: AppBar(
+        title: Text("Arsitek A",
+            style: GoogleFonts.roboto(fontWeight: FontWeight.w900)),
+        centerTitle: true,
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _profileWidget(),
+              if ((project.images?.length ?? 0) > 1)
+                _sliderPhotos(project.images ?? [])
+              else
+                _onlyOnePhoto(context, project.images?.first),
+              Padding(
+                padding: const EdgeInsets.only(top: 30, left: 20),
+                child: Text(project.title ?? '',
+                    style: const TextStyle(fontSize: 18)),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20, left: 20),
+                child: Text(project.description ?? '',
+                    style: const TextStyle(fontSize: 14)),
+              ),
+              _myFeedActions(project),
+            ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.white,
-          onPressed: () {},
-          child: IconButton(
-            icon: Icon(
-                _isFavorited
-                    ? Icons.bookmark_rounded
-                    : Icons.bookmark_outline_rounded,
-                color: Colors.black),
-            onPressed: () {
-              setState(() {
-                _isFavorited = !_isFavorited;
-              });
-            },
-          ),
-        ));
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
+        onPressed: () {},
+        child: IconButton(
+          icon: Icon(
+              _isFavorited
+                  ? Icons.bookmark_rounded
+                  : Icons.bookmark_outline_rounded,
+              color: Colors.black),
+          onPressed: () {
+            setState(() {
+              _isFavorited = !_isFavorited;
+            });
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _myFeedActions(Feed project) {
+    return Consumer<CurrentUserInfo>(builder: (context, user, _) {
+      if (user.id != project.userReference?.id) {
+        return Container();
+      }
+      return MyFeedAction();
+    });
   }
 
   Container _onlyOnePhoto(BuildContext context, String? photo) {
