@@ -58,7 +58,7 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
   Scaffold _content(BuildContext context, Feed project) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Arsitek A",
+        title: Text("Unggahan",
             style: GoogleFonts.roboto(fontWeight: FontWeight.w900)),
         centerTitle: true,
       ),

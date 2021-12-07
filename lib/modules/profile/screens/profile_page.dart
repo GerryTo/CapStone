@@ -21,7 +21,7 @@ class ProfilePage extends StatelessWidget {
             appBar: AppBar(
               title: Text(value.user?.name ?? '',
                   style: GoogleFonts.roboto(
-                      fontWeight: FontWeight.w900, fontSize: 24)),
+                      fontWeight: FontWeight.w900, fontSize: 16)),
               centerTitle: true,
             ),
             body: SingleChildScrollView(
@@ -140,7 +140,7 @@ class ProfilePage extends StatelessWidget {
             children: [
               Text(context.watch<ProfileViewModel>().user?.name ?? '',
                   style: const TextStyle(
-                      fontSize: 24,
+                      fontSize: 18,
                       fontFamily: 'Roboto',
                       fontWeight: FontWeight.w900)),
               const SizedBox(height: 10),

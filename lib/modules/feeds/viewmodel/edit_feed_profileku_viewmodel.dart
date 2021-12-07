@@ -17,7 +17,6 @@ class EditFeedProfileKuViewModel extends ChangeNotifier{
     fetchData(ref);
   }
 
-
   Future<void>fetchData(String ref)async {
     try{
       status = EditFeedStatus.loading;
