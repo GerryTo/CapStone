@@ -1,11 +1,11 @@
 import 'package:capstone/config/themes/app_colors.dart';
 import 'package:capstone/constants/city_names.dart';
 import 'package:capstone/routes/routes.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:provider/src/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -140,12 +140,37 @@ class _RegisterPageState extends State<RegisterPage> {
                         width: MediaQuery.of(context).size.width - 200,
                         child: ElevatedButton(
                           onPressed: () {
-                            _register(context);
-                            showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  _showDialog(context),
-                            );
+                            if(_passwordController == null || _phoneController == null || _emailController == null ||
+                                _companyController == null|| _nameController == null || city == null){
+                              Alert(
+                                context: context,
+                                style: AlertStyle(
+                                  isCloseButton: false,
+                                  animationType: AnimationType.grow,
+                                ),
+                                type: AlertType.error,
+                                title: "GAGAL REGISTER",
+                                desc: "Yakin sudah semua di isi?",
+                                buttons: [
+                                  DialogButton(
+                                    child: Text(
+                                      "Kembali",
+                                      style: TextStyle(color: Colors.white, fontSize: 20),
+                                    ),
+                                    onPressed: () => Navigator.pop(context),
+                                    color: Color.fromRGBO(0, 179, 134, 1.0),
+                                  ),
+                                ],
+                              ).show();
+                            }
+                            else {
+                              _register(context);
+                              showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      _showDialog(context)
+                              );
+                            }
                           },
                           child: const Text('Daftar',
                               style: TextStyle(
