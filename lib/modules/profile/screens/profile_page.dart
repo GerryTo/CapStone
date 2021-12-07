@@ -37,17 +37,25 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
             ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () =>
-                  Routes.router.navigateTo(context, Routes.addProject),
-              child: const Icon(Icons.add),
-            ),
+            floatingActionButton: _myAddAction(value.userRef)
           );
         },
       ),
     );
   }
 
+  Widget _myAddAction(DocumentReference userRef){
+    return Consumer<CurrentUserInfo>(builder: (context,user,_){
+      if(user.id != userRef.id){
+        return Container();
+      }
+      return FloatingActionButton(
+          onPressed: () =>
+          Routes.router.navigateTo(context, Routes.addProject),
+      child: const Icon(Icons.add)
+      );
+    });
+  }
   Padding _buttons(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16),
