@@ -54,7 +54,7 @@ class SettingsPage extends StatelessWidget {
                 ),
               ),
               ListTile(
-                title: const Text('Setelan Akun'),
+                title: const Text('Setelan Akun',style: TextStyle(fontSize: 18)),
                 leading: Icon(
                   Icons.person,
                   color: Theme.of(context).iconTheme.color,
@@ -62,9 +62,8 @@ class SettingsPage extends StatelessWidget {
                 onTap: () =>
                     Routes.router.navigateTo(context, Routes.accountSettings),
               ),
-              Divider(thickness: 1),
               ListTile(
-                  title: const Text('Mode Gelap'),
+                  title: const Text('Mode Gelap',style: TextStyle(fontSize: 18)),
                   leading: Icon(
                     Icons.dark_mode,
                     color: Theme.of(context).iconTheme.color,
@@ -89,19 +88,17 @@ class SettingsPage extends StatelessWidget {
                       )
                     ],
                   )),
-              Divider(thickness: 1),
               ListTile(
-                title: const Text('Tentang'),
+                title: const Text('Tentang',style: TextStyle(fontSize: 18)),
                 leading: Icon(
                   Icons.info,
                   color: Theme.of(context).iconTheme.color,
                 ),
                 onTap: () {},
               ),
-              Divider(thickness: 1),
               ListTile(
                 title:
-                    const Text('Logout', style: TextStyle(color: Colors.red)),
+                    const Text('Logout', style: TextStyle(color: Colors.red,fontSize: 18)),
                 leading: const Icon(
                   Icons.logout,
                   color: Colors.red,
@@ -150,7 +147,6 @@ class SettingsPage extends StatelessWidget {
                   ).show();
                 },
               ),
-              Divider(thickness: 1),
             ],
           ),
         );

@@ -12,27 +12,6 @@ class MyFeedAction extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: ElevatedButton(
-              onPressed: () {},
-              child: Wrap(children: const [
-                Text(
-                  'Hapus',
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(width: 10),
-                Icon(
-                  Icons.delete,
-                  color: Colors.white,
-                  size: 19.0,
-                )
-              ]),
-              style: ElevatedButton.styleFrom(
-                  primary: const Color(0xffF23535), elevation: 0),
-            ),
-          ),
-          const SizedBox(width: 20),
-          Expanded(
             // width: MediaQuery.of(context).size.width - 230,
             child: ElevatedButton(
               onPressed: () =>

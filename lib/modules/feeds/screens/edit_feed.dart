@@ -1,4 +1,5 @@
 import 'package:capstone/config/themes/app_colors.dart';
+import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/feeds/viewmodel/edit_feed_profileku_viewmodel.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -26,7 +27,9 @@ class _EditFeedPageState extends State<EditFeedPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<EditFeedProfileKuViewModel>(
-      create: (_) => EditFeedProfileKuViewModel(ref: widget.project.id),
+      create: (_) => EditFeedProfileKuViewModel(
+          ref: widget.project.id,
+          currentUserId: context.read<CurrentUserInfo>().id!),
       child: Consumer<EditFeedProfileKuViewModel>(
         builder: (context, value, child) {
           return Scaffold(
@@ -86,6 +89,30 @@ class _EditFeedPageState extends State<EditFeedPage> {
       padding: const EdgeInsets.all(16),
       child: Row(
         children: [
+          Expanded(
+            child: ElevatedButton(
+              onPressed: () {
+                context.read<EditFeedProfileKuViewModel>().deleteFeed();
+                Navigator.pop(context);
+              },
+              child: Wrap(children: const [
+                Text(
+                  'Hapus',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(width: 10),
+                Icon(
+                  Icons.delete,
+                  color: Colors.white,
+                  size: 19.0,
+                )
+              ]),
+              style: ElevatedButton.styleFrom(
+                  primary: const Color(0xffF23535), elevation: 0),
+            ),
+          ),
+          const SizedBox(width: 20),
           Expanded(
             child: ElevatedButton(
               onPressed: () {
