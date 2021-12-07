@@ -2,6 +2,7 @@ import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/error/screens/not_found_page.dart';
 import 'package:capstone/modules/feeds/model/feed.dart';
 import 'package:capstone/modules/feeds/viewmodel/detail_feed_viewmodel.dart';
+import 'package:capstone/modules/feeds/widgets/favorite_button.dart';
 import 'package:capstone/modules/feeds/widgets/my_feed_actions.dart';
 import 'package:capstone/widget/card_photo.dart';
 import 'package:capstone/widget/loading.dart';
@@ -88,23 +89,17 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.white,
-        onPressed: () {},
-        child: Consumer<DetailFeedViewModel>(builder: (context, viewmodel, _) {
-          return IconButton(
-            icon: Icon(
-                viewmodel.isFavorite
-                    ? Icons.bookmark_rounded
-                    : Icons.bookmark_outline_rounded,
-                color: Colors.black),
-            onPressed: () {
-              viewmodel.toggleFavorite();
-            },
-          );
-        }),
-      ),
+      floatingActionButton: _myFavoriteBottons(project),
     );
+  }
+
+  Widget _myFavoriteBottons(Feed project){
+    return Consumer<CurrentUserInfo>(builder: (context,user,_){
+      if(user.id == project.userReference?.id){
+        return Container();
+      }
+      return FavoriteButton();
+    });
   }
 
   Widget _myFeedActions(Feed project) {
