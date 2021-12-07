@@ -62,6 +62,7 @@ class SettingsPage extends StatelessWidget {
                 onTap: () =>
                     Routes.router.navigateTo(context, Routes.accountSettings),
               ),
+              Divider(thickness: 1),
               ListTile(
                   title: const Text('Mode Gelap'),
                   leading: Icon(
@@ -88,6 +89,7 @@ class SettingsPage extends StatelessWidget {
                       )
                     ],
                   )),
+              Divider(thickness: 1),
               ListTile(
                 title: const Text('Tentang'),
                 leading: Icon(
@@ -96,6 +98,7 @@ class SettingsPage extends StatelessWidget {
                 ),
                 onTap: () {},
               ),
+              Divider(thickness: 1),
               ListTile(
                 title:
                     const Text('Logout', style: TextStyle(color: Colors.red)),
@@ -106,23 +109,39 @@ class SettingsPage extends StatelessWidget {
                 onTap: () {
                   Alert(
                     context: context,
-                    type: AlertType.warning,
-                    title: "LOGOUT?",
-                    desc: "kamu Yakin Log Out dari GAZEBO ?",
+                    style: AlertStyle(
+                      isCloseButton: false,
+                      animationType: AnimationType.grow,
+                      titleStyle: TextStyle(
+                        color: Theme.of(context).textTheme.button?.color ??
+                          Colors.grey,
+                      ),
+                      descStyle: TextStyle(
+                        color: Theme.of(context).textTheme.button?.color ??
+                            Colors.grey,
+                      ),
+                    ),
+                    type: AlertType.info,
+                    title: "LOG OUT",
+                    desc: "kamu yakin log out dari Gazebo ?",
                     buttons: [
                       DialogButton(
-                        child: Text(
+                        child: const Text(
                           "Tidak",
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
+                        color: const Color(0xffF23535),
                         onPressed: () => Navigator.pop(context),
                         width: 120,
                       ),
                       DialogButton(
-                          child: Text(
+                          child: const Text(
                             "Ya",
-                            style: TextStyle(color: Colors.white, fontSize: 20),
+                            style: TextStyle(fontSize: 20),
                           ),
+                          border: Border.all(color: Theme.of(context).textTheme.button?.color ??
+                  Colors.grey, width: 1),
+                          color: Colors.transparent,
                           onPressed: ()async{
                             await _auth.signOut();
                             Routes.router.navigateTo(context, Routes.root);
@@ -131,6 +150,7 @@ class SettingsPage extends StatelessWidget {
                   ).show();
                 },
               ),
+              Divider(thickness: 1),
             ],
           ),
         );
