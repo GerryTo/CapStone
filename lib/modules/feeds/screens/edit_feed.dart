@@ -86,7 +86,6 @@ class _EditFeedPageState extends State<EditFeedPage> {
       padding: const EdgeInsets.all(16),
       child: Row(
         children: [
-          const SizedBox(width: 20),
           Expanded(
             child: ElevatedButton(
               onPressed: () {
@@ -131,7 +130,7 @@ class _EditFeedPageState extends State<EditFeedPage> {
       content: const Text('Kamu yakin untuk mengedit feednya?'),
       actions: <Widget>[
         Padding(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[

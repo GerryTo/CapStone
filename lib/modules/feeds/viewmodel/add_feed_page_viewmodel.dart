@@ -3,12 +3,11 @@ import 'dart:io';
 
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/feeds/model/feed.dart';
-import 'package:capstone/service_locator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 enum AddFeedStatus { init, loading, success, fail }
 

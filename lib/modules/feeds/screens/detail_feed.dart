@@ -76,12 +76,12 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 30, left: 20),
                 child: Text(project.title ?? '',
-                    style: const TextStyle(fontSize: 18)),
+                    style: const TextStyle(fontSize: 24)),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 20, left: 20),
+                padding: const EdgeInsets.only(top: 10, left: 20),
                 child: Text(project.description ?? '',
-                    style: const TextStyle(fontSize: 14)),
+                    style: GoogleFonts.poppins(fontSize: 14)),
               ),
               _myFeedActions(project),
             ],
