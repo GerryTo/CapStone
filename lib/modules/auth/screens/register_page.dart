@@ -140,8 +140,12 @@ class _RegisterPageState extends State<RegisterPage> {
                         width: MediaQuery.of(context).size.width - 200,
                         child: ElevatedButton(
                           onPressed: () {
-                            if(_passwordController == null || _phoneController == null || _emailController == null ||
-                                _companyController == null|| _nameController == null || city == null){
+                            if (_passwordController == null ||
+                                _phoneController == null ||
+                                _emailController == null ||
+                                _companyController == null ||
+                                _nameController == null ||
+                                city == null) {
                               Alert(
                                 context: context,
                                 style: AlertStyle(
@@ -155,21 +159,20 @@ class _RegisterPageState extends State<RegisterPage> {
                                   DialogButton(
                                     child: Text(
                                       "Kembali",
-                                      style: TextStyle(color: Colors.white, fontSize: 20),
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 20),
                                     ),
                                     onPressed: () => Navigator.pop(context),
                                     color: Color.fromRGBO(0, 179, 134, 1.0),
                                   ),
                                 ],
                               ).show();
-                            }
-                            else {
+                            } else {
                               _register(context);
                               showDialog<String>(
                                   context: context,
                                   builder: (BuildContext context) =>
-                                      _showDialog(context)
-                              );
+                                      _showDialog(context));
                             }
                           },
                           child: const Text('Daftar',
