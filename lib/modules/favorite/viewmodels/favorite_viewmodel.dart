@@ -20,7 +20,9 @@ class FavoriteViewModel extends ChangeNotifier {
       final DocumentReference projectRef = doc.data()['project'];
       final projectSnapshot = await projectRef.get();
       final projectData = projectSnapshot.data() as Map<String, dynamic>;
-      final project = Feed.fromMap(projectData);
+
+      final project =
+          Feed.fromMap(projectData).copyWith(ref: projectSnapshot.reference);
       favorites.add(project);
       notifyListeners();
     }
