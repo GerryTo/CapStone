@@ -1,6 +1,7 @@
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/error/screens/not_found_page.dart';
 import 'package:capstone/modules/feeds/model/feed.dart';
+import 'package:capstone/modules/feeds/viewmodel/detail_feed_viewmodel.dart';
 import 'package:capstone/modules/feeds/widgets/my_feed_actions.dart';
 import 'package:capstone/widget/card_photo.dart';
 import 'package:capstone/widget/loading.dart';
@@ -19,7 +20,6 @@ class DetailFeedsPage extends StatefulWidget {
 }
 
 class _DetailFeedsPageState extends State<DetailFeedsPage> {
-  late bool _isFavorited;
   int _currentIndex = 0;
 
   List<T> map<T>(List list, Function handler) {
@@ -31,12 +31,6 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    _isFavorited = false;
-  }
-
-  @override
   Widget build(BuildContext context) {
     return FutureBuilder<DocumentSnapshot>(
       future: widget.projectRef.get(),
@@ -44,7 +38,13 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
         if (snapshot.hasData) {
           final data = snapshot.data?.data();
           final project = Feed.fromMap(data as Map<String, dynamic>);
-          return _content(context, project);
+          return ChangeNotifierProvider(
+            create: (_) => DetailFeedViewModel(
+              widget.projectRef,
+              context.read<CurrentUserInfo>().userRef!,
+            ),
+            child: _content(context, project),
+          );
         }
 
         if (snapshot.hasError) {
@@ -91,18 +91,18 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
         onPressed: () {},
-        child: IconButton(
-          icon: Icon(
-              _isFavorited
-                  ? Icons.bookmark_rounded
-                  : Icons.bookmark_outline_rounded,
-              color: Colors.black),
-          onPressed: () {
-            setState(() {
-              _isFavorited = !_isFavorited;
-            });
-          },
-        ),
+        child: Consumer<DetailFeedViewModel>(builder: (context, viewmodel, _) {
+          return IconButton(
+            icon: Icon(
+                viewmodel.isFavorite
+                    ? Icons.bookmark_rounded
+                    : Icons.bookmark_outline_rounded,
+                color: Colors.black),
+            onPressed: () {
+              viewmodel.toggleFavorite();
+            },
+          );
+        }),
       ),
     );
   }
