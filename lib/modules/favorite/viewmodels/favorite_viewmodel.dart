@@ -7,14 +7,22 @@ class FavoriteViewModel extends ChangeNotifier {
   final DocumentReference? userRef;
   final favoriteCollection = FirebaseFirestore.instance.collection('favorites');
 
-  FavoriteViewModel(this.userRef);
+  FavoriteViewModel(this.userRef) {
+    getFavorites();
+  }
 
   Future<void> getFavorites() async {
-    final data =
+    final snapshot =
         await favoriteCollection.where("user", isEqualTo: userRef).get();
-    favorites = data.docs.map((doc) {
-      return Feed.fromMap(doc.data());
-    }).toList();
+    final docs = snapshot.docs;
+    for (final doc in docs) {
+      final DocumentReference projectRef = doc.data()['project'];
+      final projectSnapshot = await projectRef.get();
+      final projectData = projectSnapshot.data() as Map<String, dynamic>;
+      final project = Feed.fromMap(projectData);
+      favorites.add(project);
+      notifyListeners();
+    }
     notifyListeners();
   }
 }
