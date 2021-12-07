@@ -91,6 +91,30 @@ class _EditFeedPageState extends State<EditFeedPage> {
           Expanded(
             child: ElevatedButton(
               onPressed: () {
+                context.read<EditFeedProfileKuViewModel>().deleteFeed();
+                Navigator.pop(context);
+              },
+              child: Wrap(children: const [
+                Text(
+                  'Hapus',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(width: 10),
+                Icon(
+                  Icons.delete,
+                  color: Colors.white,
+                  size: 19.0,
+                )
+              ]),
+              style: ElevatedButton.styleFrom(
+                  primary: const Color(0xffF23535), elevation: 0),
+            ),
+          ),
+          const SizedBox(width: 20),
+          Expanded(
+            child: ElevatedButton(
+              onPressed: () {
                 showDialog<String>(
                   context: context,
                   builder: (_) => _showDialog(

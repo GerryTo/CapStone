@@ -115,7 +115,9 @@ class ProfilePage extends StatelessWidget {
       (index) {
         final project = projects?[index];
         if (project == null) {
-          return Container();
+          return Container(
+
+          );
         }
         return FeedGridItem(project);
       },
@@ -142,7 +144,7 @@ class ProfilePage extends StatelessWidget {
                   style: const TextStyle(
                       fontSize: 20,
                       fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w900)),
+                      fontWeight: FontWeight.w700)),
               const SizedBox(height: 10),
               Text(context.watch<ProfileViewModel>().user?.company ?? '',
                   overflow: TextOverflow.ellipsis,
