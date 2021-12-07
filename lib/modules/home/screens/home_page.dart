@@ -1,4 +1,5 @@
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
+import 'package:capstone/modules/favorite/screens/favorite_page.dart';
 import 'package:capstone/modules/feeds/screens/feeds.dart';
 import 'package:capstone/modules/profile/screens/profile_page.dart';
 import 'package:capstone/modules/settings/screens/settings_page.dart';
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           const Feeds(),
           ProfilePage(context.read<CurrentUserInfo>().userRef!),
-          const Center(child: Text('Favorit')),
+          const FavoritePage(),
           const SettingsPage(),
         ],
       ),
