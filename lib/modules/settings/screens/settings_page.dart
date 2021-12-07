@@ -1,16 +1,15 @@
-import 'dart:developer';
 
 import 'package:capstone/config/themes/app_colors.dart';
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/settings/provider/theme_notifier.dart';
 import 'package:capstone/modules/settings/viewmodel/settings_viewmodel.dart';
 import 'package:capstone/routes/routes.dart';
-import 'package:capstone/service_locator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 // ignore: implementation_imports
 import 'package:provider/src/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -104,9 +103,32 @@ class SettingsPage extends StatelessWidget {
                   Icons.logout,
                   color: Colors.red,
                 ),
-                onTap: () async {
-                  await _auth.signOut();
-                  Routes.router.navigateTo(context, Routes.root);
+                onTap: () {
+                  Alert(
+                    context: context,
+                    type: AlertType.warning,
+                    title: "LOGOUT?",
+                    desc: "kamu Yakin Log Out dari GAZEBO ?",
+                    buttons: [
+                      DialogButton(
+                        child: Text(
+                          "Tidak",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                        width: 120,
+                      ),
+                      DialogButton(
+                          child: Text(
+                            "Ya",
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                          onPressed: ()async{
+                            await _auth.signOut();
+                            Routes.router.navigateTo(context, Routes.root);
+                          })
+                    ],
+                  ).show();
                 },
               ),
             ],
