@@ -17,11 +17,14 @@ class FavoritePage extends StatelessWidget {
         ),
         body: Consumer<FavoriteViewModel>(
           builder: (context, viewmodel, _) {
-            return ListView.builder(
-              itemCount: viewmodel.favorites.length,
-              itemBuilder: (context, index) {
-                return CardFeed(viewmodel.favorites[index]);
-              },
+            return RefreshIndicator(
+              onRefresh: () => viewmodel.getFavorites(),
+              child: ListView.builder(
+                itemCount: viewmodel.favorites.length,
+                itemBuilder: (context, index) {
+                  return CardFeed(viewmodel.favorites[index]);
+                },
+              ),
             );
           },
         ),

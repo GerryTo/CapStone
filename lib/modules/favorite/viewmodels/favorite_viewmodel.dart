@@ -12,6 +12,7 @@ class FavoriteViewModel extends ChangeNotifier {
   }
 
   Future<void> getFavorites() async {
+    favorites.clear();
     final snapshot =
         await favoriteCollection.where("user", isEqualTo: userRef).get();
     final docs = snapshot.docs;
@@ -23,6 +24,5 @@ class FavoriteViewModel extends ChangeNotifier {
       favorites.add(project);
       notifyListeners();
     }
-    notifyListeners();
   }
 }
