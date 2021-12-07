@@ -1,4 +1,5 @@
 import 'package:capstone/config/themes/app_colors.dart';
+import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/feeds/viewmodel/edit_feed_profileku_viewmodel.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,7 +18,6 @@ class _EditFeedPageState extends State<EditFeedPage> {
   final titleController = TextEditingController();
   final descController = TextEditingController();
 
-
   @override
   void dispose() {
     super.dispose();
@@ -26,7 +26,9 @@ class _EditFeedPageState extends State<EditFeedPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<EditFeedProfileKuViewModel>(
-      create: (_) => EditFeedProfileKuViewModel(ref: widget.project.id),
+      create: (_) => EditFeedProfileKuViewModel(
+          ref: widget.project.id,
+          currentUserId: context.read<CurrentUserInfo>().id!),
       child: Consumer<EditFeedProfileKuViewModel>(
         builder: (context, value, child) {
           return Scaffold(
