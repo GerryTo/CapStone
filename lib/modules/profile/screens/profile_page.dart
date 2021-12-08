@@ -124,7 +124,10 @@ class ProfilePage extends StatelessWidget {
         if (project == null) {
           return Container();
         }
-        return FeedGridItem(project);
+        return GestureDetector(
+            onTap: () => Routes.router.navigateTo(context, Routes.detailFeed,
+                routeSettings: RouteSettings(arguments: project)),
+            child: FeedGridItem(project));
       },
     );
   }
@@ -133,12 +136,7 @@ class ProfilePage extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Image.network(
-            context.watch<ProfileViewModel>().user?.avatarUrl ??
-                'https://via.placeholder.com/300/09f/fff.png',
-            width: 96,
-            height: 96,
-            fit: BoxFit.cover),
+        _avatar(context),
         const SizedBox(width: 16),
         Expanded(
           child: Column(
@@ -175,5 +173,18 @@ class ProfilePage extends StatelessWidget {
         )
       ],
     );
+  }
+
+  Widget _avatar(BuildContext context) {
+    final avatarUrl = context.watch<ProfileViewModel>().user?.avatarUrl;
+    if (avatarUrl == null) {
+      return Container(
+        child: const Icon(Icons.person),
+        height: 96,
+        width: 96,
+        color: Colors.grey,
+      );
+    }
+    return Image.network(avatarUrl, width: 96, height: 96, fit: BoxFit.cover);
   }
 }

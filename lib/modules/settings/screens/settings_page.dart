@@ -33,14 +33,7 @@ class SettingsPage extends StatelessWidget {
                 child: ListTile(
                   title: Text(context.watch<SettingsViewModel>().user?.name ??
                       'no name'),
-                  leading: CachedNetworkImage(
-                    imageUrl:
-                        context.watch<SettingsViewModel>().user?.avatarUrl ??
-                            'https://dummyimage.com/96x96/000/fff',
-                    height: 64,
-                    width: 64,
-                    fit: BoxFit.fitHeight,
-                  ),
+                  leading: AspectRatio(aspectRatio: 1, child: _avatar(context)),
                   onTap: () async {
                     Routes.router
                         .navigateTo(context, Routes.editProfile)
@@ -156,6 +149,22 @@ class SettingsPage extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Widget _avatar(BuildContext context) {
+    final avatarUrl = context.watch<SettingsViewModel>().user?.avatarUrl;
+    if (avatarUrl == null) {
+      return Container(
+        color: Colors.grey,
+        child: const Icon(Icons.person),
+      );
+    }
+    return CachedNetworkImage(
+      imageUrl: avatarUrl,
+      height: 64,
+      width: 64,
+      fit: BoxFit.fitHeight,
     );
   }
 }

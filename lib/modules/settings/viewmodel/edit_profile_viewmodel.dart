@@ -41,7 +41,7 @@ class EditProfileViewModel extends ChangeNotifier {
     }
   }
 
-  String get avatarUrl => _avatarUrl ?? "https://dummyimage.com/96x96/000/fff";
+  String? get avatarUrl => _avatarUrl;
   String get name => _name ?? "...";
   String get company => _company ?? "...";
   String get location => _location ?? citiesData.first;
