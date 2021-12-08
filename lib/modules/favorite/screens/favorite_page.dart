@@ -25,13 +25,15 @@ class FavoritePage extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      Routes.router.navigateTo(
-                        context,
-                        Routes.detailFeed,
-                        routeSettings: RouteSettings(
-                          arguments: viewmodel.favorites[index].ref,
-                        ),
-                      );
+                      Routes.router
+                          .navigateTo(
+                            context,
+                            Routes.detailFeed,
+                            routeSettings: RouteSettings(
+                              arguments: viewmodel.favorites[index].ref,
+                            ),
+                          )
+                          .then((value) => viewmodel.getFavorites());
                     },
                     child: CardFeed(viewmodel.favorites[index]),
                   );
