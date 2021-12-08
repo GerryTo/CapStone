@@ -25,6 +25,10 @@ class CurrentUserInfo extends ChangeNotifier {
     }
   }
 
+  void clearUserData() async {
+    _userData = null;
+  }
+
   Future<DocumentSnapshot<Map<String, dynamic>>> _getUserSnapshot() async {
     final snap =
         await _firestore.collection('users').doc(_auth.currentUser?.uid).get();

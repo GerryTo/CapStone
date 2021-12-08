@@ -17,12 +17,8 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _auth = FirebaseAuth.instance;
-    return ChangeNotifierProxyProvider<CurrentUserInfo, SettingsViewModel>(
+    return ChangeNotifierProvider<SettingsViewModel>(
       create: (context) => SettingsViewModel(context.read<CurrentUserInfo>()),
-      update:
-          (BuildContext context, currentUserInfo, SettingsViewModel? previous) {
-        return SettingsViewModel(currentUserInfo);
-      },
       builder: (context, child) {
         return Scaffold(
           appBar: AppBar(
@@ -148,6 +144,7 @@ class SettingsPage extends StatelessWidget {
                           color: Colors.transparent,
                           onPressed: () async {
                             await _auth.signOut();
+                            context.read<CurrentUserInfo>().clearUserData();
                             Routes.router.navigateTo(context, Routes.root);
                           })
                     ],
