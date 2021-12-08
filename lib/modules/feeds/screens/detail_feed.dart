@@ -117,11 +117,7 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
     if (photo == null) {
       return AspectRatio(aspectRatio: 1, child: Container(color: Colors.grey));
     }
-    return CachedNetworkImage(
-      imageUrl: photo,
-      placeholder: (_, __) => const PhotoPlaceHolder(),
-      errorWidget: (context, url, error) => const Icon(Icons.error),
-    );
+    return CardPhoto(photo);
   }
 
   Center _sliderPhotos(List<String> photos) {
