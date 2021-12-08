@@ -11,7 +11,11 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   void getUserData() async {
-    user = await currentUserInfo.userData;
-    notifyListeners();
+    try {
+      user = await currentUserInfo.userData;
+      notifyListeners();
+    } on Exception catch (e) {
+      // TODO
+    }
   }
 }
