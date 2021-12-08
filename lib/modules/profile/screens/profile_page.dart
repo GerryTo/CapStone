@@ -1,4 +1,5 @@
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
+import 'package:capstone/modules/feeds/widgets/photo_place_holder.dart';
 import 'package:capstone/modules/profile/viewmodel/profile_viewmodel.dart';
 import 'package:capstone/modules/profile/widgets/feed_grid_item.dart';
 import 'package:capstone/routes/routes.dart';
@@ -18,44 +19,42 @@ class ProfilePage extends StatelessWidget {
       child: Consumer<ProfileViewModel>(
         builder: (context, value, child) {
           return Scaffold(
-            appBar: AppBar(
-              title: Text('Profile ',
-                  style: GoogleFonts.roboto(
-                      fontWeight: FontWeight.w900, fontSize: 20)),
-              centerTitle: true,
-            ),
-            body: SingleChildScrollView(
-              physics: const ClampingScrollPhysics(),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: _profileDetail(context),
-                  ),
-                  _buttons(context),
-                  _feedGrid(context)
-                ],
+              appBar: AppBar(
+                title: Text('Profile ',
+                    style: GoogleFonts.roboto(
+                        fontWeight: FontWeight.w900, fontSize: 20)),
+                centerTitle: true,
               ),
-            ),
-            floatingActionButton: _myAddAction(value.userRef)
-          );
+              body: SingleChildScrollView(
+                physics: const ClampingScrollPhysics(),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: _profileDetail(context),
+                    ),
+                    _buttons(context),
+                    _feedGrid(context)
+                  ],
+                ),
+              ),
+              floatingActionButton: _myAddAction(value.userRef));
         },
       ),
     );
   }
 
-  Widget _myAddAction(DocumentReference userRef){
-    return Consumer<CurrentUserInfo>(builder: (context,user,_){
-      if(user.id != userRef.id){
+  Widget _myAddAction(DocumentReference userRef) {
+    return Consumer<CurrentUserInfo>(builder: (context, user, _) {
+      if (user.id != userRef.id) {
         return Container();
       }
       return FloatingActionButton(
-          onPressed: () =>
-          Routes.router.navigateTo(context, Routes.addProject),
-      child: const Icon(Icons.add)
-      );
+          onPressed: () => Routes.router.navigateTo(context, Routes.addProject),
+          child: const Icon(Icons.add));
     });
   }
+
   Padding _buttons(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16),
@@ -123,9 +122,7 @@ class ProfilePage extends StatelessWidget {
       (index) {
         final project = projects?[index];
         if (project == null) {
-          return Container(
-
-          );
+          return const PhotoPlaceHolder();
         }
         return FeedGridItem(project);
       },
