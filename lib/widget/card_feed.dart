@@ -19,13 +19,7 @@ class CardFeed extends StatelessWidget {
           children: [
             AspectRatio(
               aspectRatio: 1,
-              child: CachedNetworkImage(
-                imageUrl: feed.images?.first ??
-                    "https://via.placeholder.com/480x360?text=No+Picture",
-                placeholder: (context, url) => const PhotoPlaceHolder(),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-                fit: BoxFit.cover,
-              ),
+              child: _photo(),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -43,6 +37,19 @@ class CardFeed extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _photo() {
+    final photoUrl = feed.images?.first;
+    if (photoUrl == null) {
+      return const PhotoPlaceHolder();
+    }
+    return CachedNetworkImage(
+      imageUrl: photoUrl,
+      placeholder: (context, url) => const PhotoPlaceHolder(),
+      errorWidget: (context, url, error) => const Icon(Icons.error),
+      fit: BoxFit.cover,
     );
   }
 
