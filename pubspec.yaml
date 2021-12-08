@@ -68,6 +68,7 @@ flutter:
 
   assets:
     - assets/empty.svg
+    - assets/search.svg
   # fonts:
   #   - family: Roboto
   #     fonts:
