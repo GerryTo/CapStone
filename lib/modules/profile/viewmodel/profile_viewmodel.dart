@@ -13,8 +13,6 @@ class ProfileViewModel extends ChangeNotifier {
   }
 
   User? user;
-  final fireStore = FirebaseFirestore.instance.collection('users');
-
   final DocumentReference userRef;
 
   var status = ShowDataStatus.init;

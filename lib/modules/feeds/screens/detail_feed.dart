@@ -44,7 +44,11 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
               widget.projectRef,
               context.read<CurrentUserInfo>().userRef!,
             ),
-            child: _content(context, project),
+            child: Consumer<DetailFeedViewModel>(
+              builder: (context, value, child){
+                return _content(context, project);
+              },
+            )
           );
         }
 
@@ -69,7 +73,7 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _profileWidget(),
+              _profileWidget(context),
               if ((project.images?.length ?? 0) > 1)
                 _sliderPhotos(project.images ?? [])
               else
@@ -167,7 +171,7 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
     );
   }
 
-  Padding _profileWidget() {
+  Padding _profileWidget(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Row(
@@ -177,20 +181,20 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.network('https://dummyimage.com/78x78/000/fff'),
+              Image.network(context.watch<DetailFeedViewModel>().user?.avatarUrl ?? 'https://dummyimage.com/78x78/000/fff', width: 78, height: 78,fit: BoxFit.cover),
               Padding(
                 padding: const EdgeInsets.only(left: 10, top: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text("Arsitek A",
-                        style: TextStyle(
+                  children: [
+                    Text(context.watch<DetailFeedViewModel>().user?.name ?? '',
+                        style: const TextStyle(
                             fontSize: 18,
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w900)),
-                    SizedBox(height: 10),
-                    Text('Perusahaan A',
-                        style: TextStyle(fontSize: 18, fontFamily: 'Roboto')),
+                    const SizedBox(height: 10),
+                    Text(context.watch<DetailFeedViewModel>().user?.company ?? '',
+                        style: const TextStyle(fontSize: 18, fontFamily: 'Roboto')),
                   ],
                 ),
               ),
