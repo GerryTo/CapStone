@@ -194,7 +194,10 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
         width: 78,
       );
     }
-    return Image.network(avatarUrl, width: 78, height: 78, fit: BoxFit.cover);
+    return ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child:
+        Image.network(avatarUrl, width: 78, height: 78, fit: BoxFit.cover));
   }
 
   Row _carouselIndicator(List<String> photos) {
