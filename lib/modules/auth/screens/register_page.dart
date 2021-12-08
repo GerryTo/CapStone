@@ -164,11 +164,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                     ),
                                     onPressed: () => Navigator.pop(context),
                                     color:
-                                        const Color.fromRGBO(0, 179, 134, 1.0),
+                                    const Color.fromRGBO(0, 179, 134, 1.0),
                                   ),
                                 ],
                               ).show();
-                            } else {
+                            }
+                            else{
                               _register(context);
                               showDialog<String>(
                                   context: context,
@@ -212,11 +213,11 @@ class _RegisterPageState extends State<RegisterPage> {
     return AlertDialog(
       title: const Text('Berhasil Mendaftar.'),
       content: const Text(
-          'Anda telah berhasil mendaftar. kembali Ke Halaman Login.'),
+          'Anda telah berhasil mendaftar. Silakan datang di Gazebo.'),
       actions: <Widget>[
         TextButton(
           onPressed: () => Routes.router.navigateTo(context, Routes.root),
-          child: const Text('Kembali'),
+          child: const Text('Lanjut'),
         )
       ],
     );
