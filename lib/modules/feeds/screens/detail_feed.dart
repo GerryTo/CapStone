@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/error/screens/not_found_page.dart';
 import 'package:capstone/modules/feeds/model/feed.dart';
@@ -114,15 +115,23 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
     });
   }
 
-  Container _onlyOnePhoto(BuildContext context, String? photo) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height - 450,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image:
-                NetworkImage(photo ?? 'https://dummyimage.com/500x300/000/fff'),
-            fit: BoxFit.fill),
+  Widget _onlyOnePhoto(BuildContext context, String? photo) {
+    if (photo == null) {
+      return AspectRatio(
+        aspectRatio: 1,
+        child: Container(
+          color: Colors.grey,
+          width: MediaQuery.of(context).size.width,
+        ),
+      );
+    }
+
+    return CachedNetworkImage(
+      imageUrl: photo,
+      placeholder: (context, url) => Container(
+        color: Colors.grey,
+        width: MediaQuery.of(context).size.width,
+        child: const CircularProgressIndicator(),
       ),
     );
   }
@@ -149,12 +158,7 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.network(
-                  context.watch<DetailFeedViewModel>().user?.avatarUrl ??
-                      'https://dummyimage.com/78x78/000/fff',
-                  width: 78,
-                  height: 78,
-                  fit: BoxFit.cover),
+              _avatar(context),
               Padding(
                 padding: const EdgeInsets.only(left: 10, top: 10),
                 child: Column(
@@ -179,6 +183,18 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
         ],
       ),
     );
+  }
+
+  Widget _avatar(BuildContext context) {
+    final avatarUrl = context.watch<DetailFeedViewModel>().user?.avatarUrl;
+    if (avatarUrl == null) {
+      return Container(
+        color: Colors.grey,
+        height: 78,
+        width: 78,
+      );
+    }
+    return Image.network(avatarUrl, width: 78, height: 78, fit: BoxFit.cover);
   }
 
   Row _carouselIndicator(List<String> photos) {

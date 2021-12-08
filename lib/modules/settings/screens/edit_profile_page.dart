@@ -37,7 +37,7 @@ class EditProfilePage extends StatelessWidget {
                 child: Wrap(
                   alignment: WrapAlignment.center,
                   children: [
-                    _avatar(context),
+                    _avatarEdit(context),
                   ],
                 ),
               ),
@@ -108,17 +108,12 @@ class EditProfilePage extends StatelessWidget {
     );
   }
 
-  Stack _avatar(BuildContext context) {
+  Stack _avatarEdit(BuildContext context) {
     return Stack(
       clipBehavior: Clip.none,
       alignment: Alignment.center,
       children: [
-        CachedNetworkImage(
-          imageUrl: context.watch<EditProfileViewModel>().avatarUrl,
-          width: 128,
-          height: 128,
-          fit: BoxFit.cover,
-        ),
+        _avatar(context),
         Positioned(
           bottom: -8,
           right: -16,
@@ -144,6 +139,24 @@ class EditProfilePage extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+
+  Widget _avatar(BuildContext context) {
+    final avatar = context.watch<EditProfileViewModel>().avatarUrl;
+    if (avatar == null) {
+      return Container(
+        width: 128,
+        height: 128,
+        child: const Icon(Icons.person),
+        color: Colors.grey,
+      );
+    }
+    return CachedNetworkImage(
+      imageUrl: avatar,
+      width: 128,
+      height: 128,
+      fit: BoxFit.cover,
     );
   }
 

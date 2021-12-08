@@ -26,15 +26,16 @@ class FeedGridItem extends StatelessWidget {
 
         if (snapshot.hasData) {
           final data = snapshot.data?.data() as Map<String, dynamic>?;
-          return GestureDetector(
-            onTap: () => Routes.router.navigateTo(context, Routes.detailFeed,
-                routeSettings: RouteSettings(arguments: project)),
-            child: CachedNetworkImage(
-                imageUrl: (data?['images'] as List?)?.first ??
-                    'https://via.placeholder.com/300x300.webp?text=No+Pic',
-                placeholder: (_, __) => const PhotoPlaceHolder(),
-                fit: BoxFit.cover),
-          );
+          final imageUrl = (data?['images'] as List?)?.first as String?;
+          if (imageUrl == null) {
+            return Container(
+              color: Colors.grey,
+            );
+          }
+          return CachedNetworkImage(
+              imageUrl: imageUrl,
+              placeholder: (_, __) => const PhotoPlaceHolder(),
+              fit: BoxFit.cover);
         }
 
         return const PhotoPlaceHolder();
