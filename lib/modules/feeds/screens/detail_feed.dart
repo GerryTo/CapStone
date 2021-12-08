@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/error/screens/not_found_page.dart';
@@ -109,7 +111,10 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
   Widget _myFeedActions(Feed project) {
     return Consumer<CurrentUserInfo>(builder: (context, user, _) {
       if (user.id != project.userReference?.id) {
-        return Container();
+        log('dfdf');
+        return Container(
+          child: Text('dfdfd',style: TextStyle(fontSize: 100),),
+        );
       }
       return MyFeedAction(widget.projectRef);
     });
