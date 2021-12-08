@@ -120,6 +120,7 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
     return CachedNetworkImage(
       imageUrl: photo,
       placeholder: (_, __) => const PhotoPlaceHolder(),
+      errorWidget: (context, url, error) => const Icon(Icons.error),
     );
   }
 
