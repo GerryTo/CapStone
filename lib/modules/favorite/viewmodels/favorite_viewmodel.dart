@@ -13,17 +13,22 @@ class FavoriteViewModel extends ChangeNotifier {
 
   Future<void> getFavorites() async {
     favorites.clear();
-    final snapshot =
-        await favoriteCollection.where("user", isEqualTo: userRef).get();
-    final docs = snapshot.docs;
-    for (final doc in docs) {
-      final DocumentReference projectRef = doc.data()['project'];
-      final projectSnapshot = await projectRef.get();
-      final projectData = projectSnapshot.data() as Map<String, dynamic>;
-
-      final project =
-          Feed.fromMap(projectData).copyWith(ref: projectSnapshot.reference);
-      favorites.add(project);
+    try {
+      final snapshot =
+          await favoriteCollection.where("user", isEqualTo: userRef).get();
+      final docs = snapshot.docs;
+      for (final doc in docs) {
+        final DocumentReference projectRef = doc.data()['project'];
+        final projectSnapshot = await projectRef.get();
+        final projectData = projectSnapshot.data() as Map<String, dynamic>?;
+        if (projectData == null) break;
+        final project =
+            Feed.fromMap(projectData).copyWith(ref: projectSnapshot.reference);
+        favorites.add(project);
+      }
+    } on Exception catch (e) {
+      // TODO
+    } finally {
       notifyListeners();
     }
   }
