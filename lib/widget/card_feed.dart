@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone/modules/feeds/model/feed.dart';
+import 'package:capstone/modules/feeds/widgets/photo_place_holder.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,15 +17,16 @@ class CardFeed extends StatelessWidget {
       child: Card(
         child: Column(
           children: [
-            Column(children: [
-              CachedNetworkImage(
+            AspectRatio(
+              aspectRatio: 1,
+              child: CachedNetworkImage(
                 imageUrl: feed.images?.first ??
                     "https://via.placeholder.com/480x360?text=No+Picture",
-                placeholder: (context, url) =>
-                    const CircularProgressIndicator(),
+                placeholder: (context, url) => const PhotoPlaceHolder(),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
+                fit: BoxFit.cover,
               ),
-            ]),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               child: GestureDetector(
