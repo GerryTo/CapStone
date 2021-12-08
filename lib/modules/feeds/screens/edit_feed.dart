@@ -6,29 +6,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class EditFeedPage extends StatefulWidget {
-  const EditFeedPage(this.project, {Key? key}) : super(key: key);
+class EditFeedPage extends StatelessWidget {
+  EditFeedPage(this.project, {Key? key}) : super(key: key);
   final DocumentReference project;
 
-  @override
-  State<EditFeedPage> createState() => _EditFeedPageState();
-}
-
-class _EditFeedPageState extends State<EditFeedPage> {
   final titleController = TextEditingController();
   final descController = TextEditingController();
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<EditFeedProfileKuViewModel>(
       create: (_) => EditFeedProfileKuViewModel(
-          ref: widget.project.id,
-          currentUserId: context.read<CurrentUserInfo>().id!),
+          ref: project.id, currentUserId: context.read<CurrentUserInfo>().id!),
       child: Consumer<EditFeedProfileKuViewModel>(
         builder: (context, value, child) {
           return Scaffold(

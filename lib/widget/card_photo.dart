@@ -1,19 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:capstone/modules/feeds/widgets/photo_place_holder.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class CardPhoto extends StatelessWidget {
-  CardPhoto(this.photoUrl, {Key? key}) : super(key: key);
-  String? photoUrl;
+  const CardPhoto(this.photoUrl, {Key? key}) : super(key: key);
+  final String photoUrl;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: NetworkImage(
-                photoUrl ?? 'https://dummyimage.com/500x300/000/fff'),
-            fit: BoxFit.fill),
-      ),
+    return CachedNetworkImage(
+      imageUrl: photoUrl,
+      placeholder: (_, __) => const PhotoPlaceHolder(),
+      errorWidget: (context, url, error) => const Icon(Icons.error),
     );
   }
 }

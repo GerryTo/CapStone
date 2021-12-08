@@ -3,8 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class MyFeedAction extends StatelessWidget {
-  MyFeedAction( this.project, {Key? key}) : super(key: key);
-  DocumentReference project;
+  const MyFeedAction(this.project, {Key? key}) : super(key: key);
+  final DocumentReference project;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -14,8 +14,9 @@ class MyFeedAction extends StatelessWidget {
           Expanded(
             // width: MediaQuery.of(context).size.width - 230,
             child: ElevatedButton(
-              onPressed: () =>
-                  Routes.router.navigateTo(context, Routes.editFeed, routeSettings: RouteSettings(arguments:project)),
+              onPressed: () => Routes.router.navigateTo(
+                  context, Routes.editFeed,
+                  routeSettings: RouteSettings(arguments: project)),
               child: Wrap(
                 children: [
                   Text('Edit',

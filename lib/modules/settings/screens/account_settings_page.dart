@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:capstone/config/themes/app_colors.dart';
-import 'package:capstone/config/themes/app_input_decoration.dart';
 import 'package:capstone/modules/settings/viewmodel/account_settings_viewmodel.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';

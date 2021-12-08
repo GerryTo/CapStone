@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone/config/themes/app_colors.dart';
 import 'package:capstone/constants/city_names.dart';
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
@@ -112,10 +113,11 @@ class EditProfilePage extends StatelessWidget {
       clipBehavior: Clip.none,
       alignment: Alignment.center,
       children: [
-        CircleAvatar(
-          backgroundImage:
-              NetworkImage(context.watch<EditProfileViewModel>().avatarUrl),
-          radius: 64,
+        CachedNetworkImage(
+          imageUrl: context.watch<EditProfileViewModel>().avatarUrl,
+          width: 128,
+          height: 128,
+          fit: BoxFit.cover,
         ),
         Positioned(
           bottom: -8,

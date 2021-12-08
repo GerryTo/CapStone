@@ -1,6 +1,5 @@
 import 'package:capstone/modules/auth/model/user.dart';
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
-import 'package:capstone/service_locator.dart';
 import 'package:flutter/material.dart';
 
 class SettingsViewModel extends ChangeNotifier {
@@ -12,7 +11,11 @@ class SettingsViewModel extends ChangeNotifier {
   }
 
   void getUserData() async {
-    user = await currentUserInfo.userData;
-    notifyListeners();
+    try {
+      user = await currentUserInfo.userData;
+      notifyListeners();
+    } on Exception catch (e) {
+      // TODO
+    }
   }
 }

@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:capstone/constants/city_names.dart';
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
-import 'package:capstone/service_locator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';

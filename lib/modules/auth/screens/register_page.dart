@@ -140,15 +140,15 @@ class _RegisterPageState extends State<RegisterPage> {
                         width: MediaQuery.of(context).size.width - 200,
                         child: ElevatedButton(
                           onPressed: () {
-                            if (_passwordController == null ||
-                                _phoneController == null ||
-                                _emailController == null ||
-                                _companyController == null ||
-                                _nameController == null ||
+                            if (_passwordController.text.isEmpty ||
+                                _phoneController.text.isEmpty ||
+                                _emailController.text.isEmpty ||
+                                _companyController.text.isEmpty ||
+                                _nameController.text.isEmpty ||
                                 city == null) {
                               Alert(
                                 context: context,
-                                style: AlertStyle(
+                                style: const AlertStyle(
                                   isCloseButton: false,
                                   animationType: AnimationType.grow,
                                 ),
@@ -157,13 +157,14 @@ class _RegisterPageState extends State<RegisterPage> {
                                 desc: "Yakin sudah semua di isi?",
                                 buttons: [
                                   DialogButton(
-                                    child: Text(
+                                    child: const Text(
                                       "Kembali",
                                       style: TextStyle(
                                           color: Colors.white, fontSize: 20),
                                     ),
                                     onPressed: () => Navigator.pop(context),
-                                    color: Color.fromRGBO(0, 179, 134, 1.0),
+                                    color:
+                                        const Color.fromRGBO(0, 179, 134, 1.0),
                                   ),
                                 ],
                               ).show();

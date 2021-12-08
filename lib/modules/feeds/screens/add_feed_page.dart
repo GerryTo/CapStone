@@ -192,4 +192,11 @@ class _AddFeedPageState extends State<AddFeedPage> {
           child: LinearProgressIndicator());
     }
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _titleController.dispose();
+    _descController.dispose();
+  }
 }

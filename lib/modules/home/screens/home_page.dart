@@ -7,6 +7,7 @@ import 'package:capstone/modules/settings/screens/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:provider/provider.dart';
+// ignore: implementation_imports
 import 'package:provider/src/provider.dart';
 
 class HomePage extends StatelessWidget {
