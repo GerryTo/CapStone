@@ -71,7 +71,8 @@ class CardFeed extends StatelessWidget {
                         (context, url, downloadProgress) =>
                             CircularProgressIndicator(
                                 value: downloadProgress.progress),
-                    errorWidget: (context, url, error) => Icon(Icons.error),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                   const SizedBox(width: 8),
                   Text(
@@ -79,7 +80,7 @@ class CardFeed extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   const SizedBox(width: 16),
-                  Spacer(),
+                  const Spacer(),
                   Text(
                     data["company"] ?? "",
                     style: Theme.of(context).textTheme.bodyText2,

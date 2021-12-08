@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CardPhoto extends StatelessWidget {
-  CardPhoto(this.photoUrl, {Key? key}) : super(key: key);
+  const CardPhoto(this.photoUrl, {Key? key}) : super(key: key);
   final String photoUrl;
   @override
   Widget build(BuildContext context) {
