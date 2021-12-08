@@ -102,8 +102,11 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 40),
                   TextButton(
-                    onPressed: () =>
-                        Routes.router.navigateTo(context, Routes.registration),
+                    onPressed: () {
+                      Routes.router
+                          .navigateTo(context, Routes.registration)
+                          .then((_) => checkLoginStatus(context));
+                    },
                     child: const Text(
                       'Belum punya akun? Daftar disini',
                       style: TextStyle(color: Colors.white),
@@ -207,7 +210,8 @@ class _LoginPageState extends State<LoginPage> {
 
       await _auth.signInWithEmailAndPassword(email: email, password: password);
 
-      Routes.router.navigateTo(context, Routes.home, replace: true);
+      Routes.router
+          .navigateTo(context, Routes.home, replace: true, clearStack: true);
     } catch (e) {
       final snackbar = SnackBar(content: Text(e.toString()));
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
