@@ -123,41 +123,58 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CarouselSlider(
-            options: CarouselOptions(
-                enableInfiniteScroll: false,
-                viewportFraction: 1,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _currentIndex = index;
-                  });
-                }),
-            items: photos.map((photo) {
-              return CardPhoto(photo);
-            }).toList(),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: map<Widget>(
-              photos,
-              (index, url) {
-                return Container(
-                  width: _currentIndex == index ? 15 : 10.0,
-                  height: 10.0,
-                  margin: const EdgeInsets.symmetric(
-                      vertical: 10.0, horizontal: 2.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: _currentIndex == index
-                        ? Colors.grey
-                        : Colors.grey.withOpacity(0.3),
-                  ),
-                );
-              },
-            ),
-          ),
+          _carousel(photos),
+          _carouselIndicator(photos),
         ],
       ),
+    );
+  }
+
+  Row _carouselIndicator(List<String> photos) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: map<Widget>(
+        photos,
+        (index, url) {
+          return Container(
+            width: _currentIndex == index ? 15 : 10.0,
+            height: 10.0,
+            margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: _currentIndex == index
+                  ? Colors.grey
+                  : Colors.grey.withOpacity(0.3),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Stack _carousel(List<String> photos) {
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: Container(
+            color: Colors.black,
+          ),
+        ),
+        CarouselSlider(
+          options: CarouselOptions(
+              enableInfiniteScroll: false,
+              aspectRatio: 1,
+              viewportFraction: 1,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              }),
+          items: photos.map((photo) {
+            return CardPhoto(photo);
+          }).toList(),
+        ),
+      ],
     );
   }
 
