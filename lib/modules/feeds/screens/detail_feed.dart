@@ -111,10 +111,7 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
   Widget _myFeedActions(Feed project) {
     return Consumer<CurrentUserInfo>(builder: (context, user, _) {
       if (user.id != project.userReference?.id) {
-        log('dfdf');
-        return Container(
-          child: Text('dfdfd',style: TextStyle(fontSize: 100),),
-        );
+        return Container();
       }
       return MyFeedAction(widget.projectRef);
     });

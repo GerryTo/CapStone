@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:share/share.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage(this.userRef, {Key? key}) : super(key: key);
@@ -56,24 +58,80 @@ class ProfilePage extends StatelessWidget {
     });
   }
 
-  Padding _buttons(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
-          _editAccount(context),
-        ],
-      ),
-    );
+  SizedBox _buttons(BuildContext context) {
+    return SizedBox(child: _editAccount(context), width: double.infinity);
   }
 
   Widget _editAccount(BuildContext context) {
     final currentUserId = context.read<CurrentUserInfo>().id;
     final profileId = userRef.id;
     if (currentUserId != profileId) {
-      return Container();
+      return Row(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: ElevatedButton(
+                onPressed: () {
+                  final Uri contact = Uri(
+                    scheme: 'tel',
+                    path: context.read<ProfileViewModel>().user?.phone,
+                  );
+                  launch(contact.toString());
+                },
+                child: Wrap(
+                  children: const [
+                    Text('kontak', style: TextStyle(color: Colors.white)),
+                    SizedBox(width: 10),
+                    Icon(
+                      Icons.contacts,
+                      color: Colors.white,
+                      size: 20.0,
+                    ),
+                  ],
+                ),
+                style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF0B3D66), elevation: 0),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: ElevatedButton(
+                onPressed: () {
+                  Share.share(
+                      'Halo, Saya ${context.read<ProfileViewModel>().user?.name}\ndari ${context.read<ProfileViewModel>().user?.company}\nKamu bisa cek profil ku di Gazebo');
+                },
+                child: Wrap(
+                  children: [
+                    Text('Bagikan',
+                        style: Theme.of(context)
+                            .textTheme
+                            .button
+                            ?.copyWith(fontWeight: FontWeight.bold)),
+                    const SizedBox(width: 10),
+                    Icon(
+                      Icons.share,
+                      color: Theme.of(context).iconTheme.color,
+                      size: 20.0,
+                    ),
+                  ],
+                ),
+                style: ElevatedButton.styleFrom(
+                    side: BorderSide(
+                        color: Theme.of(context).textTheme.button?.color ??
+                            Colors.grey),
+                    primary: Colors.transparent,
+                    elevation: 0),
+              ),
+            ),
+          ),
+        ],
+      );
     }
-    return Expanded(
+    return Padding(
+      padding: const EdgeInsets.all(16),
       child: ElevatedButton(
         onPressed: () => Routes.router.navigateTo(context, Routes.editProfile),
         child: Wrap(
