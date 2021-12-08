@@ -51,16 +51,15 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: [
               const SizedBox(height: 70),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Gazebo',
-                      style: TextStyle(
-                        fontSize: 96,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      )),
-                ],
+              const Center(
+                child: Text(
+                  'Gazebo',
+                  style: TextStyle(
+                    fontSize: 96,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
               ),
               const SizedBox(height: 40),
               Column(

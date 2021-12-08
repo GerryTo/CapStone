@@ -48,8 +48,8 @@ class _DetailFeedProfileKuState extends State<DetailFeedProfileKu> {
                       _onlyOnePhoto(context, (data?['images'] as List?)?.first),
                     Padding(
                       padding: const EdgeInsets.only(top: 30, left: 20),
-                      child:
-                          Text(data?['title'], style: TextStyle(fontSize: 18)),
+                      child: Text(data?['title'],
+                          style: const TextStyle(fontSize: 18)),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 20, left: 20),
