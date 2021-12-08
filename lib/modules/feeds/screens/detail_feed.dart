@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/error/screens/not_found_page.dart';
 import 'package:capstone/modules/feeds/model/feed.dart';
 import 'package:capstone/modules/feeds/viewmodel/detail_feed_viewmodel.dart';
 import 'package:capstone/modules/feeds/widgets/favorite_button.dart';
 import 'package:capstone/modules/feeds/widgets/my_feed_actions.dart';
+import 'package:capstone/modules/feeds/widgets/photo_place_holder.dart';
 import 'package:capstone/widget/card_photo.dart';
 import 'package:capstone/widget/loading.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -93,9 +95,9 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
     );
   }
 
-  Widget _myFavoriteBottons(Feed project){
-    return Consumer<CurrentUserInfo>(builder: (context,user,_){
-      if(user.id == project.userReference?.id){
+  Widget _myFavoriteBottons(Feed project) {
+    return Consumer<CurrentUserInfo>(builder: (context, user, _) {
+      if (user.id == project.userReference?.id) {
         return Container();
       }
       return FavoriteButton();
@@ -111,16 +113,13 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
     });
   }
 
-  Container _onlyOnePhoto(BuildContext context, String? photo) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height - 450,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image:
-                NetworkImage(photo ?? 'https://dummyimage.com/500x300/000/fff'),
-            fit: BoxFit.fill),
-      ),
+  Widget _onlyOnePhoto(BuildContext context, String? photo) {
+    if (photo == null) {
+      return AspectRatio(aspectRatio: 1, child: Container(color: Colors.grey));
+    }
+    return CachedNetworkImage(
+      imageUrl: photo,
+      placeholder: (_, __) => const PhotoPlaceHolder(),
     );
   }
 
