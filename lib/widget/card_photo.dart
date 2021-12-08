@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class CardPhoto extends StatelessWidget {
   CardPhoto(this.photoUrl, {Key? key}) : super(key: key);
-  String photoUrl;
+  final String photoUrl;
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
