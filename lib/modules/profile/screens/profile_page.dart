@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage(this.userRef, {Key? key}) : super(key: key);
@@ -34,7 +35,7 @@ class ProfilePage extends StatelessWidget {
                       child: _profileDetail(context),
                     ),
                     _buttons(context),
-                    _feedGrid(context),
+                    _feeds(context),
                   ],
                 ),
               ),
@@ -185,6 +186,39 @@ class ProfilePage extends StatelessWidget {
         color: Colors.grey,
       );
     }
-    return Image.network(avatarUrl, width: 96, height: 96, fit: BoxFit.cover);
+    return ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child:
+            Image.network(avatarUrl, width: 96, height: 96, fit: BoxFit.cover));
+  }
+
+  Widget _noHaveFeed(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+        Opacity(
+            opacity: 0.4,
+            child: SvgPicture.asset(
+              'assets/empty.svg',
+              width: 220,
+              height: 220,
+            )),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+        const Text(
+          'Project belum ada,\n Ayo unggah projek mu sekarang',
+          style: TextStyle(fontSize: 16, color: Colors.grey),
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+      ],
+    );
+  }
+
+  Widget _feeds(BuildContext context) {
+    final project = context.watch<ProfileViewModel>().user?.projects;
+    if (project != null && project.isNotEmpty) {
+      return _feedGrid(context);
+    }
+    return _noHaveFeed(context);
   }
 }
