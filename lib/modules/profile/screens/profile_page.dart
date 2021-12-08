@@ -166,16 +166,23 @@ class ProfilePage extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              Text(
-                  (context.watch<ProfileViewModel>().user?.projects?.length)
-                      .toString(),
-                  style: const TextStyle(
-                      fontSize: 32, fontWeight: FontWeight.bold)),
-              const Text('Proyek', style: TextStyle(fontSize: 24)),
+              _projectCount(context),
+              const Text(
+                'Proyek',
+                style: TextStyle(fontSize: 24),
+              ),
             ],
           ),
         )
       ],
+    );
+  }
+
+  Text _projectCount(BuildContext context) {
+    final count = context.watch<ProfileViewModel>().user?.projects?.length ?? 0;
+    return Text(
+      count.toString(),
+      style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
     );
   }
 }
