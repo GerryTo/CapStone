@@ -67,12 +67,10 @@ class CardFeed extends StatelessWidget {
                     height: 32,
                     width: 32,
                     imageUrl: data["avatar_url"],
-                    progressIndicatorBuilder:
-                        (context, url, downloadProgress) =>
-                            CircularProgressIndicator(
-                                value: downloadProgress.progress),
+                    placeholder: (_, __) => const PhotoPlaceHolder(),
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
+                    fit: BoxFit.fitHeight,
                   ),
                   const SizedBox(width: 8),
                   Text(
