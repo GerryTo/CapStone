@@ -46,7 +46,7 @@ class DetailFeedViewModel extends ChangeNotifier {
       return snapshot.exists;
     } on Exception catch (e, s) {
       log('ERROR', name: 'detail_feed_viewmodel', error: e, stackTrace: s);
-      return false;
+      rethrow;
     }
   }
 
@@ -75,7 +75,11 @@ class DetailFeedViewModel extends ChangeNotifier {
   }
 
   Future<void> checkFavorite() async {
-    isFavorite = await _getFavoriteData();
-    notifyListeners();
+    try {
+      isFavorite = await _getFavoriteData();
+      notifyListeners();
+    } on Exception catch (e) {
+      isFavorite = false;
+    }
   }
 }
