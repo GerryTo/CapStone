@@ -215,7 +215,7 @@ class _RegisterPageState extends State<RegisterPage> {
           'Anda telah berhasil mendaftar. kembali Ke Halaman Login.'),
       actions: <Widget>[
         TextButton(
-          onPressed: () => Routes.router.navigateTo(context, Routes.root),
+          onPressed: () => Routes.router.pop(context),
           child: const Text('Kembali'),
         )
       ],
