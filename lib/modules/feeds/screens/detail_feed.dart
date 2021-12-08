@@ -1,11 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/error/screens/not_found_page.dart';
 import 'package:capstone/modules/feeds/model/feed.dart';
 import 'package:capstone/modules/feeds/viewmodel/detail_feed_viewmodel.dart';
 import 'package:capstone/modules/feeds/widgets/favorite_button.dart';
 import 'package:capstone/modules/feeds/widgets/my_feed_actions.dart';
-import 'package:capstone/modules/feeds/widgets/photo_place_holder.dart';
 import 'package:capstone/widget/card_photo.dart';
 import 'package:capstone/widget/loading.dart';
 import 'package:carousel_slider/carousel_slider.dart';
