@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/feeds/widgets/photo_place_holder.dart';
 import 'package:capstone/modules/profile/viewmodel/profile_viewmodel.dart';
@@ -133,12 +134,13 @@ class ProfilePage extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Image.network(
-            context.watch<ProfileViewModel>().user?.avatarUrl ??
-                'https://via.placeholder.com/300/09f/fff.png',
-            width: 96,
-            height: 96,
-            fit: BoxFit.cover),
+        CachedNetworkImage(
+          imageUrl: context.watch<ProfileViewModel>().user?.avatarUrl ??
+              'https://via.placeholder.com/300/09f/fff.png',
+          width: 96,
+          height: 96,
+          fit: BoxFit.cover,
+        ),
         const SizedBox(width: 16),
         Expanded(
           child: Column(
