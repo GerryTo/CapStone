@@ -40,16 +40,15 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
           final data = snapshot.data?.data();
           final project = Feed.fromMap(data as Map<String, dynamic>);
           return ChangeNotifierProvider(
-            create: (_) => DetailFeedViewModel(
-              widget.projectRef,
-              context.read<CurrentUserInfo>().userRef!,
-            ),
-            child: Consumer<DetailFeedViewModel>(
-              builder: (context, value, child){
-                return _content(context, project);
-              },
-            )
-          );
+              create: (_) => DetailFeedViewModel(
+                    widget.projectRef,
+                    context.read<CurrentUserInfo>().userRef!,
+                  ),
+              child: Consumer<DetailFeedViewModel>(
+                builder: (context, value, child) {
+                  return _content(context, project);
+                },
+              ));
         }
 
         if (snapshot.hasError) {
@@ -97,9 +96,9 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
     );
   }
 
-  Widget _myFavoriteBottons(Feed project){
-    return Consumer<CurrentUserInfo>(builder: (context,user,_){
-      if(user.id == project.userReference?.id){
+  Widget _myFavoriteBottons(Feed project) {
+    return Consumer<CurrentUserInfo>(builder: (context, user, _) {
+      if (user.id == project.userReference?.id) {
         return Container();
       }
       return FavoriteButton();
@@ -133,39 +132,8 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          CarouselSlider(
-            options: CarouselOptions(
-                enableInfiniteScroll: false,
-                viewportFraction: 1,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _currentIndex = index;
-                  });
-                }),
-            items: photos.map((photo) {
-              return CardPhoto(photo);
-            }).toList(),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: map<Widget>(
-              photos,
-              (index, url) {
-                return Container(
-                  width: _currentIndex == index ? 15 : 10.0,
-                  height: 10.0,
-                  margin: const EdgeInsets.symmetric(
-                      vertical: 10.0, horizontal: 2.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: _currentIndex == index
-                        ? Colors.grey
-                        : Colors.grey.withOpacity(0.3),
-                  ),
-                );
-              },
-            ),
-          ),
+          _carousel(photos),
+          _carouselIndicator(photos),
         ],
       ),
     );
@@ -181,7 +149,12 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.network(context.watch<DetailFeedViewModel>().user?.avatarUrl ?? 'https://dummyimage.com/78x78/000/fff', width: 78, height: 78,fit: BoxFit.cover),
+              Image.network(
+                  context.watch<DetailFeedViewModel>().user?.avatarUrl ??
+                      'https://dummyimage.com/78x78/000/fff',
+                  width: 78,
+                  height: 78,
+                  fit: BoxFit.cover),
               Padding(
                 padding: const EdgeInsets.only(left: 10, top: 10),
                 child: Column(
@@ -193,8 +166,11 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
                             fontFamily: 'Roboto',
                             fontWeight: FontWeight.w900)),
                     const SizedBox(height: 10),
-                    Text(context.watch<DetailFeedViewModel>().user?.company ?? '',
-                        style: const TextStyle(fontSize: 18, fontFamily: 'Roboto')),
+                    Text(
+                        context.watch<DetailFeedViewModel>().user?.company ??
+                            '',
+                        style: const TextStyle(
+                            fontSize: 18, fontFamily: 'Roboto')),
                   ],
                 ),
               ),
@@ -202,6 +178,54 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
           ),
         ],
       ),
+    );
+  }
+
+  Row _carouselIndicator(List<String> photos) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: map<Widget>(
+        photos,
+        (index, url) {
+          return Container(
+            width: _currentIndex == index ? 15 : 10.0,
+            height: 10.0,
+            margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: _currentIndex == index
+                  ? Colors.grey
+                  : Colors.grey.withOpacity(0.3),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Stack _carousel(List<String> photos) {
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: Container(
+            color: Colors.black,
+          ),
+        ),
+        CarouselSlider(
+          options: CarouselOptions(
+              enableInfiniteScroll: false,
+              aspectRatio: 1,
+              viewportFraction: 1,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  _currentIndex = index;
+                });
+              }),
+          items: photos.map((photo) {
+            return CardPhoto(photo);
+          }).toList(),
+        ),
+      ],
     );
   }
 }
