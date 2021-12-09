@@ -36,41 +36,50 @@ class CommentWidget extends StatelessWidget {
         showBottomSheet(
           context: commentFormContext,
           elevation: 10,
-          builder: (bottomSheetContext) => BottomSheet(
-            constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(bottomSheetContext).size.height / 3),
-            enableDrag: false,
-            onClosing: () =>
-                bottomSheetContext.read<CommentViewModel>().getComments(),
-            builder: (context) {
-              return Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextField(
-                      minLines: 3,
-                      maxLines: 5,
-                      decoration:
-                          const InputDecoration(label: Text('Isi komentar')),
-                      controller: _commentTextController,
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      commentFormContext
-                          .read<CommentViewModel>()
-                          .addComment(_commentTextController.text);
-                    },
-                    child: const Text('Kirim'),
-                  ),
-                ],
-              );
-            },
-          ),
+          builder: (bottomSheetContext) =>
+              _commentFormBottomSheet(bottomSheetContext, commentFormContext),
         );
       },
       icon: Icon(Icons.comment),
       label: const Text('Tambahkan Komentar'),
+    );
+  }
+
+  BottomSheet _commentFormBottomSheet(
+      BuildContext bottomSheetContext, BuildContext commentFormContext) {
+    return BottomSheet(
+      constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(bottomSheetContext).size.height / 3),
+      enableDrag: false,
+      onClosing: () =>
+          bottomSheetContext.read<CommentViewModel>().getComments(),
+      builder: (context) {
+        return Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                minLines: 3,
+                maxLines: 5,
+                decoration: const InputDecoration(label: Text('Isi komentar')),
+                controller: _commentTextController,
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await commentFormContext
+                    .read<CommentViewModel>()
+                    .addComment(_commentTextController.text);
+                await commentFormContext
+                    .read<CommentViewModel>()
+                    .getComments()
+                    .then((_) => Navigator.of(context).pop());
+              },
+              child: const Text('Kirim'),
+            ),
+          ],
+        );
+      },
     );
   }
 

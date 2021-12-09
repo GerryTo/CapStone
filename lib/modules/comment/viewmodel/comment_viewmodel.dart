@@ -12,7 +12,7 @@ class CommentViewModel extends ChangeNotifier {
     getComments();
   }
 
-  void getComments() async {
+  Future<void> getComments() async {
     log('Get Comment', name: 'CommentViewModel');
     try {
       final querySnapshot = await projectRef.collection('comments').get();
@@ -34,7 +34,7 @@ class CommentViewModel extends ChangeNotifier {
     }
   }
 
-  void addComment(String body) async {
+  Future<void> addComment(String body) async {
     try {
       if (body.isEmpty) return;
 
