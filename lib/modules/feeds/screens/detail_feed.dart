@@ -14,6 +14,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class DetailFeedsPage extends StatefulWidget {
@@ -25,6 +26,8 @@ class DetailFeedsPage extends StatefulWidget {
 
 class _DetailFeedsPageState extends State<DetailFeedsPage> {
   int _currentIndex = 0;
+  final formatCurrency =
+      NumberFormat.simpleCurrency(locale: 'id_ID', decimalDigits: 0);
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -116,7 +119,7 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Text(
-        (price != null) ? price.toString() : '-',
+        formatCurrency.format(price ?? 0),
         style: Theme.of(context).textTheme.headline6,
       ),
     );
