@@ -14,6 +14,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class DetailFeedsPage extends StatefulWidget {
@@ -25,6 +26,8 @@ class DetailFeedsPage extends StatefulWidget {
 
 class _DetailFeedsPageState extends State<DetailFeedsPage> {
   int _currentIndex = 0;
+  final formatCurrency =
+      NumberFormat.simpleCurrency(locale: 'id_ID', decimalDigits: 0);
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -80,22 +83,45 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
                 _sliderPhotos(project.images ?? [])
               else
                 _onlyOnePhoto(context, project.images?.first),
-              Padding(
-                padding: const EdgeInsets.only(top: 30, left: 20),
-                child: Text(project.title ?? '',
-                    style: const TextStyle(fontSize: 24)),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10, left: 20),
-                child: Text(project.description ?? '',
-                    style: GoogleFonts.poppins(fontSize: 14)),
-              ),
+              _title(project),
+              _price(project),
+              _description(project),
               _myFeedActions(project),
             ],
           ),
         ),
       ),
       floatingActionButton: _myFavoriteBottons(project),
+    );
+  }
+
+  Widget _description(Feed project) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10, left: 20),
+      child: Text(project.description ?? '',
+          style: GoogleFonts.poppins(fontSize: 14)),
+    );
+  }
+
+  Widget _title(Feed project) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Text(
+        project.title ?? '',
+        style: const TextStyle(fontSize: 24),
+      ),
+    );
+  }
+
+  Widget _price(Feed project) {
+    final price = project.price;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Text(
+        formatCurrency.format(price ?? 0),
+        style: Theme.of(context).textTheme.headline6,
+      ),
     );
   }
 
@@ -199,7 +225,7 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
     return ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child:
-        Image.network(avatarUrl, width: 78, height: 78, fit: BoxFit.cover));
+            Image.network(avatarUrl, width: 78, height: 78, fit: BoxFit.cover));
   }
 
   Row _carouselIndicator(List<String> photos) {
