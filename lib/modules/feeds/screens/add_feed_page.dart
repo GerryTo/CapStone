@@ -1,7 +1,5 @@
-import 'dart:developer';
 import 'dart:io';
 
-import 'package:capstone/config/themes/app_colors.dart';
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/feeds/viewmodel/add_feed_page_viewmodel.dart';
 import 'package:capstone/routes/routes.dart';
@@ -165,7 +163,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
       padding: const EdgeInsets.all(8.0),
       child: TextField(
         controller: _descController,
-        minLines: 3,
+        minLines: 1,
         maxLines: 5,
         decoration: const InputDecoration(
             label: Text('Deskripsi'), alignLabelWithHint: true),
@@ -214,13 +212,13 @@ class _AddFeedPageState extends State<AddFeedPage> {
         MaterialBanner(
           backgroundColor: Theme.of(context).backgroundColor,
           content:
-              const Text('Apakah anda sudah mengisi semua field dengan benar?'),
+               Text('Apakah anda sudah mengisi semua field dengan benar?',style: Theme.of(context).textTheme.subtitle2),
           actions: [
             TextButton(
               onPressed: () {
                 ScaffoldMessenger.of(context).removeCurrentMaterialBanner();
               },
-              child: const Text('Dismiss'),
+              child: const Text('Kembali'),
             )
           ],
         ),

@@ -47,7 +47,7 @@ class EditFeedPage extends StatelessWidget {
 
   Widget _projectTitleField(BuildContext context) {
     titleController.text =
-        context.watch<EditFeedProfileKuViewModel>().title ?? '';
+        context.watch<EditFeedProfileKuViewModel>().feed?.title ?? '';
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextField(
@@ -59,7 +59,7 @@ class EditFeedPage extends StatelessWidget {
 
   Widget _projectDescriptionField(BuildContext context) {
     descController.text =
-        context.watch<EditFeedProfileKuViewModel>().desc ?? '';
+        context.watch<EditFeedProfileKuViewModel>().feed?.description ?? '';
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextField(
@@ -80,8 +80,10 @@ class EditFeedPage extends StatelessWidget {
           Expanded(
             child: ElevatedButton(
               onPressed: () {
-                context.read<EditFeedProfileKuViewModel>().deleteFeed();
-                Navigator.pop(context);
+                showDialog<String>(
+                  context: context,
+                  builder: (_) => _showDialogDelete(context),
+                );
               },
               child: Wrap(children: const [
                 Text(
@@ -175,6 +177,72 @@ class EditFeedPage extends StatelessWidget {
                       .read<EditFeedProfileKuViewModel>()
                       .editFeed(ref, newTitle.text, newDesc.text);
                   Routes.router.pop(context);
+                },
+                child: Wrap(
+                  children: [
+                    Text('Ya',
+                        style: Theme.of(context)
+                            .textTheme
+                            .button
+                            ?.copyWith(fontWeight: FontWeight.bold)),
+                    const SizedBox(width: 10),
+                    Icon(
+                      Icons.check_sharp,
+                      color: Theme.of(context).iconTheme.color,
+                      size: 20.0,
+                    ),
+                  ],
+                ),
+                style: ElevatedButton.styleFrom(
+                    side: BorderSide(
+                        color: Theme.of(context).textTheme.button?.color ??
+                            Colors.grey),
+                    primary: Colors.transparent,
+                    elevation: 0),
+              ),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _showDialogDelete(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Kamu yakin ?'),
+      content: const Text('Kamu yakin untuk menghapus feedn ini?'),
+      actions: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              ElevatedButton(
+                onPressed: () {
+                  Routes.router.pop(context);
+                },
+                child: Wrap(children: const [
+                  Text(
+                    'Tidak',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(width: 10),
+                  Icon(
+                    Icons.cancel_sharp,
+                    color: Colors.white,
+                    size: 19.0,
+                  )
+                ]),
+                style: ElevatedButton.styleFrom(
+                    primary: const Color(0xffF23535), elevation: 0),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  context
+                      .read<EditFeedProfileKuViewModel>()
+                      .deleteFeed();
+                  Routes.router.navigateTo(context, Routes.home, clearStack: true);
                 },
                 child: Wrap(
                   children: [

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:capstone/modules/feeds/model/feed.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -8,8 +9,7 @@ enum EditFeedStatus { init, loading, success, fail }
 class EditFeedProfileKuViewModel extends ChangeNotifier {
   final fireStore = FirebaseFirestore.instance;
   String ref;
-  String? title;
-  String? desc;
+  Feed? feed;
   final String currentUserId;
   var status = EditFeedStatus.init;
 
@@ -22,8 +22,7 @@ class EditFeedProfileKuViewModel extends ChangeNotifier {
       status = EditFeedStatus.loading;
       notifyListeners();
       final data = await fireStore.collection('projects').doc(ref).get();
-      title = data['title'];
-      desc = data['description'];
+      feed = Feed.fromMap(data.data() as Map<String, dynamic>);
       status = EditFeedStatus.success;
       notifyListeners();
     } catch (e, s) {
