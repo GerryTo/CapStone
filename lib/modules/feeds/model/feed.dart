@@ -5,16 +5,19 @@ class Feed {
   String? description;
   List<String>? images;
   String? title;
+  int? price;
   DocumentReference? userReference;
   Timestamp? timestamp;
 
-  Feed(
-      {this.ref,
-      this.description,
-      this.images,
-      this.title,
-      this.userReference,
-      this.timestamp});
+  Feed({
+    this.ref,
+    this.description,
+    this.images,
+    this.title,
+    this.userReference,
+    this.timestamp,
+    this.price,
+  });
 
   factory Feed.fromMap(Map<String, dynamic> data) => Feed(
         ref: data['ref'] as DocumentReference?,
@@ -23,6 +26,7 @@ class Feed {
         title: data['title'] as String?,
         userReference: data['userReference'] as DocumentReference?,
         timestamp: data['timestamp'] as Timestamp?,
+        price: data['price'] as int?,
       );
 
   Map<String, dynamic> toMap() => {
@@ -31,6 +35,7 @@ class Feed {
         'title': title,
         'userReference': userReference,
         'timestamp': timestamp,
+        'price': price,
       };
 
   Feed copyWith({
@@ -40,13 +45,16 @@ class Feed {
     String? title,
     DocumentReference? userReference,
     Timestamp? timestamp,
+    int? price,
   }) {
     return Feed(
-        ref: ref ?? this.ref,
-        description: description ?? this.description,
-        images: images ?? this.images,
-        title: title ?? this.title,
-        userReference: userReference ?? this.userReference,
-        timestamp: timestamp ?? this.timestamp);
+      ref: ref ?? this.ref,
+      description: description ?? this.description,
+      images: images ?? this.images,
+      title: title ?? this.title,
+      userReference: userReference ?? this.userReference,
+      timestamp: timestamp ?? this.timestamp,
+      price: price ?? this.price,
+    );
   }
 }
