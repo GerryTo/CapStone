@@ -1,5 +1,7 @@
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:capstone/config/themes/app_colors.dart';
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/feeds/viewmodel/add_feed_page_viewmodel.dart';
 import 'package:capstone/routes/routes.dart';
@@ -19,6 +21,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
   final ImagePicker _picker = ImagePicker();
   final _titleController = TextEditingController();
   final _descController = TextEditingController();
+  final _priceController = TextEditingController();
   bool success = false;
 
   final List<XFile> _files = [];
@@ -59,12 +62,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
         bottom: _loadingBar(context),
         actions: [
           IconButton(
-            onPressed: () {
-              context.read<AddFeedPageViewModel>().send(
-                  title: _titleController.text,
-                  description: _descController.text,
-                  files: _files);
-            },
+            onPressed: () => _send(context),
             icon: const Icon(Icons.send),
           )
         ],
@@ -84,6 +82,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
             ],
           ),
           _projectTitleField(),
+          _priceField(),
           _projectDescriptionField(),
         ],
       ),
@@ -193,10 +192,55 @@ class _AddFeedPageState extends State<AddFeedPage> {
     }
   }
 
+  void _send(BuildContext context) {
+    final title = _titleController.text;
+    final description = _descController.text;
+    final price = int.tryParse(_priceController.text);
+
+    if (title.isNotEmpty &&
+        description.isNotEmpty &&
+        price != null &&
+        _files.isNotEmpty) {
+      context.read<AddFeedPageViewModel>().send(
+          title: _titleController.text,
+          description: _descController.text,
+          price: int.parse(_priceController.text),
+          files: _files);
+    } else {
+      ScaffoldMessenger.of(context).showMaterialBanner(
+        MaterialBanner(
+          backgroundColor: Theme.of(context).backgroundColor,
+          content:
+              const Text('Apakah anda sudah mengisi semua field dengan benar?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).removeCurrentMaterialBanner();
+              },
+              child: const Text('Dismiss'),
+            )
+          ],
+        ),
+      );
+    }
+  }
+
   @override
   void dispose() {
     super.dispose();
     _titleController.dispose();
     _descController.dispose();
+  }
+
+  Widget _priceField() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextField(
+        keyboardType: TextInputType.number,
+        controller: _priceController,
+        decoration: const InputDecoration(
+            label: Text('Harga'), alignLabelWithHint: true),
+      ),
+    );
   }
 }

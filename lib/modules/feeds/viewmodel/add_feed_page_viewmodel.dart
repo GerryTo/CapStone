@@ -30,10 +30,12 @@ class AddFeedPageViewModel extends ChangeNotifier {
     }));
   }
 
-  Future send(
-      {required String title,
-      required String description,
-      required List<XFile> files}) async {
+  Future send({
+    required String title,
+    required String description,
+    required int price,
+    required List<XFile> files,
+  }) async {
     try {
       status = AddFeedStatus.loading;
       notifyListeners();
@@ -47,6 +49,7 @@ class AddFeedPageViewModel extends ChangeNotifier {
         images: imageURLs,
         userReference: userRef,
         timestamp: Timestamp.now(),
+        price: price,
       ).toMap();
       //store the new project entity
       final project = await firestore.collection('projects').add(feed);
