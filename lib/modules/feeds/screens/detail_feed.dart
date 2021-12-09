@@ -7,6 +7,7 @@ import 'package:capstone/modules/feeds/model/feed.dart';
 import 'package:capstone/modules/feeds/viewmodel/detail_feed_viewmodel.dart';
 import 'package:capstone/modules/feeds/widgets/favorite_button.dart';
 import 'package:capstone/modules/feeds/widgets/my_feed_actions.dart';
+import 'package:capstone/modules/feeds/widgets/photo_place_holder.dart';
 import 'package:capstone/widget/card_photo.dart';
 import 'package:capstone/widget/loading.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -192,17 +193,9 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(context.watch<DetailFeedViewModel>().user?.name ?? '',
-                        style: const TextStyle(
-                            fontSize: 18,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.w900)),
+                    _profileName(context),
                     const SizedBox(height: 10),
-                    Text(
-                        context.watch<DetailFeedViewModel>().user?.company ??
-                            '',
-                        style: const TextStyle(
-                            fontSize: 18, fontFamily: 'Roboto')),
+                    _companyName(context),
                   ],
                 ),
               ),
@@ -211,6 +204,17 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
         ],
       ),
     );
+  }
+
+  Text _companyName(BuildContext context) {
+    return Text(context.watch<DetailFeedViewModel>().user?.company ?? '',
+        style: const TextStyle(fontSize: 18, fontFamily: 'Roboto'));
+  }
+
+  Text _profileName(BuildContext context) {
+    return Text(context.watch<DetailFeedViewModel>().user?.name ?? '',
+        style: const TextStyle(
+            fontSize: 18, fontFamily: 'Roboto', fontWeight: FontWeight.w900));
   }
 
   Widget _avatar(BuildContext context) {
@@ -223,9 +227,15 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
       );
     }
     return ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child:
-            Image.network(avatarUrl, width: 78, height: 78, fit: BoxFit.cover));
+      borderRadius: BorderRadius.circular(10),
+      child: CachedNetworkImage(
+        imageUrl: avatarUrl,
+        width: 78,
+        height: 78,
+        fit: BoxFit.cover,
+        placeholder: (_, __) => const PhotoPlaceHolder(),
+      ),
+    );
   }
 
   Row _carouselIndicator(List<String> photos) {
