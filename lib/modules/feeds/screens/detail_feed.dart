@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
+import 'package:capstone/modules/comment/widget/comment_widget.dart';
 import 'package:capstone/modules/error/screens/not_found_page.dart';
 import 'package:capstone/modules/feeds/model/feed.dart';
 import 'package:capstone/modules/feeds/viewmodel/detail_feed_viewmodel.dart';
@@ -47,15 +48,16 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
           final data = snapshot.data?.data();
           final project = Feed.fromMap(data as Map<String, dynamic>);
           return ChangeNotifierProvider(
-              create: (_) => DetailFeedViewModel(
-                    widget.projectRef,
-                    context.read<CurrentUserInfo>().userRef!,
-                  ),
-              child: Consumer<DetailFeedViewModel>(
-                builder: (context, value, child) {
-                  return _content(context, project);
-                },
-              ));
+            create: (_) => DetailFeedViewModel(
+              widget.projectRef,
+              context.read<CurrentUserInfo>().userRef!,
+            ),
+            child: Consumer<DetailFeedViewModel>(
+              builder: (context, value, child) {
+                return _content(context, project);
+              },
+            ),
+          );
         }
 
         if (snapshot.hasError) {
@@ -88,11 +90,21 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
               _price(project),
               _description(project),
               _myFeedActions(project),
+              _comments(widget.projectRef)
             ],
           ),
         ),
       ),
       floatingActionButton: _myFavoriteBottons(project),
+    );
+  }
+
+  Widget _comments(DocumentReference? projectRef) {
+    if (projectRef == null) return Container();
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height - 200,
+      child: CommentWidget(projectRef),
     );
   }
 
