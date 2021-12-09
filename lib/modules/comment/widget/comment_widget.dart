@@ -8,8 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CommentWidget extends StatelessWidget {
-  const CommentWidget(this.projectRef, {Key? key}) : super(key: key);
+  CommentWidget(this.projectRef, {Key? key}) : super(key: key);
   final DocumentReference projectRef;
+  final _commentTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -19,13 +20,66 @@ class CommentWidget extends StatelessWidget {
       ),
       builder: (ctx, __) {
         final comments = ctx.watch<CommentViewModel>().comments;
-        return ListView.builder(
-          itemCount: comments.length,
-          itemBuilder: (_, index) {
-            final comment = comments[index];
-            return _commentItem(comment);
-          },
+        return Column(
+          children: [
+            _commentForm(ctx),
+            Expanded(child: _commentList(comments)),
+          ],
         );
+      },
+    );
+  }
+
+  ElevatedButton _commentForm(BuildContext commentFormContext) {
+    return ElevatedButton.icon(
+      onPressed: () {
+        showBottomSheet(
+          context: commentFormContext,
+          elevation: 10,
+          builder: (bottomSheetContext) => BottomSheet(
+            constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(bottomSheetContext).size.height / 3),
+            enableDrag: false,
+            onClosing: () =>
+                bottomSheetContext.read<CommentViewModel>().getComments(),
+            builder: (context) {
+              return Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      minLines: 3,
+                      maxLines: 5,
+                      decoration:
+                          const InputDecoration(label: Text('Isi komentar')),
+                      controller: _commentTextController,
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      commentFormContext
+                          .read<CommentViewModel>()
+                          .addComment(_commentTextController.text);
+                    },
+                    child: const Text('Kirim'),
+                  ),
+                ],
+              );
+            },
+          ),
+        );
+      },
+      icon: Icon(Icons.comment),
+      label: const Text('Tambahkan Komentar'),
+    );
+  }
+
+  ListView _commentList(List<UserComment> comments) {
+    return ListView.builder(
+      itemCount: comments.length,
+      itemBuilder: (_, index) {
+        final comment = comments[index];
+        return _commentItem(comment);
       },
     );
   }
