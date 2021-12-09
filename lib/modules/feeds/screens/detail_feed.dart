@@ -116,11 +116,13 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
 
   Widget _price(Feed project) {
     final price = project.price;
-
+    if (price == null) {
+      return Container();
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Text(
-        formatCurrency.format(price ?? 0),
+        formatCurrency.format(price),
         style: Theme.of(context).textTheme.headline6,
       ),
     );

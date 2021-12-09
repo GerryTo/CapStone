@@ -33,7 +33,7 @@ class AddFeedPageViewModel extends ChangeNotifier {
   Future send({
     required String title,
     required String description,
-    required int price,
+    required int? price,
     required List<XFile> files,
   }) async {
     try {

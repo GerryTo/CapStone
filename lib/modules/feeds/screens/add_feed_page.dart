@@ -197,14 +197,11 @@ class _AddFeedPageState extends State<AddFeedPage> {
     final description = _descController.text;
     final price = int.tryParse(_priceController.text);
 
-    if (title.isNotEmpty &&
-        description.isNotEmpty &&
-        price != null &&
-        _files.isNotEmpty) {
+    if (title.isNotEmpty && description.isNotEmpty && _files.isNotEmpty) {
       context.read<AddFeedPageViewModel>().send(
           title: _titleController.text,
           description: _descController.text,
-          price: int.parse(_priceController.text),
+          price: price,
           files: _files);
     } else {
       ScaffoldMessenger.of(context).showMaterialBanner(
