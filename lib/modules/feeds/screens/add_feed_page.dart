@@ -55,7 +55,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
     });
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: const Text('Tambah Proyek'),
         centerTitle: true,
@@ -67,24 +67,28 @@ class _AddFeedPageState extends State<AddFeedPage> {
           )
         ],
       ),
-      body: Column(
-        children: [
-          Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Container(
-                width: double.maxFinite,
-                height: 250,
-                color: Colors.grey.shade300,
-                child: _images(),
-              ),
-              _buttonAddPhotos(context),
-            ],
-          ),
-          _projectTitleField(),
-          _priceField(),
-          _projectDescriptionField(),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: Container(
+                    width: double.maxFinite,
+                    color: Colors.black,
+                  ),
+                ),
+                _images(),
+                _buttonAddPhotos(context),
+              ],
+            ),
+            _projectTitleField(),
+            _priceField(),
+            _projectDescriptionField(),
+          ],
+        ),
       ),
     );
   }
@@ -116,10 +120,9 @@ class _AddFeedPageState extends State<AddFeedPage> {
     if (_files.isNotEmpty) {
       return CarouselSlider(
         options: CarouselOptions(
-          autoPlayCurve: Curves.fastOutSlowIn,
-          pauseAutoPlayOnTouch: true,
-          enlargeCenterPage: true,
           enableInfiniteScroll: false,
+          viewportFraction: 1,
+          pauseAutoPlayOnTouch: true,
           onPageChanged: (index, reason) {
             _carouselIndex = index;
           },
@@ -127,7 +130,10 @@ class _AddFeedPageState extends State<AddFeedPage> {
         items: _files.map((file) {
           return Stack(
             children: [
-              Image.file(File(file.path)),
+              Image.file(
+                File(file.path),
+                fit: BoxFit.cover,
+              ),
               _removeButton(),
             ],
           );
@@ -137,7 +143,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
       return const Icon(
         Icons.photo,
         color: Colors.grey,
-        size: 64,
+        size: 128,
       );
     }
   }
@@ -177,8 +183,8 @@ class _AddFeedPageState extends State<AddFeedPage> {
             _files.removeAt(_carouselIndex);
           });
         },
-        icon: const Icon(Icons.remove_circle),
-        color: Colors.grey.withAlpha(200),
+        icon: const Icon(Icons.remove_circle_sharp),
+        color: Colors.red,
       ),
     );
   }
