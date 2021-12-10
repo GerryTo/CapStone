@@ -45,8 +45,11 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
       future: widget.projectRef.get(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          final data = snapshot.data?.data();
-          final project = Feed.fromMap(data as Map<String, dynamic>);
+          final data = snapshot.data?.data() as Map<String, dynamic>?;
+          //apabila data tidak ditemukan tampilkan not found
+          if (data == null) return const NotFoundPage();
+          //parse map menjadi object Feed
+          final project = Feed.fromMap(data);
           return ChangeNotifierProvider(
             create: (_) => DetailFeedViewModel(
               widget.projectRef,
