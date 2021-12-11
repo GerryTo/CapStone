@@ -1,4 +1,3 @@
-import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/favorite/viewmodels/favorite_viewmodel.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:capstone/modules/feeds/widgets/card_feed.dart';

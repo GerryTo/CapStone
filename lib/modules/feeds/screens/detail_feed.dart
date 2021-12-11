@@ -1,9 +1,5 @@
-import 'dart:developer';
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/comment/widget/comment_widget.dart';
-import 'package:capstone/modules/error/screens/not_found_page.dart';
 import 'package:capstone/modules/feeds/model/feed.dart';
 import 'package:capstone/modules/feeds/widgets/profile_widget.dart';
 import 'package:capstone/modules/feeds/widgets/single_photo_widget.dart';
@@ -12,8 +8,6 @@ import 'package:capstone/modules/feeds/viewmodel/detail_feed_viewmodel.dart';
 import 'package:capstone/modules/feeds/widgets/favorite_button.dart';
 import 'package:capstone/modules/feeds/widgets/my_feed_actions.dart';
 import 'package:capstone/routes/routes.dart';
-
-import 'package:capstone/widget/loading.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';

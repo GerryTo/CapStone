@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone/modules/feeds/model/feed.dart';
 import 'package:capstone/modules/feeds/widgets/card_feed_info.dart';
 import 'package:capstone/modules/feeds/widgets/card_feed_photo.dart';

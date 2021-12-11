@@ -10,7 +10,6 @@ import 'package:capstone/modules/feeds/screens/edit_feed.dart';
 import 'package:capstone/modules/feeds/screens/add_feed_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluro/fluro.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../modules/home/screens/home_page.dart';

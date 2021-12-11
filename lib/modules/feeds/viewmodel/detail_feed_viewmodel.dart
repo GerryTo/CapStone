@@ -90,7 +90,7 @@ class DetailFeedViewModel extends ChangeNotifier {
     try {
       isFavorite = await _getFavoriteData();
       notifyListeners();
-    } on Exception catch (e) {
+    } on Exception catch (_) {
       isFavorite = false;
     }
   }

@@ -37,14 +37,6 @@ class CommentViewModel extends ChangeNotifier {
   Future<void> addComment(String body) async {
     try {
       if (body.isEmpty) return;
-
-      final comment = UserComment(
-        body: body,
-        user: userRef,
-        timestamp: Timestamp.now(),
-      );
-
-      final res = await projectRef.collection('comments').add(comment.toMap());
     } on Exception catch (e, s) {
       log('CommentViewModel', error: e, stackTrace: s);
     }
