@@ -11,6 +11,7 @@ import 'package:capstone/modules/feeds/widgets/slider_photo_widget.dart';
 import 'package:capstone/modules/feeds/viewmodel/detail_feed_viewmodel.dart';
 import 'package:capstone/modules/feeds/widgets/favorite_button.dart';
 import 'package:capstone/modules/feeds/widgets/my_feed_actions.dart';
+import 'package:capstone/routes/routes.dart';
 
 import 'package:capstone/widget/loading.dart';
 
@@ -33,7 +34,7 @@ class DetailFeedsPage extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => DetailFeedViewModel(
         projectRef,
-        context.read<CurrentUserInfo>().userRef!,
+        context.read<CurrentUserInfo>().userRef,
       ),
       child: Consumer<DetailFeedViewModel>(
         builder: (context, viewModel, child) {
@@ -56,7 +57,14 @@ class DetailFeedsPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _profile(viewModel),
+              GestureDetector(
+                onTap: () => Routes.router.navigateTo(
+                  context,
+                  Routes.profileUser,
+                  routeSettings: RouteSettings(arguments: viewModel.userRef),
+                ),
+                child: _profile(viewModel),
+              ),
               _photo(viewModel.project?.images ?? []),
               _title(viewModel.project),
               _price(context, viewModel.project),
