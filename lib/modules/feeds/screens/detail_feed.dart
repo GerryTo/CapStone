@@ -62,7 +62,8 @@ class DetailFeedsPage extends StatelessWidget {
                   context,
                   Routes.profileUser,
                   routeSettings: RouteSettings(
-                      arguments: viewModel.project?.userReference),
+                    arguments: viewModel.project?.userReference,
+                  ),
                 ),
                 child: _profile(viewModel),
               ),
