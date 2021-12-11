@@ -1,6 +1,9 @@
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/profile/viewmodel/profile_viewmodel.dart';
+import 'package:capstone/modules/profile/widgets/contact_button.dart';
+
 import 'package:capstone/modules/profile/widgets/feed_grid_item.dart';
+import 'package:capstone/modules/profile/widgets/share_button.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,8 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:share/share.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage(this.userRef, {Key? key}) : super(key: key);
@@ -22,26 +23,30 @@ class ProfilePage extends StatelessWidget {
       child: Consumer<ProfileViewModel>(
         builder: (context, value, child) {
           return Scaffold(
-              appBar: AppBar(
-                title: Text('Profile ',
-                    style: GoogleFonts.roboto(
-                        fontWeight: FontWeight.w900, fontSize: 20)),
-                centerTitle: true,
+            appBar: AppBar(
+              title: Text('Profile ',
+                  style: GoogleFonts.roboto(
+                      fontWeight: FontWeight.w900, fontSize: 20)),
+              centerTitle: true,
+            ),
+            body: SingleChildScrollView(
+              physics: const ClampingScrollPhysics(),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: _profileDetail(context),
+                  ),
+                  SizedBox(
+                    child: _profileButtons(context),
+                    width: double.infinity,
+                  ),
+                  _feeds(context),
+                ],
               ),
-              body: SingleChildScrollView(
-                physics: const ClampingScrollPhysics(),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: _profileDetail(context),
-                    ),
-                    _buttons(context),
-                    _feeds(context),
-                  ],
-                ),
-              ),
-              floatingActionButton: _myAddAction(value.userRef));
+            ),
+            floatingActionButton: _myAddAction(value.userRef),
+          );
         },
       ),
     );
@@ -58,75 +63,14 @@ class ProfilePage extends StatelessWidget {
     });
   }
 
-  SizedBox _buttons(BuildContext context) {
-    return SizedBox(child: _editAccount(context), width: double.infinity);
-  }
-
-  Widget _editAccount(BuildContext context) {
+  Widget _profileButtons(BuildContext context) {
     final currentUserId = context.read<CurrentUserInfo>().id;
     final profileId = userRef.id;
     if (currentUserId != profileId) {
       return Row(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: ElevatedButton(
-                onPressed: () {
-                  final Uri contact = Uri(
-                    scheme: 'tel',
-                    path: context.read<ProfileViewModel>().user?.phone,
-                  );
-                  launch(contact.toString());
-                },
-                child: Wrap(
-                  children: const [
-                    Text('kontak', style: TextStyle(color: Colors.white)),
-                    SizedBox(width: 10),
-                    Icon(
-                      Icons.contacts,
-                      color: Colors.white,
-                      size: 20.0,
-                    ),
-                  ],
-                ),
-                style: ElevatedButton.styleFrom(
-                    primary: Color(0xFF0B3D66), elevation: 0),
-              ),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: ElevatedButton(
-                onPressed: () {
-                  Share.share(
-                      'Halo, Saya ${context.read<ProfileViewModel>().user?.name}\ndari ${context.read<ProfileViewModel>().user?.company}\nKamu bisa cek profil ku di Gazebo');
-                },
-                child: Wrap(
-                  children: [
-                    Text('Bagikan',
-                        style: Theme.of(context)
-                            .textTheme
-                            .button
-                            ?.copyWith(fontWeight: FontWeight.bold)),
-                    const SizedBox(width: 10),
-                    Icon(
-                      Icons.share,
-                      color: Theme.of(context).iconTheme.color,
-                      size: 20.0,
-                    ),
-                  ],
-                ),
-                style: ElevatedButton.styleFrom(
-                    side: BorderSide(
-                        color: Theme.of(context).textTheme.button?.color ??
-                            Colors.grey),
-                    primary: Colors.transparent,
-                    elevation: 0),
-              ),
-            ),
-          ),
+        children: const [
+          ContactButton(),
+          ShareProfileButton(),
         ],
       );
     }
