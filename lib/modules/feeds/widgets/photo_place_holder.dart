@@ -5,6 +5,17 @@ class PhotoPlaceHolder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(aspectRatio: 1, child: Container(color: Colors.grey));
+    return AspectRatio(
+      aspectRatio: 1,
+      child: Container(
+        color: Colors.grey,
+        child: FittedBox(
+          child: Icon(
+            Icons.photo,
+            color: Colors.grey[600],
+          ),
+        ),
+      ),
+    );
   }
 }
