@@ -18,28 +18,31 @@ class Feeds extends StatelessWidget {
       ),
       body: ChangeNotifierProvider(
         create: (_) => FeedsViewModel(),
-        builder: (context, _) {
-          final feeds = context.watch<FeedsViewModel>().feeds;
-          return RefreshIndicator(
-            onRefresh: () => context.read<FeedsViewModel>().getFeeds(),
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: List.generate(
-                feeds.length,
-                (index) => GestureDetector(
-                  onTap: () {
-                    Routes.router.navigateTo(
-                      context,
-                      Routes.detailFeed,
-                      routeSettings: RouteSettings(arguments: feeds[index].ref),
-                    );
-                  },
-                  child: CardFeed(feeds[index]),
+        child: Consumer<FeedsViewModel>(
+          builder: (context, viewModel, child) {
+            final feeds = viewModel.feeds;
+            return RefreshIndicator(
+              onRefresh: () => viewModel.getFeeds(),
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: List.generate(
+                  feeds.length,
+                  (index) => GestureDetector(
+                    onTap: () {
+                      Routes.router.navigateTo(
+                        context,
+                        Routes.detailFeed,
+                        routeSettings:
+                            RouteSettings(arguments: feeds[index].ref),
+                      );
+                    },
+                    child: CardFeed(feeds[index]),
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
