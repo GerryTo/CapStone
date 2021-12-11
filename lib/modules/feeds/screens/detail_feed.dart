@@ -5,14 +5,14 @@ import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/comment/widget/comment_widget.dart';
 import 'package:capstone/modules/error/screens/not_found_page.dart';
 import 'package:capstone/modules/feeds/model/feed.dart';
-import 'package:capstone/modules/feeds/screens/profile_widget.dart';
+import 'package:capstone/modules/feeds/widgets/profile_widget.dart';
+import 'package:capstone/modules/feeds/widgets/slider_photo_widget.dart';
 import 'package:capstone/modules/feeds/viewmodel/detail_feed_viewmodel.dart';
 import 'package:capstone/modules/feeds/widgets/favorite_button.dart';
 import 'package:capstone/modules/feeds/widgets/my_feed_actions.dart';
-import 'package:capstone/modules/feeds/widgets/photo_place_holder.dart';
-import 'package:capstone/widget/card_photo.dart';
+
 import 'package:capstone/widget/loading.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,17 +28,8 @@ class DetailFeedsPage extends StatefulWidget {
 }
 
 class _DetailFeedsPageState extends State<DetailFeedsPage> {
-  int _currentIndex = 0;
   final formatCurrency =
       NumberFormat.simpleCurrency(locale: 'id_ID', decimalDigits: 0);
-
-  List<T> map<T>(List list, Function handler) {
-    List<T> result = [];
-    for (var i = 0; i < list.length; i++) {
-      result.add(handler(i, list[i]));
-    }
-    return result;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,10 +77,7 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const ProfileWidget(),
-              if ((project.images?.length ?? 0) > 1)
-                _sliderPhotos(project.images ?? [])
-              else
-                _onlyOnePhoto(context, project.images?.first),
+              _photo(project.images ?? []),
               _title(project),
               _price(project),
               _description(project),
@@ -162,6 +150,14 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
     });
   }
 
+  Widget _photo(List<String> photos) {
+    if (photos.length > 1) {
+      return SliderPhotoWidget(photos);
+    } else {
+      return _onlyOnePhoto(context, photos.first);
+    }
+  }
+
   Widget _onlyOnePhoto(BuildContext context, String? photo) {
     if (photo == null) {
       return AspectRatio(
@@ -180,66 +176,6 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
         width: MediaQuery.of(context).size.width,
         child: const CircularProgressIndicator(),
       ),
-    );
-  }
-
-  Center _sliderPhotos(List<String> photos) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _carousel(photos),
-          _carouselIndicator(photos),
-        ],
-      ),
-    );
-  }
-
-  Row _carouselIndicator(List<String> photos) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: map<Widget>(
-        photos,
-        (index, url) {
-          return Container(
-            width: _currentIndex == index ? 15 : 10.0,
-            height: 10.0,
-            margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              color: _currentIndex == index
-                  ? Colors.grey
-                  : Colors.grey.withOpacity(0.3),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  Stack _carousel(List<String> photos) {
-    return Stack(
-      children: [
-        Positioned.fill(
-          child: Container(
-            color: Colors.black,
-          ),
-        ),
-        CarouselSlider(
-          options: CarouselOptions(
-              enableInfiniteScroll: false,
-              aspectRatio: 1,
-              viewportFraction: 1,
-              onPageChanged: (index, reason) {
-                setState(() {
-                  _currentIndex = index;
-                });
-              }),
-          items: photos.map((photo) {
-            return CardPhoto(photo);
-          }).toList(),
-        ),
-      ],
     );
   }
 }
