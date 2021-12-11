@@ -6,6 +6,7 @@ class ProfileDetailWidget extends StatelessWidget {
   final User? user;
   @override
   Widget build(BuildContext context) {
+    if (user == null) return Container();
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -56,8 +57,8 @@ class ProfileDetailWidget extends StatelessWidget {
       );
     }
     return ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child:
-            Image.network(avatarUrl, width: 96, height: 96, fit: BoxFit.cover));
+      borderRadius: BorderRadius.circular(10),
+      child: Image.network(avatarUrl, width: 96, height: 96, fit: BoxFit.cover),
+    );
   }
 }
