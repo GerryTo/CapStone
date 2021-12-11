@@ -6,24 +6,27 @@ class ProfileEmptyFeed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: MediaQuery.of(context).size.height * 0.06),
-        Opacity(
-            opacity: 0.4,
-            child: SvgPicture.asset(
-              'assets/empty.svg',
-              width: 220,
-              height: 220,
-            )),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.06),
-        const Text(
-          'Project belum ada,\n Ayo unggah projek mu sekarang',
-          style: TextStyle(fontSize: 16, color: Colors.grey),
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.06),
-      ],
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          const Spacer(),
+          Opacity(
+              opacity: 0.4,
+              child: SvgPicture.asset(
+                'assets/empty.svg',
+                width: 220,
+                height: 220,
+              )),
+          const SizedBox(height: 32),
+          const Text(
+            'Project belum ada,\n Ayo unggah projek mu sekarang',
+            style: TextStyle(fontSize: 16, color: Colors.grey),
+            textAlign: TextAlign.center,
+          ),
+          const Spacer(),
+        ],
+      ),
     );
   }
 }

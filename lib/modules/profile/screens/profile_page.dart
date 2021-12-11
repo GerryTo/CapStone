@@ -33,26 +33,51 @@ class ProfilePage extends StatelessWidget {
             ),
             centerTitle: true,
           ),
-          body: SingleChildScrollView(
-            physics: const ClampingScrollPhysics(),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: ProfileDetailWidget(viewModel.user),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: _profileButtons(context, viewModel),
-                  width: double.infinity,
-                ),
-                _feeds(viewModel.user?.projects),
-              ],
-            ),
-          ),
+          body: _body(context, viewModel),
           floatingActionButton: _myAddAction(context, viewModel.userRef),
         );
       },
+    );
+  }
+
+  Widget _body(BuildContext context, ProfileViewModel viewModel) {
+    final projects = viewModel.user?.projects;
+    if (projects != null && projects.isNotEmpty) {
+      return SingleChildScrollView(
+        physics: const ClampingScrollPhysics(),
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: ProfileDetailWidget(viewModel.user),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: _profileButtons(context, viewModel),
+                width: double.infinity,
+              ),
+              ProfileFeedGrid(projects),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: ProfileDetailWidget(viewModel.user),
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: _profileButtons(context, viewModel),
+          width: double.infinity,
+        ),
+        const ProfileEmptyFeed(),
+      ],
     );
   }
 
@@ -91,12 +116,5 @@ class ProfilePage extends StatelessWidget {
         ],
       );
     }
-  }
-
-  Widget _feeds(List<DocumentReference<Object?>>? projects) {
-    if (projects != null && projects.isNotEmpty) {
-      return ProfileFeedGrid(projects);
-    }
-    return const ProfileEmptyFeed();
   }
 }
