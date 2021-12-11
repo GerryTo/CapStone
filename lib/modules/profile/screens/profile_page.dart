@@ -4,6 +4,7 @@ import 'package:capstone/modules/profile/widgets/contact_button.dart';
 import 'package:capstone/modules/profile/widgets/edit_profile_button.dart';
 
 import 'package:capstone/modules/profile/widgets/feed_grid_item.dart';
+import 'package:capstone/modules/profile/widgets/profile_empty_feed.dart';
 import 'package:capstone/modules/profile/widgets/profile_feed_grid.dart';
 import 'package:capstone/modules/profile/widgets/share_button.dart';
 import 'package:capstone/routes/routes.dart';
@@ -147,33 +148,11 @@ class ProfilePage extends StatelessWidget {
             Image.network(avatarUrl, width: 96, height: 96, fit: BoxFit.cover));
   }
 
-  Widget _noHaveFeed(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: MediaQuery.of(context).size.height * 0.06),
-        Opacity(
-            opacity: 0.4,
-            child: SvgPicture.asset(
-              'assets/empty.svg',
-              width: 220,
-              height: 220,
-            )),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.06),
-        const Text(
-          'Project belum ada,\n Ayo unggah projek mu sekarang',
-          style: TextStyle(fontSize: 16, color: Colors.grey),
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.06),
-      ],
-    );
-  }
-
   Widget _feeds(BuildContext context) {
     final projects = context.watch<ProfileViewModel>().user?.projects;
     if (projects != null && projects.isNotEmpty) {
       return ProfileFeedGrid(projects);
     }
-    return _noHaveFeed(context);
+    return const ProfileEmptyFeed();
   }
 }
