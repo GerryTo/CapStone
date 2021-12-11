@@ -6,6 +6,7 @@ import 'package:capstone/modules/comment/widget/comment_widget.dart';
 import 'package:capstone/modules/error/screens/not_found_page.dart';
 import 'package:capstone/modules/feeds/model/feed.dart';
 import 'package:capstone/modules/feeds/widgets/profile_widget.dart';
+import 'package:capstone/modules/feeds/widgets/single_photo_widget.dart';
 import 'package:capstone/modules/feeds/widgets/slider_photo_widget.dart';
 import 'package:capstone/modules/feeds/viewmodel/detail_feed_viewmodel.dart';
 import 'package:capstone/modules/feeds/widgets/favorite_button.dart';
@@ -48,8 +49,8 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
               context.read<CurrentUserInfo>().userRef!,
             ),
             child: Consumer<DetailFeedViewModel>(
-              builder: (context, value, child) {
-                return _content(context, project);
+              builder: (context, viewModel, child) {
+                return _content(context, project, viewModel);
               },
             ),
           );
@@ -63,7 +64,8 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
     );
   }
 
-  Scaffold _content(BuildContext context, Feed project) {
+  Scaffold _content(
+      BuildContext context, Feed project, DetailFeedViewModel viewModel) {
     return Scaffold(
       appBar: AppBar(
         title: Text(project.title ?? "Proyek",
@@ -76,7 +78,7 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const ProfileWidget(),
+              _profile(viewModel),
               _photo(project.images ?? []),
               _title(project),
               _price(project),
@@ -89,6 +91,12 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
       ),
       floatingActionButton: _myFavoriteBottons(project),
     );
+  }
+
+  Widget _profile(DetailFeedViewModel viewModel) {
+    final user = viewModel.user;
+    if (user == null) return Container();
+    return ProfileWidget(user);
   }
 
   Widget _comments(DocumentReference? projectRef) {
@@ -153,29 +161,10 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
   Widget _photo(List<String> photos) {
     if (photos.length > 1) {
       return SliderPhotoWidget(photos);
+    } else if (photos.length == 1) {
+      return SinglePhotoWidget(photo: photos.first);
     } else {
-      return _onlyOnePhoto(context, photos.first);
+      return const SinglePhotoWidget();
     }
-  }
-
-  Widget _onlyOnePhoto(BuildContext context, String? photo) {
-    if (photo == null) {
-      return AspectRatio(
-        aspectRatio: 1,
-        child: Container(
-          color: Colors.grey,
-          width: MediaQuery.of(context).size.width,
-        ),
-      );
-    }
-
-    return CachedNetworkImage(
-      imageUrl: photo,
-      placeholder: (context, url) => Container(
-        color: Colors.grey,
-        width: MediaQuery.of(context).size.width,
-        child: const CircularProgressIndicator(),
-      ),
-    );
   }
 }

@@ -1,12 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:capstone/modules/feeds/viewmodel/detail_feed_viewmodel.dart';
+import 'package:capstone/modules/auth/model/user.dart';
 import 'package:capstone/modules/feeds/widgets/photo_place_holder.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/src/provider.dart';
 
 class ProfileWidget extends StatelessWidget {
-  const ProfileWidget({Key? key}) : super(key: key);
-
+  const ProfileWidget(this.user, {Key? key}) : super(key: key);
+  final User user;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -38,18 +37,18 @@ class ProfileWidget extends StatelessWidget {
   }
 
   Text _companyName(BuildContext context) {
-    return Text(context.watch<DetailFeedViewModel>().user?.company ?? '',
+    return Text(user.company ?? '',
         style: const TextStyle(fontSize: 18, fontFamily: 'Roboto'));
   }
 
   Text _profileName(BuildContext context) {
-    return Text(context.watch<DetailFeedViewModel>().user?.name ?? '',
+    return Text(user.name ?? '',
         style: const TextStyle(
             fontSize: 18, fontFamily: 'Roboto', fontWeight: FontWeight.w900));
   }
 
   Widget _avatar(BuildContext context) {
-    final avatarUrl = context.watch<DetailFeedViewModel>().user?.avatarUrl;
+    final avatarUrl = user.avatarUrl;
     if (avatarUrl == null) {
       return Container(
         color: Colors.grey,
