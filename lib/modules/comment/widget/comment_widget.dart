@@ -4,14 +4,15 @@ import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/comment/model/comment.dart';
 import 'package:capstone/modules/comment/viewmodel/comment_viewmodel.dart';
 import 'package:capstone/modules/comment/widget/add_comment_button.dart';
+import 'package:capstone/modules/comment/widget/comment_bottom_sheet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CommentWidget extends StatelessWidget {
-  CommentWidget(this.projectRef, {Key? key}) : super(key: key);
+  const CommentWidget(this.projectRef, {Key? key}) : super(key: key);
   final DocumentReference projectRef;
-  final _commentTextController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -19,60 +20,22 @@ class CommentWidget extends StatelessWidget {
         projectRef,
         context.read<CurrentUserInfo>().userRef,
       ),
-      builder: (ctx, __) {
-        final comments = ctx.watch<CommentViewModel>().comments;
-        return Column(
-          children: [
-            AddCommentButton(onPress: () {
-              showBottomSheet(
-                context: ctx,
-                elevation: 10,
-                builder: (bottomSheetContext) =>
-                    _commentFormBottomSheet(bottomSheetContext, ctx),
-              );
-            }),
-            Expanded(child: _commentList(comments)),
-          ],
-        );
-      },
-    );
-  }
-
-  BottomSheet _commentFormBottomSheet(
-      BuildContext bottomSheetContext, BuildContext commentFormContext) {
-    return BottomSheet(
-      constraints: BoxConstraints(
-          maxHeight: MediaQuery.of(bottomSheetContext).size.height / 3),
-      enableDrag: false,
-      onClosing: () =>
-          bottomSheetContext.read<CommentViewModel>().getComments(),
-      builder: (context) {
-        return Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                minLines: 3,
-                maxLines: 5,
-                decoration: const InputDecoration(label: Text('Isi komentar')),
-                controller: _commentTextController,
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                await commentFormContext
-                    .read<CommentViewModel>()
-                    .addComment(_commentTextController.text);
-                await commentFormContext
-                    .read<CommentViewModel>()
-                    .getComments()
-                    .then((_) => Navigator.of(context).pop());
-              },
-              child: const Text('Kirim'),
-            ),
-          ],
-        );
-      },
+      child: Consumer<CommentViewModel>(
+        builder: (context, viewModel, _) {
+          return Column(
+            children: [
+              AddCommentButton(onPress: () {
+                showBottomSheet(
+                  context: context,
+                  elevation: 10,
+                  builder: (_) => CommentBottomSheet(viewModel),
+                );
+              }),
+              Expanded(child: _commentList(viewModel.comments)),
+            ],
+          );
+        },
+      ),
     );
   }
 
