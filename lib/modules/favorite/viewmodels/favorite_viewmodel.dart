@@ -12,8 +12,27 @@ class FavoriteViewModel extends ChangeNotifier {
   static const tag = 'FavoriteViewModel';
   Status status = Status.loading;
 
+  bool _disposed = false;
+
   FavoriteViewModel(this.userRef) {
     getFavorites();
+  }
+
+  /// https://stackoverflow.com/questions/63884633/unhandled-exception-a-changenotifier-was-used-after-being-disposed
+  /// favorite viewmodel lama dalam mengambil data. sehingga apabila user terlalu
+  /// cepat berpindah halaman maka notifylistener dapat terpanggil sesudah changenotifier ini
+  /// ter dispose
+  @override
+  void dispose() {
+    _disposed = true;
+    super.dispose();
+  }
+
+  @override
+  void notifyListeners() {
+    if (!_disposed) {
+      super.notifyListeners();
+    }
   }
 
   Future<void> getFavorites() async {
