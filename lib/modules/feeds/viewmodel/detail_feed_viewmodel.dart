@@ -11,23 +11,30 @@ class DetailFeedViewModel extends ChangeNotifier {
   final firestore = FirebaseFirestore.instance;
   bool isFavorite = false;
   User? user;
-  Feed? feed;
+  Feed? project;
 
   DetailFeedViewModel(this.projectRef, this.userRef) {
-    checkFavorite();
-    getUserData();
+    _init();
   }
 
-  Future<void> getUserData() async {
+  void _init() async {
+    await _getFeedData();
+    await _getUserData();
+    await checkFavorite();
+  }
+
+  Future<void> _getFeedData() async {
+    final projectData =
+        await firestore.collection('projects').doc(projectRef.id).get();
+    project = Feed.fromMap(projectData.data() as Map<String, dynamic>);
+    notifyListeners();
+  }
+
+  Future<void> _getUserData() async {
     try {
-      final projectData =
-          await firestore.collection('projects').doc(projectRef.id).get();
-      notifyListeners();
-      feed = Feed.fromMap(projectData.data() as Map<String, dynamic>);
-      notifyListeners();
       final userData = await firestore
           .collection('users')
-          .doc(feed?.userReference?.id)
+          .doc(project?.userReference?.id)
           .get();
       user = User.fromMap(userData.data() as Map<String, dynamic>);
       notifyListeners();

@@ -21,54 +21,32 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class DetailFeedsPage extends StatefulWidget {
-  const DetailFeedsPage(this.projectRef, {Key? key}) : super(key: key);
+class DetailFeedsPage extends StatelessWidget {
+  DetailFeedsPage(this.projectRef, {Key? key}) : super(key: key);
   final DocumentReference projectRef;
-  @override
-  State<DetailFeedsPage> createState() => _DetailFeedsPageState();
-}
 
-class _DetailFeedsPageState extends State<DetailFeedsPage> {
   final formatCurrency =
       NumberFormat.simpleCurrency(locale: 'id_ID', decimalDigits: 0);
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<DocumentSnapshot>(
-      future: widget.projectRef.get(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          final data = snapshot.data?.data() as Map<String, dynamic>?;
-          //apabila data tidak ditemukan tampilkan not found
-          if (data == null) return const NotFoundPage();
-          //parse map menjadi object Feed
-          final project = Feed.fromMap(data);
-          return ChangeNotifierProvider(
-            create: (_) => DetailFeedViewModel(
-              widget.projectRef,
-              context.read<CurrentUserInfo>().userRef!,
-            ),
-            child: Consumer<DetailFeedViewModel>(
-              builder: (context, viewModel, child) {
-                return _content(context, project, viewModel);
-              },
-            ),
-          );
-        }
-
-        if (snapshot.hasError) {
-          return const NotFoundPage();
-        }
-        return const LoadingScreen();
-      },
+    return ChangeNotifierProvider(
+      create: (_) => DetailFeedViewModel(
+        projectRef,
+        context.read<CurrentUserInfo>().userRef!,
+      ),
+      child: Consumer<DetailFeedViewModel>(
+        builder: (context, viewModel, child) {
+          return _content(context, viewModel);
+        },
+      ),
     );
   }
 
-  Scaffold _content(
-      BuildContext context, Feed project, DetailFeedViewModel viewModel) {
+  Scaffold _content(BuildContext context, DetailFeedViewModel viewModel) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(project.title ?? "Proyek",
+        title: Text(viewModel.project?.title ?? "Proyek",
             style: GoogleFonts.roboto(fontWeight: FontWeight.w900)),
         centerTitle: true,
       ),
@@ -79,17 +57,17 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _profile(viewModel),
-              _photo(project.images ?? []),
-              _title(project),
-              _price(project),
-              _description(project),
-              _myFeedActions(project),
-              _comments(widget.projectRef)
+              _photo(viewModel.project?.images ?? []),
+              _title(viewModel.project),
+              _price(context, viewModel.project),
+              _description(viewModel.project),
+              _myFeedActions(viewModel.project),
+              _comments(context, projectRef)
             ],
           ),
         ),
       ),
-      floatingActionButton: _myFavoriteBottons(project),
+      floatingActionButton: _myFavoriteBottons(viewModel.project),
     );
   }
 
@@ -99,7 +77,7 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
     return ProfileWidget(user);
   }
 
-  Widget _comments(DocumentReference? projectRef) {
+  Widget _comments(BuildContext context, DocumentReference? projectRef) {
     if (projectRef == null) return Container();
     return SizedBox(
       width: MediaQuery.of(context).size.width,
@@ -108,26 +86,26 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
     );
   }
 
-  Widget _description(Feed project) {
+  Widget _description(Feed? project) {
     return Padding(
       padding: const EdgeInsets.only(top: 10, left: 20),
-      child: Text(project.description ?? '',
+      child: Text(project?.description ?? '',
           style: GoogleFonts.poppins(fontSize: 14)),
     );
   }
 
-  Widget _title(Feed project) {
+  Widget _title(Feed? project) {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Text(
-        project.title ?? '',
+        project?.title ?? '',
         style: const TextStyle(fontSize: 24),
       ),
     );
   }
 
-  Widget _price(Feed project) {
-    final price = project.price;
+  Widget _price(BuildContext context, Feed? project) {
+    final price = project?.price;
     if (price == null) {
       return Container();
     }
@@ -140,21 +118,21 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
     );
   }
 
-  Widget _myFavoriteBottons(Feed project) {
+  Widget _myFavoriteBottons(Feed? project) {
     return Consumer<CurrentUserInfo>(builder: (context, user, _) {
-      if (user.id == project.userReference?.id) {
+      if (user.id == project?.userReference?.id) {
         return Container();
       }
       return const FavoriteButton();
     });
   }
 
-  Widget _myFeedActions(Feed project) {
+  Widget _myFeedActions(Feed? project) {
     return Consumer<CurrentUserInfo>(builder: (context, user, _) {
-      if (user.id != project.userReference?.id) {
+      if (user.id != project?.userReference?.id) {
         return Container();
       }
-      return MyFeedAction(widget.projectRef);
+      return MyFeedAction(projectRef);
     });
   }
 
