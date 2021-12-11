@@ -4,6 +4,7 @@ import 'package:capstone/modules/profile/widgets/contact_button.dart';
 import 'package:capstone/modules/profile/widgets/edit_profile_button.dart';
 
 import 'package:capstone/modules/profile/widgets/feed_grid_item.dart';
+import 'package:capstone/modules/profile/widgets/profile_feed_grid.dart';
 import 'package:capstone/modules/profile/widgets/share_button.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -85,38 +86,6 @@ class ProfilePage extends StatelessWidget {
         ],
       );
     }
-  }
-
-  Padding _feedGrid(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: GridView.count(
-        shrinkWrap: true,
-        primary: false,
-        padding: const EdgeInsets.all(5),
-        crossAxisSpacing: 5,
-        mainAxisSpacing: 5,
-        crossAxisCount: 3,
-        children: _projectList(context),
-      ),
-    );
-  }
-
-  List<Widget> _projectList(BuildContext context) {
-    final projects = context.watch<ProfileViewModel>().user?.projects;
-    return List.generate(
-      projects?.length ?? 0,
-      (index) {
-        final project = projects?[index];
-        if (project == null) {
-          return Container();
-        }
-        return GestureDetector(
-            onTap: () => Routes.router.navigateTo(context, Routes.detailFeed,
-                routeSettings: RouteSettings(arguments: project)),
-            child: FeedGridItem(project));
-      },
-    );
   }
 
   Widget _profileDetail(BuildContext context) {
@@ -201,9 +170,9 @@ class ProfilePage extends StatelessWidget {
   }
 
   Widget _feeds(BuildContext context) {
-    final project = context.watch<ProfileViewModel>().user?.projects;
-    if (project != null && project.isNotEmpty) {
-      return _feedGrid(context);
+    final projects = context.watch<ProfileViewModel>().user?.projects;
+    if (projects != null && projects.isNotEmpty) {
+      return ProfileFeedGrid(projects);
     }
     return _noHaveFeed(context);
   }
