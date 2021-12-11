@@ -49,22 +49,26 @@ class ProfilePage extends StatelessWidget {
                 ],
               ),
             ),
-            floatingActionButton: _myAddAction(viewModel.userRef),
+            floatingActionButton: _myAddAction(context, viewModel.userRef),
           );
         },
       ),
     );
   }
 
-  Widget _myAddAction(DocumentReference userRef) {
-    return Consumer<CurrentUserInfo>(builder: (context, user, _) {
-      if (user.id != userRef.id) {
-        return Container();
-      }
-      return FloatingActionButton(
-          onPressed: () => Routes.router.navigateTo(context, Routes.addProject),
-          child: const Icon(Icons.add));
-    });
+  Widget? _myAddAction(
+    BuildContext context,
+    DocumentReference userRef,
+  ) {
+    final currentUserId = Provider.of<CurrentUserInfo>(context).id;
+
+    if (currentUserId != userRef.id) {
+      return null;
+    }
+    return FloatingActionButton(
+      onPressed: () => Routes.router.navigateTo(context, Routes.addProject),
+      child: const Icon(Icons.add),
+    );
   }
 
   Widget _profileButtons(BuildContext context) {
