@@ -1,4 +1,4 @@
-import 'package:capstone/widget/card_photo.dart';
+import 'package:capstone/modules/feeds/widgets/card_photo.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
