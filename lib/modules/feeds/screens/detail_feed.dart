@@ -5,6 +5,7 @@ import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/comment/widget/comment_widget.dart';
 import 'package:capstone/modules/error/screens/not_found_page.dart';
 import 'package:capstone/modules/feeds/model/feed.dart';
+import 'package:capstone/modules/feeds/screens/profile_widget.dart';
 import 'package:capstone/modules/feeds/viewmodel/detail_feed_viewmodel.dart';
 import 'package:capstone/modules/feeds/widgets/favorite_button.dart';
 import 'package:capstone/modules/feeds/widgets/my_feed_actions.dart';
@@ -84,7 +85,7 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _profileWidget(context),
+              const ProfileWidget(),
               if ((project.images?.length ?? 0) > 1)
                 _sliderPhotos(project.images ?? [])
               else
@@ -148,7 +149,7 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
       if (user.id == project.userReference?.id) {
         return Container();
       }
-      return FavoriteButton();
+      return const FavoriteButton();
     });
   }
 
@@ -190,67 +191,6 @@ class _DetailFeedsPageState extends State<DetailFeedsPage> {
           _carousel(photos),
           _carouselIndicator(photos),
         ],
-      ),
-    );
-  }
-
-  Padding _profileWidget(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _avatar(context),
-              Padding(
-                padding: const EdgeInsets.only(left: 10, top: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _profileName(context),
-                    const SizedBox(height: 10),
-                    _companyName(context),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Text _companyName(BuildContext context) {
-    return Text(context.watch<DetailFeedViewModel>().user?.company ?? '',
-        style: const TextStyle(fontSize: 18, fontFamily: 'Roboto'));
-  }
-
-  Text _profileName(BuildContext context) {
-    return Text(context.watch<DetailFeedViewModel>().user?.name ?? '',
-        style: const TextStyle(
-            fontSize: 18, fontFamily: 'Roboto', fontWeight: FontWeight.w900));
-  }
-
-  Widget _avatar(BuildContext context) {
-    final avatarUrl = context.watch<DetailFeedViewModel>().user?.avatarUrl;
-    if (avatarUrl == null) {
-      return Container(
-        color: Colors.grey,
-        height: 78,
-        width: 78,
-      );
-    }
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: CachedNetworkImage(
-        imageUrl: avatarUrl,
-        width: 78,
-        height: 78,
-        fit: BoxFit.cover,
-        placeholder: (_, __) => const PhotoPlaceHolder(),
       ),
     );
   }
