@@ -11,22 +11,19 @@ class FavoritePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => FavoriteViewModel(context.read<CurrentUserInfo>().userRef),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Favorit'),
-        ),
-        body: Consumer<FavoriteViewModel>(
-          builder: (context, viewmodel, _) {
-            return RefreshIndicator(
-              onRefresh: () => viewmodel.getFavorites(),
-              child: viewmodel.favorites.isNotEmpty
-                  ? _content(viewmodel)
-                  : _noContent(context),
-            );
-          },
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Favorit'),
+      ),
+      body: Consumer<FavoriteViewModel>(
+        builder: (context, viewmodel, _) {
+          return RefreshIndicator(
+            onRefresh: () => viewmodel.getFavorites(),
+            child: viewmodel.favorites.isNotEmpty
+                ? _content(viewmodel)
+                : _noContent(context),
+          );
+        },
       ),
     );
   }

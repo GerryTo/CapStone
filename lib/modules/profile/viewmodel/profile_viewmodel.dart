@@ -13,15 +13,17 @@ class ProfileViewModel extends ChangeNotifier {
   }
 
   User? user;
-  final DocumentReference userRef;
+  final DocumentReference? userRef;
 
   var status = ShowDataStatus.init;
   Future<void> getData() async {
     try {
       status = ShowDataStatus.loading;
       notifyListeners();
-      final userSnapshot = await userRef.get();
-      user = User.fromMap(userSnapshot.data() as Map<String, dynamic>);
+      final userSnapshot = await userRef?.get();
+      final data = userSnapshot?.data() as Map<String, dynamic>?;
+      if (data == null) return;
+      user = User.fromMap(data);
       log(user.toString(), name: "USER_PROFILE");
       status = ShowDataStatus.success;
       notifyListeners();

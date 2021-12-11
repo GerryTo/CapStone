@@ -16,33 +16,29 @@ class Feeds extends StatelessWidget {
         title: const Text("Gazebo"),
         centerTitle: true,
       ),
-      body: ChangeNotifierProvider(
-        create: (_) => FeedsViewModel(),
-        child: Consumer<FeedsViewModel>(
-          builder: (context, viewModel, child) {
-            final feeds = viewModel.feeds;
-            return RefreshIndicator(
-              onRefresh: () => viewModel.getFeeds(),
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: List.generate(
-                  feeds.length,
-                  (index) => GestureDetector(
-                    onTap: () {
-                      Routes.router.navigateTo(
-                        context,
-                        Routes.detailFeed,
-                        routeSettings:
-                            RouteSettings(arguments: feeds[index].ref),
-                      );
-                    },
-                    child: CardFeed(feeds[index]),
-                  ),
+      body: Consumer<FeedsViewModel>(
+        builder: (context, viewModel, child) {
+          final feeds = viewModel.feeds;
+          return RefreshIndicator(
+            onRefresh: () => viewModel.getFeeds(),
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: List.generate(
+                feeds.length,
+                (index) => GestureDetector(
+                  onTap: () {
+                    Routes.router.navigateTo(
+                      context,
+                      Routes.detailFeed,
+                      routeSettings: RouteSettings(arguments: feeds[index].ref),
+                    );
+                  },
+                  child: CardFeed(feeds[index]),
                 ),
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
