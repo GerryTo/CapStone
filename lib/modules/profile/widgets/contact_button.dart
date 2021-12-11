@@ -11,33 +11,30 @@ class ContactButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: ElevatedButton(
-          onPressed: () {
-            final Uri contact = Uri(
-              scheme: 'tel',
-              path: Provider.of<ProfileViewModel>(context, listen: false)
-                  .user
-                  ?.phone,
-            );
-            launch(contact.toString());
-          },
-          child: Wrap(
-            children: const [
-              Text('kontak', style: TextStyle(color: Colors.white)),
-              SizedBox(width: 10),
-              Icon(
-                Icons.contacts,
-                color: Colors.white,
-                size: 20.0,
-              ),
-            ],
-          ),
-          style: ElevatedButton.styleFrom(
-            primary: const Color(0xFF0B3D66),
-            elevation: 0,
-          ),
+      child: ElevatedButton(
+        onPressed: () {
+          final Uri contact = Uri(
+            scheme: 'tel',
+            path: Provider.of<ProfileViewModel>(context, listen: false)
+                .user
+                ?.phone,
+          );
+          launch(contact.toString());
+        },
+        child: Wrap(
+          children: const [
+            Text('kontak', style: TextStyle(color: Colors.white)),
+            SizedBox(width: 10),
+            Icon(
+              Icons.contacts,
+              color: Colors.white,
+              size: 20.0,
+            ),
+          ],
+        ),
+        style: ElevatedButton.styleFrom(
+          primary: const Color(0xFF0B3D66),
+          elevation: 0,
         ),
       ),
     );

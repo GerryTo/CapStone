@@ -1,6 +1,7 @@
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/profile/viewmodel/profile_viewmodel.dart';
 import 'package:capstone/modules/profile/widgets/contact_button.dart';
+import 'package:capstone/modules/profile/widgets/edit_profile_button.dart';
 
 import 'package:capstone/modules/profile/widgets/feed_grid_item.dart';
 import 'package:capstone/modules/profile/widgets/share_button.dart';
@@ -37,7 +38,8 @@ class ProfilePage extends StatelessWidget {
                     padding: const EdgeInsets.all(16),
                     child: _profileDetail(context),
                   ),
-                  SizedBox(
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: _profileButtons(context),
                     width: double.infinity,
                   ),
@@ -70,37 +72,19 @@ class ProfilePage extends StatelessWidget {
       return Row(
         children: const [
           ContactButton(),
+          SizedBox(width: 16),
+          ShareProfileButton(),
+        ],
+      );
+    } else {
+      return Row(
+        children: const [
+          EditProfileButton(),
+          SizedBox(width: 16),
           ShareProfileButton(),
         ],
       );
     }
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: ElevatedButton(
-        onPressed: () => Routes.router.navigateTo(context, Routes.editProfile),
-        child: Wrap(
-          children: [
-            Text('Edit Profil',
-                style: Theme.of(context)
-                    .textTheme
-                    .button
-                    ?.copyWith(fontWeight: FontWeight.bold)),
-            const SizedBox(width: 10),
-            Icon(
-              Icons.edit,
-              color: Theme.of(context).iconTheme.color,
-              size: 20.0,
-            ),
-          ],
-        ),
-        style: ElevatedButton.styleFrom(
-            side: BorderSide(
-                color:
-                    Theme.of(context).textTheme.button?.color ?? Colors.grey),
-            primary: Colors.transparent,
-            elevation: 0),
-      ),
-    );
   }
 
   Padding _feedGrid(BuildContext context) {

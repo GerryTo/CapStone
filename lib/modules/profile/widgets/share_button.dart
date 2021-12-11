@@ -11,34 +11,31 @@ class ShareProfileButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: ElevatedButton(
-          onPressed: () => _share(context),
-          child: Wrap(
-            children: [
-              Text(
-                'Bagikan',
-                style: Theme.of(context)
-                    .textTheme
-                    .button
-                    ?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(width: 10),
-              Icon(
-                Icons.share,
-                color: Theme.of(context).iconTheme.color,
-                size: 20.0,
-              ),
-            ],
-          ),
-          style: ElevatedButton.styleFrom(
-              side: BorderSide(
-                  color:
-                      Theme.of(context).textTheme.button?.color ?? Colors.grey),
-              primary: Colors.transparent,
-              elevation: 0),
+      child: ElevatedButton(
+        onPressed: () => _share(context),
+        child: Wrap(
+          children: [
+            Text(
+              'Bagikan',
+              style: Theme.of(context)
+                  .textTheme
+                  .button
+                  ?.copyWith(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(width: 10),
+            Icon(
+              Icons.share,
+              color: Theme.of(context).iconTheme.color,
+              size: 20.0,
+            ),
+          ],
         ),
+        style: ElevatedButton.styleFrom(
+            side: BorderSide(
+                color:
+                    Theme.of(context).textTheme.button?.color ?? Colors.grey),
+            primary: Colors.transparent,
+            elevation: 0),
       ),
     );
   }
