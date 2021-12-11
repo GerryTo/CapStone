@@ -3,6 +3,7 @@ import 'package:capstone/modules/auth/model/user.dart';
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/comment/model/comment.dart';
 import 'package:capstone/modules/comment/viewmodel/comment_viewmodel.dart';
+import 'package:capstone/modules/comment/widget/add_comment_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,26 +23,18 @@ class CommentWidget extends StatelessWidget {
         final comments = ctx.watch<CommentViewModel>().comments;
         return Column(
           children: [
-            _commentForm(ctx),
+            AddCommentButton(onPress: () {
+              showBottomSheet(
+                context: ctx,
+                elevation: 10,
+                builder: (bottomSheetContext) =>
+                    _commentFormBottomSheet(bottomSheetContext, ctx),
+              );
+            }),
             Expanded(child: _commentList(comments)),
           ],
         );
       },
-    );
-  }
-
-  ElevatedButton _commentForm(BuildContext commentFormContext) {
-    return ElevatedButton.icon(
-      onPressed: () {
-        showBottomSheet(
-          context: commentFormContext,
-          elevation: 10,
-          builder: (bottomSheetContext) =>
-              _commentFormBottomSheet(bottomSheetContext, commentFormContext),
-        );
-      },
-      icon: Icon(Icons.comment),
-      label: const Text('Tambahkan Komentar'),
     );
   }
 
