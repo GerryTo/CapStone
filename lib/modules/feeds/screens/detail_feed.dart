@@ -61,7 +61,8 @@ class DetailFeedsPage extends StatelessWidget {
                 onTap: () => Routes.router.navigateTo(
                   context,
                   Routes.profileUser,
-                  routeSettings: RouteSettings(arguments: viewModel.userRef),
+                  routeSettings: RouteSettings(
+                      arguments: viewModel.project?.userReference),
                 ),
                 child: _profile(viewModel),
               ),
