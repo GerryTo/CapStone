@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   late bool _passwordVisible;
-  String? city;
+
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _nameController = TextEditingController();
@@ -24,6 +25,8 @@ class _RegisterPageState extends State<RegisterPage> {
   final _phoneController = TextEditingController();
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
+
+  final _cityController = TextEditingController();
 
   @override
   void initState() {
@@ -315,20 +318,27 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
           child: Padding(
             padding: const EdgeInsets.only(left: 10),
-            child: DropdownButton<String>(
-              isExpanded: true,
-              hint: const Text('Pilih kota atau kabupaten'),
-              value: city,
-              onChanged: (city) => this.city = city,
-              items: List.generate(
-                citiesData.length,
-                (index) => DropdownMenuItem(
-                  value: citiesData[index],
-                  child: Text(
-                    citiesData[index],
-                  ),
-                ),
-              ),
+            child: TypeAheadField<String>(
+              textFieldConfiguration: TextFieldConfiguration(
+                  controller: _cityController,
+                  decoration: const InputDecoration(
+                    hintText: 'Kota asal',
+                    hintStyle: TextStyle(
+                        color: Colors.grey, fontStyle: FontStyle.italic),
+                    border: InputBorder.none,
+                  )),
+              suggestionsCallback: (pattern) {
+                return citiesData.where((element) =>
+                    element.toLowerCase().contains(pattern.toLowerCase()));
+              },
+              itemBuilder: (context, suggestion) {
+                return ListTile(
+                  title: Text(suggestion),
+                );
+              },
+              onSuggestionSelected: (suggestion) {
+                _cityController.text = suggestion;
+              },
             ),
           ),
         ),
@@ -393,7 +403,7 @@ class _RegisterPageState extends State<RegisterPage> {
           'company': _companyController.text,
           'email': _emailController.text,
           'phone': _phoneController.text,
-          'location': city,
+          'location': _cityController.text,
           'projects': [],
         });
       }
@@ -424,7 +434,7 @@ class _RegisterPageState extends State<RegisterPage> {
         _emailController.text.isEmpty ||
         _companyController.text.isEmpty ||
         _nameController.text.isEmpty ||
-        city == null;
+        _cityController.text.isEmpty;
 
     if (isAllFieldFilled) {
       _fieldEmptyDialog().show();
