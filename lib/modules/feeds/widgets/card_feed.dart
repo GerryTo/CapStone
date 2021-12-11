@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone/modules/feeds/model/feed.dart';
+import 'package:capstone/modules/feeds/widgets/card_feed_info.dart';
 import 'package:capstone/modules/feeds/widgets/photo_place_holder.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -31,7 +32,7 @@ class CardFeed extends StatelessWidget {
                     arguments: userRef,
                   ),
                 ),
-                child: _cardInfo(context, userRef),
+                child: CardFeedInfo(userRef: userRef, feed: feed),
               ),
             )
           ],
@@ -50,55 +51,6 @@ class CardFeed extends StatelessWidget {
       placeholder: (context, url) => const PhotoPlaceHolder(),
       errorWidget: (context, url, error) => const Icon(Icons.error),
       fit: BoxFit.cover,
-    );
-  }
-
-  Widget _cardInfo(BuildContext context, DocumentReference<Object?>? userRef) {
-    return FutureBuilder<DocumentSnapshot>(
-      future: userRef?.get(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data =
-              snapshot.data!.data() as Map<String, dynamic>;
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                feed.title ?? "",
-                style: Theme.of(context).textTheme.headline5,
-              ),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  CachedNetworkImage(
-                    height: 32,
-                    width: 32,
-                    imageUrl: data["avatar_url"],
-                    placeholder: (_, __) => const PhotoPlaceHolder(),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
-                    fit: BoxFit.fitHeight,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    data["name"] ?? "",
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                  const SizedBox(width: 16),
-                  const Spacer(),
-                  Text(
-                    data["company"] ?? "",
-                    style: Theme.of(context).textTheme.bodyText2,
-                  ),
-                ],
-              ),
-            ],
-          );
-        }
-        return const SizedBox(
-          height: 32,
-        );
-      },
     );
   }
 }
