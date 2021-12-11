@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:capstone/modules/feeds/widgets/photo_place_holder.dart';
 import 'package:flutter/material.dart';
 
 class SinglePhotoWidget extends StatelessWidget {
@@ -21,7 +22,7 @@ class SinglePhotoWidget extends StatelessWidget {
         placeholder: (context, url) => Container(
           color: Colors.grey,
           width: MediaQuery.of(context).size.width,
-          child: const CircularProgressIndicator(),
+          child: const PhotoPlaceHolder(),
         ),
       );
     }
