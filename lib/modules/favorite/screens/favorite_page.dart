@@ -5,6 +5,7 @@ import 'package:capstone/modules/feeds/widgets/card_feed.dart';
 import 'package:capstone/widget/loading_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class FavoritePage extends StatelessWidget {
@@ -14,7 +15,11 @@ class FavoritePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Favorit'),
+        title: Text(
+          'Favorit',
+          style: GoogleFonts.roboto(fontWeight: FontWeight.w900, fontSize: 20),
+        ),
+        centerTitle: true,
       ),
       body: Consumer<FavoriteViewModel>(
         builder: (context, viewmodel, _) {

@@ -6,6 +6,7 @@ import 'package:capstone/modules/settings/viewmodel/settings_viewmodel.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
@@ -17,7 +18,10 @@ class SettingsPage extends StatelessWidget {
     final _auth = FirebaseAuth.instance;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Setelan'),
+        title: Text(
+          'Setelan',
+          style: GoogleFonts.roboto(fontWeight: FontWeight.w900, fontSize: 20),
+        ),
         centerTitle: true,
         backgroundColor: AppColors.primaryColor,
       ),

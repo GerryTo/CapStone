@@ -4,6 +4,7 @@ import 'package:capstone/routes/routes.dart';
 import 'package:capstone/modules/feeds/widgets/card_feed.dart';
 import 'package:capstone/widget/loading_card.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class Feeds extends StatelessWidget {
@@ -15,7 +16,10 @@ class Feeds extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Gazebo"),
+        title: Text(
+          "Gazebo",
+          style: GoogleFonts.roboto(fontWeight: FontWeight.w900, fontSize: 20),
+        ),
         centerTitle: true,
       ),
       body: Consumer<FeedsViewModel>(

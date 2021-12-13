@@ -7,6 +7,7 @@ import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/settings/viewmodel/edit_profile_viewmodel.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +30,14 @@ class EditProfilePage extends StatelessWidget {
       },
       child: Builder(builder: (context) {
         return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            title: Text(
+              'Edit profile',
+              style: GoogleFonts.roboto(fontWeight: FontWeight.w900, fontSize: 20),
+            ),
+            centerTitle: true,
+            backgroundColor: AppColors.primaryColor,
+          ),
           body: ListView(
             children: [
               Padding(

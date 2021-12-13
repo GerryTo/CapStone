@@ -5,6 +5,7 @@ import 'package:capstone/modules/settings/viewmodel/account_settings_viewmodel.d
 import 'package:capstone/routes/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class AccountSettingsPage extends StatelessWidget {
@@ -22,7 +23,11 @@ class AccountSettingsPage extends StatelessWidget {
         builder: (context, _) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Setelan Akun'),
+              title: Text(
+                'Setelan Akun',
+                style: GoogleFonts.roboto(
+                    fontWeight: FontWeight.w900, fontSize: 20),
+              ),
               centerTitle: true,
               backgroundColor: AppColors.primaryColor,
             ),
@@ -173,6 +178,7 @@ class EditDataModalBottomSheet extends StatelessWidget {
   final void Function() onSubmit;
 
   final List<Widget> fields;
+
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();

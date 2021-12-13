@@ -4,6 +4,7 @@ import 'package:capstone/modules/feeds/viewmodel/edit_feed_profileku_viewmodel.d
 import 'package:capstone/routes/routes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class EditFeedPage extends StatelessWidget {
@@ -22,7 +23,11 @@ class EditFeedPage extends StatelessWidget {
         builder: (context, value, child) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Edit unggahan'),
+              title: Text(
+                'Edit unggahan',
+                style: GoogleFonts.roboto(
+                    fontWeight: FontWeight.w900, fontSize: 20),
+              ),
               centerTitle: true,
               backgroundColor: AppColors.primaryColor,
             ),
@@ -239,10 +244,9 @@ class EditFeedPage extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  context
-                      .read<EditFeedProfileKuViewModel>()
-                      .deleteFeed();
-                  Routes.router.navigateTo(context, Routes.home, clearStack: true);
+                  context.read<EditFeedProfileKuViewModel>().deleteFeed();
+                  Routes.router
+                      .navigateTo(context, Routes.home, clearStack: true);
                 },
                 child: Wrap(
                   children: [
