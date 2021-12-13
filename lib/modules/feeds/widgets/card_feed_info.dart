@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone/modules/auth/model/user.dart';
 import 'package:capstone/modules/feeds/model/feed.dart';
+import 'package:capstone/modules/feeds/widgets/card_feed_info_avatar.dart';
 import 'package:capstone/modules/feeds/widgets/photo_place_holder.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -19,8 +20,8 @@ class CardFeedInfo extends StatelessWidget {
       future: userRef?.get(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data =
-              snapshot.data!.data() as Map<String, dynamic>;
+          final data = snapshot.data!.data() as Map<String, dynamic>?;
+          if (data == null) return Container();
           final user = User.fromMap(data);
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,15 +33,7 @@ class CardFeedInfo extends StatelessWidget {
               const SizedBox(height: 8),
               Row(
                 children: [
-                  CachedNetworkImage(
-                    height: 32,
-                    width: 32,
-                    imageUrl: user.avatarUrl ?? '',
-                    placeholder: (_, __) => const PhotoPlaceHolder(),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
-                    fit: BoxFit.fitHeight,
-                  ),
+                  CardFeedInfoAvatar(avatarUrl: user.avatarUrl),
                   const SizedBox(width: 8),
                   Text(
                     user.name ?? "",
