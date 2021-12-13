@@ -10,7 +10,7 @@ class ProfileDetailWidget extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _avatar(user?.avatarUrl ?? ''),
+        _avatar(user?.avatarUrl),
         const SizedBox(width: 16),
         Expanded(
           child: Column(

@@ -23,6 +23,7 @@ class CommentWidget extends StatelessWidget {
         builder: (context, viewModel, _) {
           return Column(
             children: [
+              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               AddCommentButton(onPress: () {
                 showBottomSheet(
                   context: context,

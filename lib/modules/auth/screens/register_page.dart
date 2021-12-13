@@ -406,14 +406,36 @@ class _RegisterPageState extends State<RegisterPage> {
           'location': _cityController.text,
           'projects': [],
         });
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => _registerSuccessDialog(context),
+        ).then(
+          (_) => Routes.router.pop(context),
+        );
       }
     } on FirebaseAuthException catch (e) {
+      var error = e.toString();
+      var splitErrorMassage = error.split("] ");
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.toString())),
+        SnackBar(
+          content: Text(
+            splitErrorMassage[1],
+            style: const TextStyle(color: Colors.black),
+          ),
+          backgroundColor: Colors.white,
+        ),
       );
     } on Exception catch (e) {
+      var error = e.toString();
+      var splitErrorMassage = error.split("] ");
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.toString())),
+        SnackBar(
+          content: Text(
+            splitErrorMassage[1],
+            style: const TextStyle(color: Colors.black),
+          ),
+          backgroundColor: Colors.white,
+        ),
       );
     }
   }
@@ -440,12 +462,6 @@ class _RegisterPageState extends State<RegisterPage> {
       _fieldEmptyDialog().show();
     } else {
       await _register(context);
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => _registerSuccessDialog(context),
-      ).then(
-        (_) => Routes.router.pop(context),
-      );
     }
   }
 
