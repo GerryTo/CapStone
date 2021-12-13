@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/feeds/viewmodel/add_feed_page_viewmodel.dart';
+import 'package:capstone/modules/feeds/widgets/add_feed_slider.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -23,71 +24,76 @@ class _AddFeedPageState extends State<AddFeedPage> {
   bool success = false;
 
   final List<XFile> _files = [];
-  // ignore: unused_field
+
   int _carouselIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProxyProvider<CurrentUserInfo, AddFeedPageViewModel>(
+    return ChangeNotifierProvider<AddFeedPageViewModel>(
       create: (context) =>
           AddFeedPageViewModel(context.read<CurrentUserInfo>()),
       builder: (context, _) {
-        return _content(context);
-      },
-      update: (BuildContext context, currentUserInfo,
-          AddFeedPageViewModel? previous) {
-        return AddFeedPageViewModel(currentUserInfo);
-      },
-    );
-  }
-
-  Scaffold _content(BuildContext context) {
-    context.watch<AddFeedPageViewModel>().addListener(() {
-      final status = context.read<AddFeedPageViewModel>().status;
-      if (status == AddFeedStatus.fail) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text('Gagal mengupload')));
-      } else if (status == AddFeedStatus.success) {
-        Routes.router.navigateTo(context, Routes.home, clearStack: true);
-      }
-    });
-
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      appBar: AppBar(
-        title: const Text('Tambah Proyek'),
-        centerTitle: true,
-        bottom: _loadingBar(context),
-        actions: [
-          IconButton(
-            onPressed: () => _send(context),
-            icon: const Icon(Icons.send),
-          )
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(
-              clipBehavior: Clip.none,
+        return Scaffold(
+          resizeToAvoidBottomInset: true,
+          appBar: AppBar(
+            title: const Text('Tambah Proyek'),
+            centerTitle: true,
+            bottom: _loadingBar(context),
+            actions: [
+              IconButton(
+                onPressed: () => _send(context),
+                icon: const Icon(Icons.send),
+              )
+            ],
+          ),
+          body: SingleChildScrollView(
+            child: Column(
               children: [
-                AspectRatio(
-                  aspectRatio: 16 / 9,
-                  child: Container(
-                    width: double.maxFinite,
-                    color: Colors.black,
-                  ),
-                ),
-                _images(),
-                _buttonAddPhotos(context),
+                Builder(builder: (context) {
+                  context.watch<AddFeedPageViewModel>().addListener(
+                    () {
+                      final status =
+                          context.read<AddFeedPageViewModel>().status;
+                      if (status == AddFeedStatus.fail) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Gagal mengupload')));
+                      } else if (status == AddFeedStatus.success) {
+                        Routes.router
+                            .navigateTo(context, Routes.home, clearStack: true);
+                      }
+                    },
+                  );
+                  return Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      AspectRatio(
+                        aspectRatio: 16 / 9,
+                        child: Container(
+                          width: double.maxFinite,
+                          color: Colors.black,
+                        ),
+                      ),
+                      AddFeedCarousel(
+                        _files,
+                        onPageChange: (index, _) => _carouselIndex = index,
+                        onRemove: () {
+                          setState(() {
+                            _files.removeAt(_carouselIndex);
+                          });
+                        },
+                      ),
+                      _buttonAddPhotos(context),
+                    ],
+                  );
+                }),
+                _projectTitleField(),
+                _priceField(),
+                _projectDescriptionField(),
               ],
             ),
-            _projectTitleField(),
-            _priceField(),
-            _projectDescriptionField(),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 
@@ -114,41 +120,6 @@ class _AddFeedPageState extends State<AddFeedPage> {
     );
   }
 
-  Widget _images() {
-    if (_files.isNotEmpty) {
-      return CarouselSlider(
-        options: CarouselOptions(
-          enableInfiniteScroll: false,
-          viewportFraction: 1,
-          pauseAutoPlayOnTouch: true,
-          onPageChanged: (index, reason) {
-            _carouselIndex = index;
-          },
-        ),
-        items: _files.map((file) {
-          return Stack(
-            children: [
-              Image.file(
-                File(file.path),
-                fit: BoxFit.cover,
-              ),
-              _removeButton(),
-            ],
-          );
-        }).toList(),
-      );
-    } else {
-      return const Align(
-        alignment: Alignment.center,
-        child: Icon(
-          Icons.photo,
-          color: Colors.grey,
-          size: 230,
-        ),
-      );
-    }
-  }
-
   Widget _projectTitleField() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -170,22 +141,6 @@ class _AddFeedPageState extends State<AddFeedPage> {
         maxLines: 5,
         decoration: const InputDecoration(
             label: Text('Deskripsi'), alignLabelWithHint: true),
-      ),
-    );
-  }
-
-  Widget _removeButton() {
-    return Positioned(
-      right: 0,
-      top: 0,
-      child: IconButton(
-        onPressed: () {
-          setState(() {
-            _files.removeAt(_carouselIndex);
-          });
-        },
-        icon: const Icon(Icons.remove_circle_sharp),
-        color: Colors.red,
       ),
     );
   }
@@ -214,8 +169,8 @@ class _AddFeedPageState extends State<AddFeedPage> {
       ScaffoldMessenger.of(context).showMaterialBanner(
         MaterialBanner(
           backgroundColor: Theme.of(context).backgroundColor,
-          content:
-               Text('Apakah anda sudah mengisi semua field dengan benar?',style: Theme.of(context).textTheme.subtitle2),
+          content: Text('Apakah anda sudah mengisi semua field dengan benar?',
+              style: Theme.of(context).textTheme.subtitle2),
           actions: [
             TextButton(
               onPressed: () {
