@@ -55,7 +55,7 @@ class EditFeedProfileKuViewModel extends ChangeNotifier {
       fireStore
           .collection('projects')
           .doc(ref)
-          .update({"title": newTitle, "description": newDesc});
+          .update({"title": newTitle, "description": newDesc, "price":newPrice});
     } catch (e, s) {
       log('EDIT_FEED', error: e, stackTrace: s);
       status = EditFeedStatus.fail;
