@@ -1,4 +1,5 @@
 import 'package:capstone/modules/auth/screens/login_page.dart';
+import 'package:capstone/modules/error/screens/not_found_page.dart';
 import 'package:capstone/modules/feeds/screens/detail_feed.dart';
 import 'package:capstone/modules/profile/screens/profile_page.dart';
 import 'package:capstone/modules/profile/viewmodel/profile_viewmodel.dart';
@@ -34,7 +35,10 @@ final accountSettingsHandler =
     Handler(handlerFunc: (context, params) => AccountSettingsPage());
 
 final detailFeedHandler = Handler(handlerFunc: (context, params) {
-  final args = context?.settings?.arguments as DocumentReference;
+  final args = context?.settings?.arguments as DocumentReference?;
+  if (args == null) {
+    return const NotFoundPage();
+  }
   return DetailFeedsPage(args);
 });
 

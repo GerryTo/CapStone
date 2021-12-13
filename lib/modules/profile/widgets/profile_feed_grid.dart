@@ -32,7 +32,9 @@ class ProfileFeedGrid extends StatelessWidget {
           onTap: () => Routes.router.navigateTo(
             context,
             Routes.detailFeed,
-            routeSettings: RouteSettings(arguments: project),
+            routeSettings: RouteSettings(
+              arguments: project,
+            ),
           ),
           child: FeedGridItem(project),
         );
