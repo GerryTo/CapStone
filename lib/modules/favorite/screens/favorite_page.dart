@@ -77,7 +77,7 @@ class FavoritePage extends StatelessWidget {
           SizedBox(height: MediaQuery.of(context).size.height * 0.06),
           const Text(
             'Sepertinya,\n belum ada yang kamu suka',
-            style: TextStyle(fontSize: 18, color: Colors.grey),
+            style: TextStyle(fontSize: 16, color: Colors.grey),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.06),
