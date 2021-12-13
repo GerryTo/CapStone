@@ -138,10 +138,13 @@ class _AddFeedPageState extends State<AddFeedPage> {
         }).toList(),
       );
     } else {
-      return const Icon(
-        Icons.photo,
-        color: Colors.grey,
-        size: 128,
+      return const Align(
+        alignment: Alignment.center,
+        child: Icon(
+          Icons.photo,
+          color: Colors.grey,
+          size: 230,
+        ),
       );
     }
   }
