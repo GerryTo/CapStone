@@ -4,12 +4,6 @@ import 'package:capstone/modules/feeds/model/feed.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-/// User bisa mencari berdasarkan:
-/// 1. judul
-/// User bisa memfilter berdasarkan
-/// 1. harga
-///
-
 class SearchViewModel extends ChangeNotifier {
   final algolia = AppSearch.algolia;
   final List<Feed> projects = [];
@@ -18,6 +12,7 @@ class SearchViewModel extends ChangeNotifier {
   void search(String text) async {
     final query = algolia.instance.index('capstone_sib').query(text);
     final AlgoliaQuerySnapshot snap = await query.getObjects();
+    projects.clear();
     if (snap.hasHits) {
       final hits = snap.hits;
       final List<Feed> projects = hits.map((hit) {
@@ -28,9 +23,8 @@ class SearchViewModel extends ChangeNotifier {
         return project;
       }).toList();
 
-      this.projects.clear();
       this.projects.addAll(projects);
-      notifyListeners();
     }
+    notifyListeners();
   }
 }

@@ -19,22 +19,40 @@ class SearchPage extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(controller: _searchController),
-                  ),
-                  Consumer<SearchViewModel>(
-                    builder: (context, viewModel, _) {
-                      return ElevatedButton(
-                        onPressed: () {
-                          viewModel.search(_searchController.text);
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: _searchController,
+                          decoration: const InputDecoration(
+                            contentPadding: EdgeInsets.all(8.0),
+                            border: InputBorder.none,
+                            hintText: 'Cari Proyek',
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 16,
+                      ),
+                      Consumer<SearchViewModel>(
+                        builder: (context, viewModel, _) {
+                          return ElevatedButton(
+                            onPressed: () {
+                              viewModel.search(_searchController.text);
+                            },
+                            child: const Icon(
+                              Icons.search,
+                              size: 32,
+                            ),
+                          );
                         },
-                        child: const Icon(Icons.arrow_right),
-                      );
-                    },
-                  )
-                ],
+                      )
+                    ],
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 16,
