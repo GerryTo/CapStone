@@ -32,17 +32,7 @@ class ProfileDetailWidget extends StatelessWidget {
             ],
           ),
         ),
-        Expanded(
-          child: Column(
-            children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-              Text((user?.projects?.length).toString(),
-                  style: const TextStyle(
-                      fontSize: 32, fontWeight: FontWeight.bold)),
-              const Text('Proyek', style: TextStyle(fontSize: 24)),
-            ],
-          ),
-        )
+        Expanded(child: ProjectCount(user?.projects?.length))
       ],
     );
   }
@@ -59,6 +49,28 @@ class ProfileDetailWidget extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: Image.network(avatarUrl, width: 96, height: 96, fit: BoxFit.cover),
+    );
+  }
+}
+
+class ProjectCount extends StatelessWidget {
+  const ProjectCount(this.projectCount, {Key? key}) : super(key: key);
+  final int? projectCount;
+  @override
+  Widget build(BuildContext context) {
+    if (projectCount == null) return Container();
+    return Column(
+      children: [
+        SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+        Text(
+          (projectCount ?? '0').toString(),
+          style: const TextStyle(
+            fontSize: 32,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const Text('Proyek', style: TextStyle(fontSize: 24)),
+      ],
     );
   }
 }
