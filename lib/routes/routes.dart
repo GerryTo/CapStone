@@ -14,10 +14,10 @@ class Routes {
     }
   }
 
-  static const String root = "/";
+  // static const String root = "/";
   static const String login = "/login";
   static const String registration = "/registration";
-  static const String home = "/home";
+  static const String home = "/";
   static const String profileUser = "/profileUser";
   static const String accountSettings = '/accountSettings';
   static const String detailFeed = '/detailFeed';
@@ -34,7 +34,7 @@ class Routes {
       handlerFunc: (BuildContext? context, Map<String, List<String>> params) =>
           const NotFoundPage(),
     );
-    router.define(root, handler: rootHandler);
+    router.define(login, handler: loginHandler);
     router.define(registration, handler: registrationHandler);
     router.define(home, handler: homeHandler);
     router.define(profileUser, handler: profileUserHandler);

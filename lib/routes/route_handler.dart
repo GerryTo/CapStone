@@ -16,13 +16,13 @@ import 'package:provider/provider.dart';
 
 import '../modules/home/screens/home_page.dart';
 
-final rootHandler =
+final loginHandler =
     Handler(handlerFunc: (context, params) => const LoginPage());
 
 final registrationHandler =
     Handler(handlerFunc: (context, params) => const RegisterPage());
 
-final homeHandler = Handler(handlerFunc: (context, params) => const HomePage());
+final homeHandler = Handler(handlerFunc: (context, params) => HomePage());
 
 final profileUserHandler = Handler(handlerFunc: (context, params) {
   final args = context?.settings?.arguments as DocumentReference?;
