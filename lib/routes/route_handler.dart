@@ -1,4 +1,6 @@
 import 'package:capstone/modules/auth/screens/login_page.dart';
+import 'package:capstone/modules/auth/screens/preregister_page.dart';
+import 'package:capstone/modules/auth/screens/register_client_page.dart';
 import 'package:capstone/modules/error/screens/not_found_page.dart';
 import 'package:capstone/modules/feeds/screens/detail_feed.dart';
 import 'package:capstone/modules/profile/screens/profile_page.dart';
@@ -6,7 +8,7 @@ import 'package:capstone/modules/profile/viewmodel/profile_viewmodel.dart';
 import 'package:capstone/modules/search/screens/search_page.dart';
 
 import 'package:capstone/modules/settings/screens/edit_profile_page.dart';
-import 'package:capstone/modules/auth/screens/register_page.dart';
+import 'package:capstone/modules/auth/screens/register_architect_page.dart';
 import 'package:capstone/modules/settings/screens/account_settings_page.dart';
 import 'package:capstone/modules/feeds/screens/edit_feed.dart';
 import 'package:capstone/modules/feeds/screens/add_feed_page.dart';
@@ -19,8 +21,14 @@ import '../modules/home/screens/home_page.dart';
 final rootHandler =
     Handler(handlerFunc: (context, params) => const LoginPage());
 
-final registrationHandler =
-    Handler(handlerFunc: (context, params) => const RegisterPage());
+final preregisterHandler =
+    Handler(handlerFunc: (context, params) => PreregisterPage());
+
+final registrationArchitectHandler =
+    Handler(handlerFunc: (context, params) => const RegisterArchitectPage());
+
+final registrationClientHandler =
+    Handler(handlerFunc: (context, params) => const RegisterClientPage());
 
 final homeHandler = Handler(handlerFunc: (context, params) => const HomePage());
 

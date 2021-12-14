@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+class RegisterArchitectPage extends StatefulWidget {
+  const RegisterArchitectPage({Key? key}) : super(key: key);
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<RegisterArchitectPage> createState() => _RegisterArchitectPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _RegisterArchitectPageState extends State<RegisterArchitectPage> {
   late bool _passwordVisible;
 
   final _emailController = TextEditingController();
@@ -183,7 +183,8 @@ class _RegisterPageState extends State<RegisterPage> {
       content: const Text('Anda telah berhasil mendaftar.'),
       actions: <Widget>[
         TextButton(
-          onPressed: () => Routes.router.pop(context),
+          onPressed: () => Routes.router
+              .navigateTo(context, Routes.home, clearStack: true),
           child: const Text('Oke'),
         )
       ],
@@ -409,8 +410,6 @@ class _RegisterPageState extends State<RegisterPage> {
         showDialog<String>(
           context: context,
           builder: (BuildContext context) => _registerSuccessDialog(context),
-        ).then(
-          (_) => Routes.router.pop(context),
         );
       }
     } on FirebaseAuthException catch (e) {

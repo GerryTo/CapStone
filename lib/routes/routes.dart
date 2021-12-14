@@ -16,7 +16,9 @@ class Routes {
 
   static const String root = "/";
   static const String login = "/login";
-  static const String registration = "/registration";
+  static const String registrationArchitect = "/registrationArchitect";
+  static const String registrationClient = "/registrationClient";
+  static const String preregister = '/preregister';
   static const String home = "/home";
   static const String profileUser = "/profileUser";
   static const String accountSettings = '/accountSettings';
@@ -35,7 +37,9 @@ class Routes {
           const NotFoundPage(),
     );
     router.define(root, handler: rootHandler);
-    router.define(registration, handler: registrationHandler);
+    router.define(preregister, handler: preregisterHandler);
+    router.define(registrationArchitect, handler: registrationArchitectHandler);
+    router.define(registrationClient, handler: registrationClientHandler);
     router.define(home, handler: homeHandler);
     router.define(profileUser, handler: profileUserHandler);
     router.define(accountSettings, handler: accountSettingsHandler);

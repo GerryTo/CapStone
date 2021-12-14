@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+class RegisterClientPage extends StatefulWidget {
+  const RegisterClientPage({Key? key}) : super(key: key);
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<RegisterClientPage> createState() => _RegisterClientPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _RegisterClientPageState extends State<RegisterClientPage> {
   late bool _passwordVisible;
 
   final _emailController = TextEditingController();
@@ -137,7 +137,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                           ),
                           style:
-                          ElevatedButton.styleFrom(primary: Colors.white),
+                              ElevatedButton.styleFrom(primary: Colors.white),
                         ),
                       ),
                     ],
@@ -169,7 +169,8 @@ class _RegisterPageState extends State<RegisterPage> {
       content: const Text('Anda telah berhasil mendaftar.'),
       actions: <Widget>[
         TextButton(
-          onPressed: () => Routes.router.pop(context),
+          onPressed: () => Routes.router
+        .navigateTo(context, Routes.home, clearStack: true),
           child: const Text('Oke'),
         )
       ],
@@ -193,7 +194,7 @@ class _RegisterPageState extends State<RegisterPage> {
               decoration: const InputDecoration(
                 hintText: '+62',
                 hintStyle:
-                TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
+                    TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
                 border: InputBorder.none,
               ),
               keyboardType: TextInputType.number,
@@ -223,7 +224,7 @@ class _RegisterPageState extends State<RegisterPage> {
               decoration: const InputDecoration(
                 hintText: 'Email@email.com',
                 hintStyle:
-                TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
+                    TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
                 border: InputBorder.none,
               ),
               controller: _emailController,
@@ -252,7 +253,7 @@ class _RegisterPageState extends State<RegisterPage> {
               decoration: const InputDecoration(
                 hintText: 'Nama Lengkap',
                 hintStyle:
-                TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
+                    TextStyle(color: Colors.grey, fontStyle: FontStyle.italic),
                 border: InputBorder.none,
               ),
               onSubmitted: (value) {},
@@ -332,7 +333,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   onPressed: () {
                     setState(
-                          () {
+                      () {
                         _passwordVisible = !_passwordVisible;
                       },
                     );
@@ -360,13 +361,10 @@ class _RegisterPageState extends State<RegisterPage> {
           'email': _emailController.text,
           'phone': _phoneController.text,
           'location': _cityController.text,
-          'projects': [],
         });
         showDialog<String>(
           context: context,
           builder: (BuildContext context) => _registerSuccessDialog(context),
-        ).then(
-              (_) => Routes.router.pop(context),
         );
       }
     } on FirebaseAuthException catch (e) {

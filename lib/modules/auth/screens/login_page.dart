@@ -103,8 +103,11 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 40),
                   TextButton(
                     onPressed: () {
+                      // Routes.router
+                      //     .navigateTo(context, Routes.registrationArchitect)
+                      //     .then((_) => checkLoginStatus(context));
                       Routes.router
-                          .navigateTo(context, Routes.registration)
+                          .navigateTo(context, Routes.preregister)
                           .then((_) => checkLoginStatus(context));
                     },
                     child: const Text(
