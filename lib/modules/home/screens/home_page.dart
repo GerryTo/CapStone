@@ -19,8 +19,8 @@ class HomePage extends StatelessWidget {
 
   static const feeds = 0;
   static const myProfile = 1;
-  static const favorites = 3;
-  static const settings = 4;
+  static const favorites = 2;
+  static const settings = 3;
 
   @override
   Widget build(BuildContext context) {
