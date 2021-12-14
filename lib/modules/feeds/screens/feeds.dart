@@ -20,12 +20,7 @@ class Feeds extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => SearchPage(),
-                ),
-              );
+              Routes.router.navigateTo(context, Routes.search);
             },
             icon: const Icon(Icons.search),
           ),
