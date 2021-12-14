@@ -9,31 +9,47 @@ import 'package:capstone/modules/profile/screens/profile_page.dart';
 import 'package:capstone/modules/profile/viewmodel/profile_viewmodel.dart';
 import 'package:capstone/modules/settings/screens/settings_page.dart';
 import 'package:capstone/modules/settings/viewmodel/settings_viewmodel.dart';
+import 'package:capstone/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  static const feeds = 0;
+  static const myProfile = 1;
+  static const favorites = 2;
+  static const settings = 3;
+
   @override
   Widget build(BuildContext context) {
     return StateNotifierProvider<HomeViewModel, HomeIndex>(
-      create: (context) => HomeViewModel(0),
-      builder: (ctx, __) {
+      create: (_) => HomeViewModel(0),
+      builder: (context, __) {
         return Scaffold(
-          body: _body(ctx),
+          body: _body(context),
           bottomNavigationBar: BottomNavigationBar(
-            currentIndex: ctx.watch<HomeIndex>().index,
+            currentIndex: context.watch<HomeIndex>().index,
             type: BottomNavigationBarType.fixed,
-            onTap: (index) => ctx.read<HomeViewModel>().changeIndex(index),
+            onTap: (index) => onBottomNavTap(context, index),
             items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.feed), label: 'feed'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.person), label: 'profilku'),
+                icon: Icon(Icons.feed),
+                label: 'feed',
+              ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite), label: 'favorit'),
+                icon: Icon(Icons.person),
+                label: 'profilku',
+              ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.settings), label: 'setelan'),
+                icon: Icon(Icons.favorite),
+                label: 'favorit',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: 'setelan',
+              ),
             ],
           ),
         );
@@ -44,21 +60,23 @@ class HomePage extends StatelessWidget {
   Widget _body(BuildContext context) {
     return Consumer<HomeIndex>(builder: (_, state, __) {
       switch (state.index) {
-        case 0:
+        case feeds:
           return ChangeNotifierProvider(
-              create: (_) => FeedsViewModel(), child: const Feeds());
-        case 1:
+            create: (_) => FeedsViewModel(),
+            child: const Feeds(),
+          );
+        case myProfile:
           return ChangeNotifierProvider<ProfileViewModel>(
               create: (_) =>
                   ProfileViewModel(context.read<CurrentUserInfo>().userRef),
               child: const ProfilePage());
-        case 2:
+        case favorites:
           return ChangeNotifierProvider(
             create: (_) =>
                 FavoriteViewModel(context.read<CurrentUserInfo>().userRef),
             child: const FavoritePage(),
           );
-        case 3:
+        case settings:
           return ChangeNotifierProvider<SettingsViewModel>(
               create: (context) =>
                   SettingsViewModel(context.read<CurrentUserInfo>()),
@@ -67,5 +85,13 @@ class HomePage extends StatelessWidget {
           return const NotFoundPage();
       }
     });
+  }
+
+  void onBottomNavTap(BuildContext context, index) {
+    if (index != feeds && context.read<CurrentUserInfo>().id == null) {
+      Routes.router.navigateTo(context, Routes.login);
+    } else {
+      context.read<HomeViewModel>().changeIndex(index);
+    }
   }
 }

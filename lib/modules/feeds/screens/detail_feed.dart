@@ -125,7 +125,7 @@ class DetailFeedsPage extends StatelessWidget {
 
   Widget _myFavoriteBottons(Feed? project) {
     return Consumer<CurrentUserInfo>(builder: (context, user, _) {
-      if (user.id == project?.userReference?.id) {
+      if (user.id == null || user.id == project?.userReference?.id) {
         return Container();
       }
       return const FavoriteButton();
