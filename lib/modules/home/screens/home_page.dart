@@ -40,7 +40,7 @@ class HomePage extends StatelessWidget {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person),
-                label: 'profilku',
+                label: 'profil',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.favorite),

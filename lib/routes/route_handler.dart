@@ -30,7 +30,7 @@ final registrationArchitectHandler =
 final registrationClientHandler =
     Handler(handlerFunc: (context, params) => const RegisterClientPage());
 
-final homeHandler = Handler(handlerFunc: (context, params) => HomePage());
+final homeHandler = Handler(handlerFunc: (context, params) => const HomePage());
 
 final profileUserHandler = Handler(handlerFunc: (context, params) {
   final args = context?.settings?.arguments as DocumentReference?;

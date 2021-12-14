@@ -361,6 +361,7 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
           'email': _emailController.text,
           'phone': _phoneController.text,
           'location': _cityController.text,
+          'role': 'Client',
         });
         showDialog<String>(
           context: context,

@@ -406,6 +406,7 @@ class _RegisterArchitectPageState extends State<RegisterArchitectPage> {
           'phone': _phoneController.text,
           'location': _cityController.text,
           'projects': [],
+          'role' : 'Architect',
         });
         showDialog<String>(
           context: context,
