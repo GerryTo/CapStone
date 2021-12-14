@@ -3,6 +3,7 @@ import 'package:capstone/modules/error/screens/not_found_page.dart';
 import 'package:capstone/modules/feeds/screens/detail_feed.dart';
 import 'package:capstone/modules/profile/screens/profile_page.dart';
 import 'package:capstone/modules/profile/viewmodel/profile_viewmodel.dart';
+import 'package:capstone/modules/search/screens/search_page.dart';
 
 import 'package:capstone/modules/settings/screens/edit_profile_page.dart';
 import 'package:capstone/modules/auth/screens/register_page.dart';
@@ -57,3 +58,5 @@ final editFeedHandeler = Handler(handlerFunc: (context, params) {
   final args = context?.arguments as DocumentReference;
   return EditFeedPage(args);
 });
+
+final searchHandler = Handler(handlerFunc: (_, __) => SearchPage());

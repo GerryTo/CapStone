@@ -40,7 +40,10 @@ class SettingsPage extends StatelessWidget {
                   return context.read<CurrentUserInfo>().getUserData();
                 });
               },
-              trailing: const Icon(Icons.edit),
+              trailing: Icon(
+                Icons.edit,
+                color: Theme.of(context).iconTheme.color,
+              ),
             ),
           ),
           ListTile(

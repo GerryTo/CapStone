@@ -1,5 +1,6 @@
 import 'package:capstone/constants/status.enum.dart';
 import 'package:capstone/modules/feeds/viewmodel/feeds_viewmodel.dart';
+import 'package:capstone/modules/search/screens/search_page.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:capstone/modules/feeds/widgets/card_feed.dart';
 import 'package:capstone/widget/loading_card.dart';
@@ -16,6 +17,14 @@ class Feeds extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              Routes.router.navigateTo(context, Routes.search);
+            },
+            icon: const Icon(Icons.search),
+          ),
+        ],
         title: Text(
           "Gazebo",
           style: GoogleFonts.roboto(fontWeight: FontWeight.w900, fontSize: 20),

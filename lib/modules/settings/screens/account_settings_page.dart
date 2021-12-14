@@ -38,18 +38,18 @@ class AccountSettingsPage extends StatelessWidget {
                   // child: ListView(
                   children: [
                     ListTile(
-                      leading: const Icon(Icons.email),
+                      leading: Icon(Icons.email, color: Theme.of(context).iconTheme.color),
                       title: Text(
                           context.watch<AccountSettingsViewModel>().userEmail ??
                               'N/A'),
                       onTap: () => _showEditEmailSheet(context),
-                      trailing: const Icon(Icons.edit),
+                      trailing: Icon(Icons.edit, color: Theme.of(context).iconTheme.color),
                     ),
                     ListTile(
-                      leading: const Icon(Icons.password),
+                      leading: Icon(Icons.password,color: Theme.of(context).iconTheme.color),
                       title: const Text('Password'),
                       onTap: () => _showEditPasswordSheet(context),
-                      trailing: const Icon(Icons.edit),
+                      trailing:  Icon(Icons.edit, color: Theme.of(context).iconTheme.color),
                     ),
                   ],
                   // ),
@@ -182,39 +182,36 @@ class EditDataModalBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
-    return Container(
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              ...fields,
-              const SizedBox(
-                height: 16,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      Routes.router.pop(context);
-                    },
-                    child: const Text('Batal'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        onSubmit();
-                      }
-                    },
-                    child: const Text('Simpan'),
-                  ),
-                ],
-              )
-            ],
-          ),
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            ...fields,
+            const SizedBox(
+              height: 16,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Routes.router.pop(context);
+                  },
+                  child: const Text('Batal'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      onSubmit();
+                    }
+                  },
+                  child: const Text('Simpan'),
+                ),
+              ],
+            )
+          ],
         ),
       ),
     );

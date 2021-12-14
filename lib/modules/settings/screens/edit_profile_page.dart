@@ -33,7 +33,8 @@ class EditProfilePage extends StatelessWidget {
           appBar: AppBar(
             title: Text(
               'Edit profile',
-              style: GoogleFonts.roboto(fontWeight: FontWeight.w900, fontSize: 20),
+              style:
+                  GoogleFonts.roboto(fontWeight: FontWeight.w900, fontSize: 20),
             ),
             centerTitle: true,
             backgroundColor: AppColors.primaryColor,
@@ -62,7 +63,7 @@ class EditProfilePage extends StatelessWidget {
 
   ListTile _location(BuildContext context) {
     return ListTile(
-      leading: const Icon(Icons.map),
+      leading: Icon(Icons.map, color: Theme.of(context).iconTheme.color),
       title: DropdownButton<String>(
         isExpanded: true,
         value: context.watch<EditProfileViewModel>().location,
@@ -86,9 +87,9 @@ class EditProfilePage extends StatelessWidget {
 
   ListTile _company(BuildContext context) {
     return ListTile(
-      leading: const Icon(Icons.work),
+      leading: Icon(Icons.work, color: Theme.of(context).iconTheme.color),
       title: Text(context.watch<EditProfileViewModel>().company),
-      trailing: const Icon(Icons.edit),
+      trailing: Icon(Icons.edit, color: Theme.of(context).iconTheme.color),
       onTap: () => _showEditDialog(
         context,
         label: 'Masukan Nama Perusahaan',
@@ -102,9 +103,9 @@ class EditProfilePage extends StatelessWidget {
 
   ListTile _name(BuildContext context) {
     return ListTile(
-      leading: const Icon(Icons.person),
+      leading: Icon(Icons.person, color: Theme.of(context).iconTheme.color),
       title: Text(context.watch<EditProfileViewModel>().name),
-      trailing: const Icon(Icons.edit),
+      trailing: Icon(Icons.edit, color: Theme.of(context).iconTheme.color),
       onTap: () => _showEditDialog(
         context,
         label: 'Masukan Nama',
@@ -182,6 +183,7 @@ class EditProfilePage extends StatelessWidget {
           child: Column(
             children: [
               TextField(
+                keyboardType: TextInputType.number,
                 controller: controller,
                 decoration: InputDecoration(label: Text(label)),
               ),
@@ -213,8 +215,8 @@ class EditProfilePage extends StatelessWidget {
 
   Widget _phone(BuildContext context) {
     return ListTile(
-      leading: const Icon(Icons.phone),
-      trailing: const Icon(Icons.edit),
+      leading: Icon(Icons.phone, color: Theme.of(context).iconTheme.color),
+      trailing: Icon(Icons.edit, color: Theme.of(context).iconTheme.color),
       title: Text(context.watch<EditProfileViewModel>().phone),
       onTap: () {
         _showEditDialog(context, label: 'No. Telpon', onSubmit: () {
