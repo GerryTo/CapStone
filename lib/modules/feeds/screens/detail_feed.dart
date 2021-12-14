@@ -64,6 +64,7 @@ class DetailFeedsPage extends StatelessWidget {
               _photo(viewModel.project?.images ?? []),
               _title(viewModel.project),
               _price(context, viewModel.project),
+              _landArea(viewModel.project),
               _description(viewModel.project),
               _myFeedActions(viewModel.project),
               _comments(context, projectRef)
@@ -92,7 +93,7 @@ class DetailFeedsPage extends StatelessWidget {
 
   Widget _description(Feed? project) {
     return Padding(
-      padding: const EdgeInsets.only(top: 10, left: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Text(project?.description ?? '',
           style: GoogleFonts.poppins(fontSize: 14)),
     );
@@ -148,5 +149,19 @@ class DetailFeedsPage extends StatelessWidget {
     } else {
       return const SinglePhotoWidget();
     }
+  }
+
+  Widget _landArea(Feed? project) {
+    return project?.landArea != null
+        ? Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Row(
+              children: [
+                const Text('Luas '),
+                Text('${project?.landArea} m²'),
+              ],
+            ),
+          )
+        : Container();
   }
 }
