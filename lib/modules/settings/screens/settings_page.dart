@@ -137,8 +137,11 @@ class SettingsPage extends StatelessWidget {
                       onPressed: () async {
                         await _auth.signOut();
                         context.read<CurrentUserInfo>().clearUserData();
-                        Routes.router
-                            .navigateTo(context, Routes.root, clearStack: true);
+                        Routes.router.navigateTo(
+                          context,
+                          Routes.home,
+                          clearStack: true,
+                        );
                       })
                 ],
               ).show();

@@ -24,13 +24,18 @@ class CommentWidget extends StatelessWidget {
           return Column(
             children: [
               SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-              AddCommentButton(onPress: () {
-                showBottomSheet(
-                  context: context,
-                  elevation: 10,
-                  builder: (_) => CommentBottomSheet(viewModel),
-                );
-              }),
+              Consumer<CurrentUserInfo>(
+                builder: (context, userInfo, _) {
+                  if (userInfo.id == null) return const SizedBox.shrink();
+                  return AddCommentButton(onPress: () {
+                    showBottomSheet(
+                      context: context,
+                      elevation: 10,
+                      builder: (_) => CommentBottomSheet(viewModel),
+                    );
+                  });
+                },
+              ),
               Expanded(child: _commentList(viewModel.comments)),
             ],
           );

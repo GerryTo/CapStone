@@ -21,6 +21,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
   final _titleController = TextEditingController();
   final _descController = TextEditingController();
   final _priceController = TextEditingController();
+  final _landAreaController = TextEditingController();
   bool success = false;
 
   final List<XFile> _files = [];
@@ -88,6 +89,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
                 }),
                 _projectTitleField(),
                 _priceField(),
+                _landAreaField(),
                 _projectDescriptionField(),
               ],
             ),
@@ -158,13 +160,16 @@ class _AddFeedPageState extends State<AddFeedPage> {
     final title = _titleController.text;
     final description = _descController.text;
     final price = int.tryParse(_priceController.text);
+    final landArea = int.tryParse(_landAreaController.text);
 
     if (title.isNotEmpty && description.isNotEmpty && _files.isNotEmpty) {
       context.read<AddFeedPageViewModel>().send(
-          title: _titleController.text,
-          description: _descController.text,
-          price: price,
-          files: _files);
+            title: _titleController.text,
+            description: _descController.text,
+            price: price,
+            files: _files,
+            landArea: landArea,
+          );
     } else {
       ScaffoldMessenger.of(context).showMaterialBanner(
         MaterialBanner(
@@ -199,6 +204,18 @@ class _AddFeedPageState extends State<AddFeedPage> {
         controller: _priceController,
         decoration: const InputDecoration(
             label: Text('Harga'), alignLabelWithHint: true),
+      ),
+    );
+  }
+
+  Widget _landAreaField() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextField(
+        keyboardType: TextInputType.number,
+        controller: _landAreaController,
+        decoration: const InputDecoration(
+            label: Text('Luas Tanah'), alignLabelWithHint: true),
       ),
     );
   }

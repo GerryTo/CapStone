@@ -14,6 +14,7 @@ class EditFeedPage extends StatelessWidget {
   final titleController = TextEditingController();
   final descController = TextEditingController();
   final priceController = TextEditingController();
+  final landAreaController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +41,7 @@ class EditFeedPage extends StatelessWidget {
                   children: [
                     _projectTitleField(context),
                     _projectPriceField(context),
+                    _landAreaField(context),
                     _projectDescriptionField(context),
                     _buttons(context, value.ref),
                   ],
@@ -53,15 +55,31 @@ class EditFeedPage extends StatelessWidget {
   }
 
   Widget _projectPriceField(BuildContext context) {
-    priceController.text =
-        context.watch<EditFeedProfileKuViewModel>().feed?.price.toString() ??
-            '';
+    final price = context.watch<EditFeedProfileKuViewModel>().feed?.price;
+    if (price != null) {
+      priceController.text = price.toString();
+    }
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextField(
         keyboardType: TextInputType.number,
         controller: priceController,
         decoration: const InputDecoration(label: Text('Harga projek')),
+      ),
+    );
+  }
+
+  Widget _landAreaField(BuildContext context) {
+    final landArea = context.watch<EditFeedProfileKuViewModel>().feed?.landArea;
+    if (landArea != null) {
+      landAreaController.text = landArea.toString();
+    }
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextField(
+        keyboardType: TextInputType.number,
+        controller: landAreaController,
+        decoration: const InputDecoration(label: Text('Luas Tanah')),
       ),
     );
   }
@@ -160,9 +178,7 @@ class EditFeedPage extends StatelessWidget {
     );
   }
 
-  Widget _showDialog(
-      BuildContext context,
-      String ref) {
+  Widget _showDialog(BuildContext context, String ref) {
     return AlertDialog(
       title: const Text('Kamu yakin ?'),
       content: const Text('Kamu yakin untuk mengedit feednya?'),
@@ -195,7 +211,11 @@ class EditFeedPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   context.read<EditFeedProfileKuViewModel>().editFeed(
-                      ref, titleController.text, descController.text,  int.tryParse(priceController.text));
+                      ref,
+                      titleController.text,
+                      descController.text,
+                      int.tryParse(priceController.text),
+                      int.tryParse(landAreaController.text));
                   Routes.router.pop(context);
                 },
                 child: Wrap(

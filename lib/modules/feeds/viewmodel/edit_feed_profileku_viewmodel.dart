@@ -50,12 +50,20 @@ class EditFeedProfileKuViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> editFeed(String ref, String? newTitle, String? newDesc, int? newPrice) async {
+  Future<void> editFeed(
+    String ref,
+    String? newTitle,
+    String? newDesc,
+    int? newPrice,
+    int? newLandArea,
+  ) async {
     try {
-      fireStore
-          .collection('projects')
-          .doc(ref)
-          .update({"title": newTitle, "description": newDesc, "price":newPrice});
+      fireStore.collection('projects').doc(ref).update({
+        "title": newTitle,
+        "description": newDesc,
+        "price": newPrice,
+        "landArea": newLandArea,
+      });
     } catch (e, s) {
       log('EDIT_FEED', error: e, stackTrace: s);
       status = EditFeedStatus.fail;
