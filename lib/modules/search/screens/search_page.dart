@@ -1,7 +1,5 @@
-import 'package:capstone/modules/feeds/widgets/card_feed.dart';
 import 'package:capstone/modules/search/viewmodel/search_viewmodel.dart';
 import 'package:capstone/modules/search/widgets/search_result.dart';
-import 'package:capstone/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
