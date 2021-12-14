@@ -15,7 +15,13 @@ class CommentViewModel extends ChangeNotifier {
   Future<void> getComments() async {
     log('Get Comment', name: 'CommentViewModel');
     try {
-      final querySnapshot = await projectRef.collection('comments').get();
+      final querySnapshot = await projectRef
+          .collection('comments')
+          .orderBy(
+            'timestamp',
+            descending: true,
+          )
+          .get();
       final commentsSnapshot = querySnapshot.docs;
       if (commentsSnapshot.isEmpty) {
         log('Comment Empty', name: 'CommentViewModel');
@@ -27,7 +33,7 @@ class CommentViewModel extends ChangeNotifier {
         final comment = UserComment.fromMap(data);
         return comment;
       }).toList();
-
+      this.comments.clear();
       this.comments.addAll(comments);
     } on Exception catch (e, s) {
       log('CommentViewModel', error: e, stackTrace: s);
