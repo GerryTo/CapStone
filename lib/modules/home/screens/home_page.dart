@@ -25,28 +25,31 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StateNotifierProvider<HomeViewModel, HomeIndex>(
-      create: (context) => HomeViewModel(0),
-      builder: (ctx, __) {
+      create: (_) => HomeViewModel(0),
+      builder: (context, __) {
         return Scaffold(
-          body: _body(ctx),
+          body: _body(context),
           bottomNavigationBar: BottomNavigationBar(
-            currentIndex: ctx.watch<HomeIndex>().index,
+            currentIndex: context.watch<HomeIndex>().index,
             type: BottomNavigationBarType.fixed,
-            onTap: (index) {
-              if (index > feeds && ctx.read<CurrentUserInfo>().id == null) {
-                Routes.router.navigateTo(context, Routes.login);
-              } else {
-                ctx.read<HomeViewModel>().changeIndex(index);
-              }
-            },
+            onTap: (index) => onBottomNavTap(context, index),
             items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.feed), label: 'feed'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.person), label: 'profilku'),
+                icon: Icon(Icons.feed),
+                label: 'feed',
+              ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.favorite), label: 'favorit'),
+                icon: Icon(Icons.person),
+                label: 'profilku',
+              ),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.settings), label: 'setelan'),
+                icon: Icon(Icons.favorite),
+                label: 'favorit',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings),
+                label: 'setelan',
+              ),
             ],
           ),
         );
@@ -82,5 +85,13 @@ class HomePage extends StatelessWidget {
           return const NotFoundPage();
       }
     });
+  }
+
+  void onBottomNavTap(BuildContext context, index) {
+    if (index != feeds && context.read<CurrentUserInfo>().id == null) {
+      Routes.router.navigateTo(context, Routes.login);
+    } else {
+      context.read<HomeViewModel>().changeIndex(index);
+    }
   }
 }
