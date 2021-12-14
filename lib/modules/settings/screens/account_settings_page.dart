@@ -72,7 +72,7 @@ class AccountSettingsPage extends StatelessWidget {
           fields: [
             TextFormField(
               validator: validateEmail,
-              decoration: InputDecoration(label: Text('Email Baru')),
+              decoration: const InputDecoration(label: Text('Email Baru')),
               controller: _emailController,
             )
           ],
@@ -182,38 +182,36 @@ class EditDataModalBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              ...fields,
-              const SizedBox(
-                height: 16,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      Routes.router.pop(context);
-                    },
-                    child: const Text('Batal'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        onSubmit();
-                      }
-                    },
-                    child: const Text('Simpan'),
-                  ),
-                ],
-              )
-            ],
-          ),
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            ...fields,
+            const SizedBox(
+              height: 16,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Routes.router.pop(context);
+                  },
+                  child: const Text('Batal'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      onSubmit();
+                    }
+                  },
+                  child: const Text('Simpan'),
+                ),
+              ],
+            )
+          ],
         ),
       ),
     );
