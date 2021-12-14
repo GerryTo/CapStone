@@ -35,7 +35,7 @@ class AddFeedPageViewModel extends ChangeNotifier {
     required String description,
     required int? price,
     required List<XFile> files,
-    required int landArea,
+    required int? landArea,
   }) async {
     try {
       status = AddFeedStatus.loading;
