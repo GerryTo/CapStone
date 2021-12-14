@@ -183,6 +183,7 @@ class EditProfilePage extends StatelessWidget {
           child: Column(
             children: [
               TextField(
+                keyboardType: TextInputType.number,
                 controller: controller,
                 decoration: InputDecoration(label: Text(label)),
               ),
