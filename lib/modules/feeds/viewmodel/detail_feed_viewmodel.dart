@@ -18,12 +18,12 @@ class DetailFeedViewModel extends ChangeNotifier {
   }
 
   void _init() async {
-    await _getFeedData();
+    await getFeedData();
     await _getUserData();
     await checkFavorite();
   }
 
-  Future<void> _getFeedData() async {
+  Future<void> getFeedData() async {
     final projectData =
         await firestore.collection('projects').doc(projectRef.id).get();
     project = Feed.fromMap(projectData.data() as Map<String, dynamic>);

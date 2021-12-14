@@ -137,7 +137,20 @@ class DetailFeedsPage extends StatelessWidget {
       if (user.id != project?.userReference?.id) {
         return Container();
       }
-      return MyFeedAction(projectRef);
+      return MyFeedAction(
+        projectRef,
+        onPressed: () {
+          Routes.router
+              .navigateTo(
+            context,
+            Routes.editFeed,
+            routeSettings: RouteSettings(arguments: projectRef),
+          )
+              .then((_) {
+            context.read<DetailFeedViewModel>().getFeedData();
+          });
+        },
+      );
     });
   }
 
