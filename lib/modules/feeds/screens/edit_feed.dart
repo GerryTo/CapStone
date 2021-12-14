@@ -59,6 +59,7 @@ class EditFeedPage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextField(
+        keyboardType: TextInputType.number,
         controller: priceController,
         decoration: const InputDecoration(label: Text('Harga projek')),
       ),
@@ -128,8 +129,7 @@ class EditFeedPage extends StatelessWidget {
               onPressed: () {
                 showDialog<String>(
                   context: context,
-                  builder: (_) => _showDialog(context, ref, titleController,
-                      descController, priceController),
+                  builder: (_) => _showDialog(context, ref),
                 ).then((value) => Navigator.pop(context));
               },
               child: Wrap(
@@ -162,10 +162,7 @@ class EditFeedPage extends StatelessWidget {
 
   Widget _showDialog(
       BuildContext context,
-      String ref,
-      TextEditingController newTitle,
-      TextEditingController newDesc,
-      TextEditingController newPrice) {
+      String ref) {
     return AlertDialog(
       title: const Text('Kamu yakin ?'),
       content: const Text('Kamu yakin untuk mengedit feednya?'),
@@ -198,7 +195,7 @@ class EditFeedPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   context.read<EditFeedProfileKuViewModel>().editFeed(
-                      ref, newTitle.text, newDesc.text, newPrice.text);
+                      ref, titleController.text, descController.text,  int.tryParse(priceController.text));
                   Routes.router.pop(context);
                 },
                 child: Wrap(

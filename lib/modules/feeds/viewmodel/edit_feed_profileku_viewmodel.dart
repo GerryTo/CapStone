@@ -50,7 +50,7 @@ class EditFeedProfileKuViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> editFeed(String ref, String? newTitle, String? newDesc, String? newPrice) async {
+  Future<void> editFeed(String ref, String? newTitle, String? newDesc, int? newPrice) async {
     try {
       fireStore
           .collection('projects')
