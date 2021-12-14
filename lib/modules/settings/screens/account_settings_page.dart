@@ -38,18 +38,18 @@ class AccountSettingsPage extends StatelessWidget {
                   // child: ListView(
                   children: [
                     ListTile(
-                      leading: const Icon(Icons.email),
+                      leading: Icon(Icons.email, color: Theme.of(context).iconTheme.color),
                       title: Text(
                           context.watch<AccountSettingsViewModel>().userEmail ??
                               'N/A'),
                       onTap: () => _showEditEmailSheet(context),
-                      trailing: const Icon(Icons.edit),
+                      trailing: Icon(Icons.edit, color: Theme.of(context).iconTheme.color),
                     ),
                     ListTile(
-                      leading: const Icon(Icons.password),
+                      leading: Icon(Icons.password,color: Theme.of(context).iconTheme.color),
                       title: const Text('Password'),
                       onTap: () => _showEditPasswordSheet(context),
-                      trailing: const Icon(Icons.edit),
+                      trailing:  Icon(Icons.edit, color: Theme.of(context).iconTheme.color),
                     ),
                   ],
                   // ),
@@ -72,7 +72,7 @@ class AccountSettingsPage extends StatelessWidget {
           fields: [
             TextFormField(
               validator: validateEmail,
-              decoration: const InputDecoration(label: Text('Email Baru')),
+              decoration: InputDecoration(label: Text('Email Baru')),
               controller: _emailController,
             )
           ],
@@ -183,7 +183,6 @@ class EditDataModalBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final _formKey = GlobalKey<FormState>();
     return Container(
-      color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
