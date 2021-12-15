@@ -107,18 +107,29 @@ class EditProfileTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.only(top: 16),
       child: ListTile(
         title: Text(context.watch<SettingsViewModel>().user?.name ?? 'no name'),
         leading: AspectRatio(aspectRatio: 1, child: _avatar(context)),
-        onTap: () async {
-          Routes.router.navigateTo(context, Routes.editProfile).then((value) {
-            return context.read<CurrentUserInfo>().getUserData();
-          });
+        onTap: () {
+          Routes.router.navigateTo(
+            context,
+            Routes.profileUser,
+            routeSettings: RouteSettings(
+              arguments: context.read<CurrentUserInfo>().userRef,
+            ),
+          );
         },
-        trailing: Icon(
-          Icons.edit,
-          color: Theme.of(context).iconTheme.color,
+        trailing: IconButton(
+          onPressed: () => Routes.router
+              .navigateTo(context, Routes.editProfile)
+              .then((value) {
+            return context.read<CurrentUserInfo>().getUserData();
+          }),
+          icon: Icon(
+            Icons.edit,
+            color: Theme.of(context).iconTheme.color,
+          ),
         ),
       ),
     );
