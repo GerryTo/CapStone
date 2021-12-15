@@ -24,15 +24,15 @@ class CardFeed extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              child: GestureDetector(
-                onTap: () => Routes.router.navigateTo(
+              child: CardFeedInfo(
+                feed: feed,
+                onProfileTap: () => Routes.router.navigateTo(
                   context,
                   Routes.profileUser,
                   routeSettings: RouteSettings(
                     arguments: userRef,
                   ),
                 ),
-                child: CardFeedInfo(userRef: userRef, feed: feed),
               ),
             )
           ],

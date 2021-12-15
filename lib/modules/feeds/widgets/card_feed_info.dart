@@ -8,14 +8,16 @@ import 'package:flutter/material.dart';
 
 class CardFeedInfo extends StatelessWidget {
   const CardFeedInfo({
-    required this.userRef,
     required this.feed,
+    required this.onProfileTap,
     Key? key,
   }) : super(key: key);
-  final DocumentReference<Object?>? userRef;
+
   final Feed feed;
+  final void Function() onProfileTap;
   @override
   Widget build(BuildContext context) {
+    final userRef = feed.userReference;
     return FutureBuilder<DocumentSnapshot>(
       future: userRef?.get(),
       builder: (context, snapshot) {
@@ -31,21 +33,24 @@ class CardFeedInfo extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline5,
               ),
               const SizedBox(height: 8),
-              Row(
-                children: [
-                  CardFeedInfoAvatar(avatarUrl: user.avatarUrl),
-                  const SizedBox(width: 8),
-                  Text(
-                    user.name ?? "",
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                  const SizedBox(width: 16),
-                  const Spacer(),
-                  Text(
-                    user.company ?? "",
-                    style: Theme.of(context).textTheme.bodyText2,
-                  ),
-                ],
+              GestureDetector(
+                onTap: onProfileTap,
+                child: Row(
+                  children: [
+                    CardFeedInfoAvatar(avatarUrl: user.avatarUrl),
+                    const SizedBox(width: 8),
+                    Text(
+                      user.name ?? "",
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    const SizedBox(width: 16),
+                    const Spacer(),
+                    Text(
+                      user.company ?? "",
+                      style: Theme.of(context).textTheme.bodyText2,
+                    ),
+                  ],
+                ),
               ),
             ],
           );
