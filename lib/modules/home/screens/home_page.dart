@@ -5,11 +5,7 @@ import 'package:capstone/modules/favorite/viewmodels/favorite_viewmodel.dart';
 import 'package:capstone/modules/feeds/screens/feeds.dart';
 import 'package:capstone/modules/feeds/viewmodel/feeds_viewmodel.dart';
 import 'package:capstone/modules/home/viewmodel/home_viewmodel.dart';
-import 'package:capstone/modules/profile/screens/profile_page.dart';
-import 'package:capstone/modules/profile/viewmodel/profile_viewmodel.dart';
 import 'package:capstone/modules/search/screens/search_page.dart';
-import 'package:capstone/modules/settings/screens/settings_page.dart';
-import 'package:capstone/modules/settings/viewmodel/settings_viewmodel.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
@@ -19,8 +15,8 @@ class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   static const feeds = 0;
-  static const favorites = 1;
-  static const search = 2;
+  static const search = 1;
+  static const favorites = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +35,12 @@ class HomePage extends StatelessWidget {
                 label: 'feed',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.favorite),
-                label: 'favorit',
-              ),
-              BottomNavigationBarItem(
                 icon: Icon(Icons.search),
                 label: 'search',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.favorite),
+                label: 'favorit',
               ),
             ],
           ),
@@ -61,15 +57,14 @@ class HomePage extends StatelessWidget {
             create: (_) => FeedsViewModel(),
             child: const Feeds(),
           );
+        case search:
+          return SearchPage();
         case favorites:
           return ChangeNotifierProvider(
             create: (_) =>
                 FavoriteViewModel(context.read<CurrentUserInfo>().userRef),
             child: const FavoritePage(),
           );
-
-        case search:
-          return SearchPage();
         default:
           return const NotFoundPage();
       }
