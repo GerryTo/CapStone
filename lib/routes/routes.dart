@@ -30,6 +30,8 @@ class Routes {
   static const String editFeed = '/editFeed';
   static const String search = '/search';
 
+  static const String settings = '/settings';
+
   static FluroRouter _init() {
     final router = FluroRouter();
     router.notFoundHandler = Handler(
@@ -40,6 +42,7 @@ class Routes {
     router.define(preregister, handler: preregisterHandler);
     router.define(registrationArchitect, handler: registrationArchitectHandler);
     router.define(registrationClient, handler: registrationClientHandler);
+
     router.define(home, handler: homeHandler);
     router.define(profileUser, handler: profileUserHandler);
     router.define(accountSettings, handler: accountSettingsHandler);
@@ -49,6 +52,8 @@ class Routes {
     // router.define(detailFeedProfilKu, handler: detailFeedProfilKuHandeler);
     router.define(editFeed, handler: editFeedHandeler);
     router.define(search, handler: searchHandler);
+
+    router.define(settings, handler: settingsHandler);
 
     return router;
   }

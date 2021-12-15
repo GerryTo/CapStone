@@ -7,6 +7,7 @@ import 'package:capstone/modules/feeds/viewmodel/feeds_viewmodel.dart';
 import 'package:capstone/modules/home/viewmodel/home_viewmodel.dart';
 import 'package:capstone/modules/profile/screens/profile_page.dart';
 import 'package:capstone/modules/profile/viewmodel/profile_viewmodel.dart';
+import 'package:capstone/modules/search/screens/search_page.dart';
 import 'package:capstone/modules/settings/screens/settings_page.dart';
 import 'package:capstone/modules/settings/viewmodel/settings_viewmodel.dart';
 import 'package:capstone/routes/routes.dart';
@@ -18,9 +19,8 @@ class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   static const feeds = 0;
-  static const myProfile = 1;
-  static const favorites = 2;
-  static const settings = 3;
+  static const favorites = 1;
+  static const search = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -39,16 +39,12 @@ class HomePage extends StatelessWidget {
                 label: 'feed',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'profil',
-              ),
-              BottomNavigationBarItem(
                 icon: Icon(Icons.favorite),
                 label: 'favorit',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                label: 'setelan',
+                icon: Icon(Icons.search),
+                label: 'search',
               ),
             ],
           ),
@@ -65,22 +61,15 @@ class HomePage extends StatelessWidget {
             create: (_) => FeedsViewModel(),
             child: const Feeds(),
           );
-        case myProfile:
-          return ChangeNotifierProvider<ProfileViewModel>(
-              create: (_) =>
-                  ProfileViewModel(context.read<CurrentUserInfo>().userRef),
-              child: const ProfilePage());
         case favorites:
           return ChangeNotifierProvider(
             create: (_) =>
                 FavoriteViewModel(context.read<CurrentUserInfo>().userRef),
             child: const FavoritePage(),
           );
-        case settings:
-          return ChangeNotifierProvider<SettingsViewModel>(
-              create: (context) =>
-                  SettingsViewModel(context.read<CurrentUserInfo>()),
-              child: const SettingsPage());
+
+        case search:
+          return SearchPage();
         default:
           return const NotFoundPage();
       }

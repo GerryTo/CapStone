@@ -1,3 +1,4 @@
+import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/auth/screens/login_page.dart';
 import 'package:capstone/modules/auth/screens/preregister_page.dart';
 import 'package:capstone/modules/auth/screens/register_client_page.dart';
@@ -12,6 +13,8 @@ import 'package:capstone/modules/auth/screens/register_architect_page.dart';
 import 'package:capstone/modules/settings/screens/account_settings_page.dart';
 import 'package:capstone/modules/feeds/screens/edit_feed.dart';
 import 'package:capstone/modules/feeds/screens/add_feed_page.dart';
+import 'package:capstone/modules/settings/screens/settings_page.dart';
+import 'package:capstone/modules/settings/viewmodel/settings_viewmodel.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fluro/fluro.dart';
 import 'package:provider/provider.dart';
@@ -68,3 +71,9 @@ final editFeedHandeler = Handler(handlerFunc: (context, params) {
 });
 
 final searchHandler = Handler(handlerFunc: (_, __) => SearchPage());
+
+final settingsHandler = Handler(
+  handlerFunc: (_, __) => ChangeNotifierProvider<SettingsViewModel>(
+      create: (context) => SettingsViewModel(context.read<CurrentUserInfo>()),
+      child: const SettingsPage()),
+);

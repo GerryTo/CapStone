@@ -18,11 +18,17 @@ class Feeds extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         actions: [
+          // IconButton(
+          //   onPressed: () {
+          //     Routes.router.navigateTo(context, Routes.search);
+          //   },
+          //   icon: const Icon(Icons.search),
+          // ),
           IconButton(
             onPressed: () {
-              Routes.router.navigateTo(context, Routes.search);
+              Routes.router.navigateTo(context, Routes.settings);
             },
-            icon: const Icon(Icons.search),
+            icon: const Icon(Icons.menu),
           ),
         ],
         title: Text(
