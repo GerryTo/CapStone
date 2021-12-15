@@ -24,6 +24,12 @@ class Feeds extends StatelessWidget {
             },
             icon: const Icon(Icons.search),
           ),
+          IconButton(
+            onPressed: () {
+              Routes.router.navigateTo(context, Routes.settings);
+            },
+            icon: const Icon(Icons.menu),
+          ),
         ],
         title: Text(
           "Gazebo",
