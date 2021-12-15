@@ -8,16 +8,17 @@ class User {
   String? name;
   String? phone;
   List<DocumentReference>? projects;
+  String? role;
 
-  User({
-    this.avatarUrl,
-    this.company,
-    this.email,
-    this.location,
-    this.name,
-    this.phone,
-    this.projects,
-  });
+  User(
+      {this.avatarUrl,
+      this.company,
+      this.email,
+      this.location,
+      this.name,
+      this.phone,
+      this.projects,
+      this.role});
 
   factory User.fromMap(Map<String, dynamic> json) => User(
         avatarUrl: json['avatar_url'] as String?,
@@ -29,6 +30,7 @@ class User {
         projects: (json['projects'] as List<dynamic>?)
             ?.map((e) => e as DocumentReference)
             .toList(),
+        role: json['role'] as String?,
       );
 
   Map<String, dynamic> toMap() => {
@@ -49,6 +51,7 @@ class User {
     String? name,
     String? phone,
     List<String>? projects,
+    String? role,
   }) {
     return User(
       avatarUrl: avatarUrl ?? this.avatarUrl,
@@ -58,6 +61,7 @@ class User {
       name: name ?? this.name,
       phone: phone ?? this.phone,
       projects: projects as List<DocumentReference>? ?? this.projects,
+      role: role ?? this.role,
     );
   }
 }
