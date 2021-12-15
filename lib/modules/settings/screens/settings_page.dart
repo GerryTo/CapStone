@@ -224,7 +224,9 @@ class AboutTile extends StatelessWidget {
         Icons.info,
         color: Theme.of(context).iconTheme.color,
       ),
-      onTap: () {},
+      onTap: () {
+        Routes.router.navigateTo(context, Routes.about);
+      },
     );
   }
 }

@@ -29,8 +29,8 @@ class Routes {
   // static const String detailFeedProfilKu = '/detailFeedProfilKu';
   static const String editFeed = '/editFeed';
   static const String search = '/search';
-
   static const String settings = '/settings';
+  static const String about = '/about';
 
   static FluroRouter _init() {
     final router = FluroRouter();
@@ -52,8 +52,8 @@ class Routes {
     // router.define(detailFeedProfilKu, handler: detailFeedProfilKuHandeler);
     router.define(editFeed, handler: editFeedHandeler);
     router.define(search, handler: searchHandler);
-
     router.define(settings, handler: settingsHandler);
+    router.define(about, handler: aboutHandler);
 
     return router;
   }

@@ -7,6 +7,7 @@ import 'package:capstone/modules/feeds/screens/detail_feed.dart';
 import 'package:capstone/modules/profile/screens/profile_page.dart';
 import 'package:capstone/modules/profile/viewmodel/profile_viewmodel.dart';
 import 'package:capstone/modules/search/screens/search_page.dart';
+import 'package:capstone/modules/settings/screens/about_page.dart';
 
 import 'package:capstone/modules/settings/screens/edit_profile_page.dart';
 import 'package:capstone/modules/auth/screens/register_architect_page.dart';
@@ -77,3 +78,5 @@ final settingsHandler = Handler(
       create: (context) => SettingsViewModel(context.read<CurrentUserInfo>()),
       child: const SettingsPage()),
 );
+
+final aboutHandler = Handler(handlerFunc: (context, params) => AboutPage());
