@@ -72,7 +72,7 @@ class HomePage extends StatelessWidget {
   }
 
   void onBottomNavTap(BuildContext context, index) {
-    if (index != feeds && context.read<CurrentUserInfo>().id == null) {
+    if (index == favorites && context.read<CurrentUserInfo>().id == null) {
       Routes.router.navigateTo(context, Routes.login);
     } else {
       context.read<HomeViewModel>().changeIndex(index);
