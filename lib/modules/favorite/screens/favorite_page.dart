@@ -70,13 +70,13 @@ class FavoritePage extends StatelessWidget {
           Opacity(
               opacity: 0.4,
               child: SvgPicture.asset(
-                'assets/search.svg',
+                'assets/favorite.svg',
                 width: 300,
                 height: 300,
               )),
           SizedBox(height: MediaQuery.of(context).size.height * 0.06),
           const Text(
-            'Sepertinya,\n belum ada yang kamu suka',
+            'Sepertinya, belum ada yang kamu suka',
             style: TextStyle(fontSize: 16, color: Colors.grey),
             textAlign: TextAlign.center,
           ),

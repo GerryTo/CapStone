@@ -2,6 +2,7 @@ import 'package:capstone/constants/status.enum.dart';
 import 'package:capstone/modules/search/viewmodel/search_viewmodel.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 class SearchResult extends StatelessWidget {
@@ -17,11 +18,55 @@ class SearchResult extends StatelessWidget {
       }
 
       if (viewModel.status == Status.noData) {
-        return const Center(child: Text('Tidak ditemukan'));
+        return Center(
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.01),
+              Opacity(
+                  opacity: 0.4,
+                  child: SvgPicture.asset(
+                    'assets/noData.svg',
+                    width: 300,
+                    height: 300,
+                  )),
+              SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.06),
+              const Text(
+                'Maaf, tidak ada yang sesuai\n dengan kamu cari',
+                style: TextStyle(fontSize: 16, color: Colors.grey),
+                textAlign: TextAlign.center,
+              ),
+              //
+            ],
+          ),
+        );
       }
 
       if (viewModel.status == Status.fail) {
-        return const Center(child: Text('Terjadi kegagalan mencari proyek'));
+        return Center(
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.01),
+              Opacity(
+                  opacity: 0.4,
+                  child: SvgPicture.asset(
+                    'assets/denied.svg',
+                    width: 300,
+                    height: 300,
+                  )),
+              SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.06),
+              const Text(
+                'Terjadi masalah, coba memuat kembali',
+                style: TextStyle(fontSize: 16, color: Colors.grey),
+                textAlign: TextAlign.center,
+              ),
+              //
+            ],
+          ),
+        );
       }
 
       return Expanded(

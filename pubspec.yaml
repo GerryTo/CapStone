@@ -72,6 +72,9 @@ flutter:
   assets:
     - assets/empty.svg
     - assets/search.svg
+    - assets/denied.svg
+    - assets/favorite.svg
+    - assets/noData.svg
     - assets/about.md
   # fonts:
   #   - family: Roboto
