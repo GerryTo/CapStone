@@ -29,6 +29,7 @@ class EditProfilePage extends StatelessWidget {
         return EditProfileViewModel(currentUserInfo);
       },
       child: Builder(builder: (context) {
+        var userRole = context.watch<EditProfileViewModel>().role;
         return Scaffold(
           appBar: AppBar(
             title: Text(
@@ -51,9 +52,10 @@ class EditProfilePage extends StatelessWidget {
                 ),
               ),
               _name(context),
-              _company(context),
               _location(context),
               _phone(context),
+              if(userRole == 'Architect')
+                _company(context),
             ],
           ),
         );
