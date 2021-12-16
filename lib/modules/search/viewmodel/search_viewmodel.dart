@@ -34,7 +34,7 @@ class SearchViewModel extends ChangeNotifier {
       } else {
         _noData();
       }
-    } on Exception catch (e) {
+    } on Exception catch (_) {
       status = Status.fail;
       notifyListeners();
     }

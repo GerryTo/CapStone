@@ -1,6 +1,5 @@
 import 'package:capstone/constants/status.enum.dart';
 import 'package:capstone/modules/feeds/viewmodel/feeds_viewmodel.dart';
-import 'package:capstone/modules/search/screens/search_page.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:capstone/modules/feeds/widgets/card_feed.dart';
 import 'package:capstone/widget/loading_card.dart';

@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/feeds/viewmodel/add_feed_page_viewmodel.dart';
 import 'package:capstone/modules/feeds/widgets/add_feed_slider.dart';
 import 'package:capstone/routes/routes.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';

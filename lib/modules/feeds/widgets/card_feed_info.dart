@@ -1,8 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone/modules/auth/model/user.dart';
 import 'package:capstone/modules/feeds/model/feed.dart';
 import 'package:capstone/modules/feeds/widgets/card_feed_info_avatar.dart';
-import 'package:capstone/modules/feeds/widgets/photo_place_holder.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
