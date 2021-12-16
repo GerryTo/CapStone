@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone/constants/status.enum.dart';
 import 'package:capstone/modules/search/viewmodel/search_viewmodel.dart';
 import 'package:capstone/routes/routes.dart';
@@ -72,6 +73,10 @@ class SearchResult extends StatelessWidget {
         itemBuilder: (context, index) {
           return Card(
             child: ListTile(
+              leading: CachedNetworkImage(
+                imageUrl: projects[index].images?.first ?? '',
+                width: 64,
+              ),
               onTap: () => Routes.router.navigateTo(
                 context,
                 Routes.detailFeed,
