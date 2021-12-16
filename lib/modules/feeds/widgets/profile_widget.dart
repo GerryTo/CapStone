@@ -60,6 +60,8 @@ class ProfileWidget extends StatelessWidget {
       borderRadius: BorderRadius.circular(10),
       child: CachedNetworkImage(
         imageUrl: avatarUrl,
+        memCacheWidth: 96,
+        memCacheHeight: 96,
         width: 78,
         height: 78,
         fit: BoxFit.cover,
