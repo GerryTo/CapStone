@@ -89,7 +89,8 @@ class AddProjectTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: const Text('Tambah Proyek', style: TextStyle(fontSize: 18)),
+      title: const Text('Tambah Proyek',
+          style: TextStyle(fontSize: 18, fontFamily: 'ReadexPro')),
       leading: Icon(
         Icons.add_circle,
         color: Theme.of(context).iconTheme.color,
@@ -112,11 +113,10 @@ class EditProfileTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 16),
       child: ListTile(
-        title: Text(context.watch<SettingsViewModel>().user?.name ?? 'no name'),
+        title: Text(context.watch<SettingsViewModel>().user?.name ?? 'no name',
+            style: TextStyle(fontSize: 18, fontFamily: 'ReadexPro')),
         leading: AspectRatio(aspectRatio: 1, child: _avatar(context)),
-        onTap: () => role == 'Architect'
-            ? _navigateToProfile(context)
-            : null,
+        onTap: () => role == 'Architect' ? _navigateToProfile(context) : null,
         trailing: IconButton(
           onPressed: () => Routes.router
               .navigateTo(context, Routes.editProfile)
@@ -147,13 +147,15 @@ class EditProfileTile extends StatelessWidget {
       fit: BoxFit.fitHeight,
     );
   }
-  Future<void> _navigateToProfile(BuildContext context) async => Routes.router.navigateTo(
-      context,
-      Routes.profileUser,
-      routeSettings: RouteSettings(
-        arguments: context.read<CurrentUserInfo>().userRef,
-      ),
-    );
+
+  Future<void> _navigateToProfile(BuildContext context) async =>
+      Routes.router.navigateTo(
+        context,
+        Routes.profileUser,
+        routeSettings: RouteSettings(
+          arguments: context.read<CurrentUserInfo>().userRef,
+        ),
+      );
 }
 
 class LogoutTile extends StatelessWidget {
@@ -169,7 +171,8 @@ class LogoutTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: const Text('Logout',
-          style: TextStyle(color: Colors.red, fontSize: 18)),
+          style: TextStyle(
+              fontSize: 18, fontFamily: 'ReadexPro', color: Colors.red)),
       leading: const Icon(
         Icons.logout,
         color: Colors.red,
@@ -234,7 +237,8 @@ class AboutTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: const Text('Tentang', style: TextStyle(fontSize: 18)),
+      title: const Text('Tentang',
+          style: TextStyle(fontSize: 18, fontFamily: 'ReadexPro')),
       leading: Icon(
         Icons.info,
         color: Theme.of(context).iconTheme.color,
@@ -254,7 +258,8 @@ class DarkModeSettingTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-        title: const Text('Mode Gelap', style: TextStyle(fontSize: 18)),
+        title: const Text('Mode Gelap',
+            style: TextStyle(fontSize: 18, fontFamily: 'ReadexPro')),
         leading: Icon(
           Icons.dark_mode,
           color: Theme.of(context).iconTheme.color,
@@ -290,7 +295,8 @@ class AccountSettingTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: const Text('Setelan Akun', style: TextStyle(fontSize: 18)),
+      title: const Text('Setelan Akun',
+          style: TextStyle(fontSize: 18, fontFamily: 'ReadexPro')),
       leading: Icon(
         Icons.person,
         color: Theme.of(context).iconTheme.color,

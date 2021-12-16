@@ -183,8 +183,8 @@ class _RegisterArchitectPageState extends State<RegisterArchitectPage> {
       content: const Text('Anda telah berhasil mendaftar.'),
       actions: <Widget>[
         TextButton(
-          onPressed: () => Routes.router
-              .navigateTo(context, Routes.home, clearStack: true),
+          onPressed: () =>
+              Routes.router.navigateTo(context, Routes.home, clearStack: true),
           child: const Text('Oke'),
         )
       ],
@@ -406,7 +406,7 @@ class _RegisterArchitectPageState extends State<RegisterArchitectPage> {
           'phone': _phoneController.text,
           'location': _cityController.text,
           'projects': [],
-          'role' : 'Architect',
+          'role': 'Architect',
         });
         showDialog<String>(
           context: context,

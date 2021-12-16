@@ -54,8 +54,7 @@ class EditProfilePage extends StatelessWidget {
               _name(context),
               _location(context),
               _phone(context),
-              if(userRole == 'Architect')
-                _company(context),
+              if (userRole == 'Architect') _company(context),
             ],
           ),
         );
@@ -73,9 +72,8 @@ class EditProfilePage extends StatelessWidget {
           citiesData.length,
           (index) => DropdownMenuItem(
             value: citiesData[index],
-            child: Text(
-              citiesData[index],
-            ),
+            child: Text(citiesData[index],
+                style: TextStyle(fontSize: 18, fontFamily: 'ReadexPro')),
           ),
         ),
         onChanged: (location) {
@@ -90,7 +88,8 @@ class EditProfilePage extends StatelessWidget {
   ListTile _company(BuildContext context) {
     return ListTile(
       leading: Icon(Icons.work, color: Theme.of(context).iconTheme.color),
-      title: Text(context.watch<EditProfileViewModel>().company),
+      title: Text(context.watch<EditProfileViewModel>().company,
+          style: TextStyle(fontSize: 18, fontFamily: 'ReadexPro')),
       trailing: Icon(Icons.edit, color: Theme.of(context).iconTheme.color),
       onTap: () => _showEditDialog(
         context,
@@ -106,7 +105,8 @@ class EditProfilePage extends StatelessWidget {
   ListTile _name(BuildContext context) {
     return ListTile(
       leading: Icon(Icons.person, color: Theme.of(context).iconTheme.color),
-      title: Text(context.watch<EditProfileViewModel>().name),
+      title: Text(context.watch<EditProfileViewModel>().name,
+          style: TextStyle(fontSize: 18, fontFamily: 'ReadexPro')),
       trailing: Icon(Icons.edit, color: Theme.of(context).iconTheme.color),
       onTap: () => _showEditDialog(
         context,
@@ -219,7 +219,8 @@ class EditProfilePage extends StatelessWidget {
     return ListTile(
       leading: Icon(Icons.phone, color: Theme.of(context).iconTheme.color),
       trailing: Icon(Icons.edit, color: Theme.of(context).iconTheme.color),
-      title: Text(context.watch<EditProfileViewModel>().phone),
+      title: Text(context.watch<EditProfileViewModel>().phone,
+          style: TextStyle(fontSize: 18, fontFamily: 'ReadexPro')),
       onTap: () {
         _showEditDialog(context, label: 'No. Telpon', onSubmit: () {
           context

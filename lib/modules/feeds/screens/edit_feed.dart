@@ -91,7 +91,10 @@ class EditFeedPage extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: TextField(
         controller: titleController,
-        decoration: const InputDecoration(label: Text('Judul projek')),
+        decoration: const InputDecoration(
+            label: Text(
+          'Judul projek',
+        )),
       ),
     );
   }

@@ -95,7 +95,7 @@ class DetailFeedsPage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Text(project?.description ?? '',
-          style: GoogleFonts.poppins(fontSize: 14)),
+          style: TextStyle(fontSize: 16, fontFamily: 'ReadexPro')),
     );
   }
 
@@ -104,7 +104,8 @@ class DetailFeedsPage extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Text(
         project?.title ?? '',
-        style: const TextStyle(fontSize: 24),
+        style: TextStyle(
+            fontSize: 24, fontFamily: 'ReadexPro', fontWeight: FontWeight.w700),
       ),
     );
   }
@@ -170,8 +171,8 @@ class DetailFeedsPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(
               children: [
-                const Text('Luas '),
-                Text('${project?.landArea} m²'),
+                const Text('Luas Tanah ', style: TextStyle(fontSize: 18)),
+                Text('${project?.landArea} m²', style: TextStyle(fontSize: 18)),
               ],
             ),
           )

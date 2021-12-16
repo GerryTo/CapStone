@@ -169,8 +169,8 @@ class _RegisterClientPageState extends State<RegisterClientPage> {
       content: const Text('Anda telah berhasil mendaftar.'),
       actions: <Widget>[
         TextButton(
-          onPressed: () => Routes.router
-        .navigateTo(context, Routes.home, clearStack: true),
+          onPressed: () =>
+              Routes.router.navigateTo(context, Routes.home, clearStack: true),
           child: const Text('Oke'),
         )
       ],

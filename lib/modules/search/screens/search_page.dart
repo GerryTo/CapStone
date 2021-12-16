@@ -86,7 +86,8 @@ class EmptySearchQuery extends StatelessWidget {
           const SizedBox(height: 16),
           const Text(
             'Kamu mau cari apa nih ?',
-            style: TextStyle(fontSize: 16, color: Colors.grey),
+            style: TextStyle(
+                fontSize: 16, color: Colors.grey, fontFamily: 'ReadexPro'),
             textAlign: TextAlign.center,
           ),
           //

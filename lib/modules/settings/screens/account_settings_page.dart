@@ -38,18 +38,22 @@ class AccountSettingsPage extends StatelessWidget {
                   // child: ListView(
                   children: [
                     ListTile(
-                      leading: Icon(Icons.email, color: Theme.of(context).iconTheme.color),
+                      leading: Icon(Icons.email,
+                          color: Theme.of(context).iconTheme.color),
                       title: Text(
                           context.watch<AccountSettingsViewModel>().userEmail ??
                               'N/A'),
                       onTap: () => _showEditEmailSheet(context),
-                      trailing: Icon(Icons.edit, color: Theme.of(context).iconTheme.color),
+                      trailing: Icon(Icons.edit,
+                          color: Theme.of(context).iconTheme.color),
                     ),
                     ListTile(
-                      leading: Icon(Icons.password,color: Theme.of(context).iconTheme.color),
+                      leading: Icon(Icons.password,
+                          color: Theme.of(context).iconTheme.color),
                       title: const Text('Password'),
                       onTap: () => _showEditPasswordSheet(context),
-                      trailing:  Icon(Icons.edit, color: Theme.of(context).iconTheme.color),
+                      trailing: Icon(Icons.edit,
+                          color: Theme.of(context).iconTheme.color),
                     ),
                   ],
                   // ),

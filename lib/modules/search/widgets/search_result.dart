@@ -33,7 +33,8 @@ class SearchResult extends StatelessWidget {
               SizedBox(height: MediaQuery.of(context).size.height * 0.06),
               const Text(
                 'Maaf, tidak ada yang sesuai\n dengan kamu cari',
-                style: TextStyle(fontSize: 16, color: Colors.grey),
+                style: TextStyle(
+                    fontSize: 16, color: Colors.grey, fontFamily: 'ReadexPro'),
                 textAlign: TextAlign.center,
               ),
               //
@@ -57,7 +58,8 @@ class SearchResult extends StatelessWidget {
               SizedBox(height: MediaQuery.of(context).size.height * 0.06),
               const Text(
                 'Terjadi masalah, coba memuat kembali',
-                style: TextStyle(fontSize: 16, color: Colors.grey),
+                style: TextStyle(
+                    fontSize: 16, color: Colors.grey, fontFamily: 'ReadexPro'),
                 textAlign: TextAlign.center,
               ),
               //

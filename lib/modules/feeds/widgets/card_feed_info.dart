@@ -28,7 +28,10 @@ class CardFeedInfo extends StatelessWidget {
             children: [
               Text(
                 feed.title ?? "",
-                style: Theme.of(context).textTheme.headline5,
+                style: const TextStyle(
+                    fontSize: 24,
+                    fontFamily: 'ReadexPro',
+                    fontWeight: FontWeight.w700),
               ),
               const SizedBox(height: 8),
               GestureDetector(
@@ -39,13 +42,15 @@ class CardFeedInfo extends StatelessWidget {
                     const SizedBox(width: 8),
                     Text(
                       user.name ?? "",
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: const TextStyle(
+                          fontSize: 16, fontFamily: 'ReadexPro'),
                     ),
                     const SizedBox(width: 16),
                     const Spacer(),
                     Text(
                       user.company ?? "",
-                      style: Theme.of(context).textTheme.bodyText2,
+                      style: const TextStyle(
+                          fontSize: 14, fontFamily: 'ReadexPro'),
                     ),
                   ],
                 ),
