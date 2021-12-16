@@ -18,6 +18,8 @@ class CardFeedInfoAvatar extends StatelessWidget {
     return CachedNetworkImage(
       height: 32,
       width: 32,
+      memCacheHeight: 96,
+      memCacheWidth: 96,
       imageUrl: avatarUrl!,
       placeholder: (_, __) => const Icon(Icons.person, size: 32),
       errorWidget: (context, url, error) => const Icon(Icons.error),

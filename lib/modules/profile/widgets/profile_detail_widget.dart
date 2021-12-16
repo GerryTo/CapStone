@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone/modules/auth/model/user.dart';
 import 'package:flutter/material.dart';
 
@@ -17,11 +18,13 @@ class ProfileDetailWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(user?.name ?? '',
-                  style: const TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'Roboto',
-                      fontWeight: FontWeight.w700)),
+              Text(
+                user?.name ?? '',
+                style: const TextStyle(
+                    fontSize: 20,
+                    fontFamily: 'Roboto',
+                    fontWeight: FontWeight.w700),
+              ),
               const SizedBox(height: 10),
               Text(user?.company ?? '',
                   overflow: TextOverflow.ellipsis,
@@ -48,7 +51,13 @@ class ProfileDetailWidget extends StatelessWidget {
     }
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
-      child: Image.network(avatarUrl, width: 96, height: 96, fit: BoxFit.cover),
+      child: CachedNetworkImage(
+        imageUrl: avatarUrl,
+        memCacheWidth: 96,
+        memCacheHeight: 96,
+        width: 96,
+        height: 96,
+      ),
     );
   }
 }
