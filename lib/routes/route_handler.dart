@@ -26,7 +26,7 @@ final loginHandler =
     Handler(handlerFunc: (context, params) => const LoginPage());
 
 final preregisterHandler =
-    Handler(handlerFunc: (context, params) => PreregisterPage());
+    Handler(handlerFunc: (context, params) => const PreregisterPage());
 
 final registrationArchitectHandler =
     Handler(handlerFunc: (context, params) => const RegisterArchitectPage());
@@ -71,7 +71,7 @@ final editFeedHandeler = Handler(handlerFunc: (context, params) {
   return EditFeedPage(args);
 });
 
-final searchHandler = Handler(handlerFunc: (_, __) => SearchPage());
+final searchHandler = Handler(handlerFunc: (_, __) => const SearchPage());
 
 final settingsHandler = Handler(
   handlerFunc: (_, __) => ChangeNotifierProvider<SettingsViewModel>(
@@ -79,4 +79,5 @@ final settingsHandler = Handler(
       child: const SettingsPage()),
 );
 
-final aboutHandler = Handler(handlerFunc: (context, params) => AboutPage());
+final aboutHandler =
+    Handler(handlerFunc: (context, params) => const AboutPage());

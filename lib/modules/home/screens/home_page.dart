@@ -58,7 +58,7 @@ class HomePage extends StatelessWidget {
             child: const Feeds(),
           );
         case search:
-          return SearchPage();
+          return const SearchPage();
         case favorites:
           return ChangeNotifierProvider(
             create: (_) =>
