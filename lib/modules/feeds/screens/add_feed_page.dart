@@ -1,8 +1,10 @@
+import 'package:capstone/constants/city_names.dart';
 import 'package:capstone/modules/auth/provider/current_user_info.dart';
 import 'package:capstone/modules/feeds/viewmodel/add_feed_page_viewmodel.dart';
 import 'package:capstone/modules/feeds/widgets/add_feed_slider.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
@@ -19,6 +21,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
   final _descController = TextEditingController();
   final _priceController = TextEditingController();
   final _landAreaController = TextEditingController();
+  final _cityController = TextEditingController();
   bool success = false;
 
   final List<XFile> _files = [];
@@ -45,6 +48,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
             ],
           ),
           body: SingleChildScrollView(
+            physics: ClampingScrollPhysics(),
             child: Column(
               children: [
                 Builder(builder: (context) {
@@ -85,8 +89,13 @@ class _AddFeedPageState extends State<AddFeedPage> {
                   );
                 }),
                 _projectTitleField(),
-                _priceField(),
-                _landAreaField(),
+                _locationField(),
+                Row(
+                  children: [
+                    _priceField(),
+                    _landAreaField(),
+                  ],
+                ),
                 _projectDescriptionField(),
               ],
             ),
@@ -158,6 +167,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
     final description = _descController.text;
     final price = int.tryParse(_priceController.text);
     final landArea = int.tryParse(_landAreaController.text);
+    final location  = _cityController.text;
 
     if (title.isNotEmpty && description.isNotEmpty && _files.isNotEmpty) {
       context.read<AddFeedPageViewModel>().send(
@@ -166,6 +176,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
             price: price,
             files: _files,
             landArea: landArea,
+            location: location,
           );
     } else {
       ScaffoldMessenger.of(context).showMaterialBanner(
@@ -194,25 +205,63 @@ class _AddFeedPageState extends State<AddFeedPage> {
   }
 
   Widget _priceField() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        keyboardType: TextInputType.number,
-        controller: _priceController,
-        decoration: const InputDecoration(
-            label: Text('Harga'), alignLabelWithHint: true),
+    return Container(
+      width: MediaQuery.of(context).size.width / 2,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextField(
+          keyboardType: TextInputType.number,
+          controller: _priceController,
+          decoration: const InputDecoration(
+              label: Text('Harga (Rp.)'), alignLabelWithHint: true),
+        ),
       ),
     );
   }
 
   Widget _landAreaField() {
+    return Container(
+      width: MediaQuery.of(context).size.width / 2,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextField(
+          keyboardType: TextInputType.number,
+          controller: _landAreaController,
+          decoration: const InputDecoration(
+              label: Text('Luas Tanah (m²)'), alignLabelWithHint: true),
+        ),
+      ),
+    );
+  }
+
+  Widget _locationField(){
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        keyboardType: TextInputType.number,
-        controller: _landAreaController,
-        decoration: const InputDecoration(
-            label: Text('Luas Tanah'), alignLabelWithHint: true),
+      padding: EdgeInsets.all(8),
+      child: Row(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width-16,
+            child: TypeAheadField<String>(
+              textFieldConfiguration: TextFieldConfiguration(
+                  controller: _cityController,
+                  decoration: const InputDecoration(
+                    label:Text('Lokasi projek'),
+                  )),
+              suggestionsCallback: (pattern) {
+                return citiesData.where((element) =>
+                    element.toLowerCase().contains(pattern.toLowerCase()));
+              },
+              itemBuilder: (context, suggestion) {
+                return ListTile(
+                  title: Text(suggestion),
+                );
+              },
+              onSuggestionSelected: (suggestion) {
+                _cityController.text = suggestion;
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

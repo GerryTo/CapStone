@@ -36,6 +36,7 @@ class AddFeedPageViewModel extends ChangeNotifier {
     required int? price,
     required List<XFile> files,
     required int? landArea,
+    required String location,
   }) async {
     try {
       status = AddFeedStatus.loading;
@@ -52,6 +53,7 @@ class AddFeedPageViewModel extends ChangeNotifier {
         timestamp: Timestamp.now(),
         price: price,
         landArea: landArea,
+        location: location,
       ).toMap();
       //store the new project entity
       final project = await firestore.collection('projects').add(feed);
