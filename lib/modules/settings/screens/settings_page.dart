@@ -38,7 +38,7 @@ class SettingsPage extends StatelessWidget {
           } else if (viewModel.user?.role == 'Architect') {
             return ListView(
               children: [
-                const EditProfileTile(),
+                EditProfileTile(viewModel.user?.role),
                 const AddProjectTile(),
                 const AccountSettingTile(),
                 const DarkModeSettingTile(),
@@ -49,7 +49,7 @@ class SettingsPage extends StatelessWidget {
           } else {
             return ListView(
               children: [
-                const EditProfileTile(),
+                EditProfileTile(viewModel.user?.role),
                 const AccountSettingTile(),
                 const DarkModeSettingTile(),
                 const AboutTile(),
@@ -100,9 +100,12 @@ class AddProjectTile extends StatelessWidget {
 }
 
 class EditProfileTile extends StatelessWidget {
-  const EditProfileTile({
+  const EditProfileTile(
+    this.role, {
     Key? key,
   }) : super(key: key);
+
+  final String? role;
 
   @override
   Widget build(BuildContext context) {
@@ -111,15 +114,9 @@ class EditProfileTile extends StatelessWidget {
       child: ListTile(
         title: Text(context.watch<SettingsViewModel>().user?.name ?? 'no name'),
         leading: AspectRatio(aspectRatio: 1, child: _avatar(context)),
-        onTap: () {
-          Routes.router.navigateTo(
-            context,
-            Routes.profileUser,
-            routeSettings: RouteSettings(
-              arguments: context.read<CurrentUserInfo>().userRef,
-            ),
-          );
-        },
+        onTap: () => role == 'Architect'
+            ? _navigateToProfile(context)
+            : null,
         trailing: IconButton(
           onPressed: () => Routes.router
               .navigateTo(context, Routes.editProfile)
@@ -150,6 +147,13 @@ class EditProfileTile extends StatelessWidget {
       fit: BoxFit.fitHeight,
     );
   }
+  Future<void> _navigateToProfile(BuildContext context) async => Routes.router.navigateTo(
+      context,
+      Routes.profileUser,
+      routeSettings: RouteSettings(
+        arguments: context.read<CurrentUserInfo>().userRef,
+      ),
+    );
 }
 
 class LogoutTile extends StatelessWidget {
