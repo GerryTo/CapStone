@@ -21,8 +21,7 @@ class SearchResult extends StatelessWidget {
         return Center(
           child: Column(
             children: <Widget>[
-              SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.01),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               Opacity(
                   opacity: 0.4,
                   child: SvgPicture.asset(
@@ -30,8 +29,7 @@ class SearchResult extends StatelessWidget {
                     width: 300,
                     height: 300,
                   )),
-              SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.06),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.06),
               const Text(
                 'Maaf, tidak ada yang sesuai\n dengan kamu cari',
                 style: TextStyle(fontSize: 16, color: Colors.grey),
@@ -47,8 +45,7 @@ class SearchResult extends StatelessWidget {
         return Center(
           child: Column(
             children: <Widget>[
-              SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.01),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.01),
               Opacity(
                   opacity: 0.4,
                   child: SvgPicture.asset(
@@ -56,8 +53,7 @@ class SearchResult extends StatelessWidget {
                     width: 300,
                     height: 300,
                   )),
-              SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.06),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.06),
               const Text(
                 'Terjadi masalah, coba memuat kembali',
                 style: TextStyle(fontSize: 16, color: Colors.grey),
@@ -69,25 +65,25 @@ class SearchResult extends StatelessWidget {
         );
       }
 
-      return Expanded(
-        child: ListView.builder(
-          itemCount: projects.length,
-          itemBuilder: (context, index) {
-            return Card(
-              child: ListTile(
-                onTap: () => Routes.router.navigateTo(
-                  context,
-                  Routes.detailFeed,
-                  routeSettings: RouteSettings(arguments: projects[index].ref),
-                ),
-                title: Text(projects[index].title ?? 'no title'),
-                subtitle: Text(
-                  _cutText(projects[index].description ?? ''),
-                ),
+      return ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: projects.length,
+        itemBuilder: (context, index) {
+          return Card(
+            child: ListTile(
+              onTap: () => Routes.router.navigateTo(
+                context,
+                Routes.detailFeed,
+                routeSettings: RouteSettings(arguments: projects[index].ref),
               ),
-            );
-          },
-        ),
+              title: Text(projects[index].title ?? 'no title'),
+              subtitle: Text(
+                _cutText(projects[index].description ?? ''),
+              ),
+            ),
+          );
+        },
       );
     });
   }
