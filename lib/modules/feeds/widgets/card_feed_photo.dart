@@ -13,6 +13,7 @@ class CardFeedPhoto extends StatelessWidget {
     } else {
       return CachedNetworkImage(
         memCacheWidth: 1080,
+        maxWidthDiskCache: 1080,
         imageUrl: photo!,
         placeholder: (context, url) => const PhotoPlaceHolder(),
         errorWidget: (context, url, error) => const Icon(Icons.error),

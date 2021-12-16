@@ -24,6 +24,8 @@ class SinglePhotoWidget extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           child: const PhotoPlaceHolder(),
         ),
+        maxWidthDiskCache: 1080,
+        memCacheWidth: 1080,
       );
     }
   }
