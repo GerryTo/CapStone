@@ -62,7 +62,13 @@ class DetailFeedsPage extends StatelessWidget {
                 child: _profile(viewModel),
               ),
               _photo(viewModel.project?.images ?? []),
-              _title(viewModel.project),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _title(viewModel.project),
+                  _location(viewModel.project),
+                ],
+              ),
               _price(context, viewModel.project),
               _landArea(viewModel.project),
               _description(viewModel.project),
@@ -95,7 +101,7 @@ class DetailFeedsPage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Text(project?.description ?? '',
-          style: TextStyle(fontSize: 16, fontFamily: 'ReadexPro')),
+          style: const TextStyle(fontSize: 16, fontFamily: 'ReadexPro')),
     );
   }
 
@@ -104,8 +110,20 @@ class DetailFeedsPage extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Text(
         project?.title ?? '',
-        style: TextStyle(
+        style: const TextStyle(
             fontSize: 24, fontFamily: 'ReadexPro', fontWeight: FontWeight.w700),
+      ),
+    );
+  }
+
+  Widget _location(Feed? project) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        children: [
+          const Text('Lokasi ', style: TextStyle(fontSize: 16)),
+          Text('${project?.location}', style: const TextStyle(fontSize: 16)),
+        ],
       ),
     );
   }
@@ -171,8 +189,9 @@ class DetailFeedsPage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(
               children: [
-                const Text('Luas Tanah ', style: TextStyle(fontSize: 18)),
-                Text('${project?.landArea} m²', style: TextStyle(fontSize: 18)),
+                const Text('Luas Tanah ', style: TextStyle(fontSize: 16)),
+                Text('${project?.landArea} m²',
+                    style: const TextStyle(fontSize: 16)),
               ],
             ),
           )

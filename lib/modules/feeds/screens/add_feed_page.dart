@@ -167,7 +167,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
     final description = _descController.text;
     final price = int.tryParse(_priceController.text);
     final landArea = int.tryParse(_landAreaController.text);
-    final location  = _cityController.text;
+    final location = _cityController.text;
 
     if (title.isNotEmpty && description.isNotEmpty && _files.isNotEmpty) {
       context.read<AddFeedPageViewModel>().send(
@@ -234,18 +234,18 @@ class _AddFeedPageState extends State<AddFeedPage> {
     );
   }
 
-  Widget _locationField(){
+  Widget _locationField() {
     return Padding(
       padding: EdgeInsets.all(8),
       child: Row(
         children: [
           Container(
-            width: MediaQuery.of(context).size.width-16,
+            width: MediaQuery.of(context).size.width - 16,
             child: TypeAheadField<String>(
               textFieldConfiguration: TextFieldConfiguration(
                   controller: _cityController,
                   decoration: const InputDecoration(
-                    label:Text('Lokasi projek'),
+                    label: Text('Lokasi projek'),
                   )),
               suggestionsCallback: (pattern) {
                 return citiesData.where((element) =>

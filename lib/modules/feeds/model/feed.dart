@@ -42,7 +42,7 @@ class Feed {
         'timestamp': timestamp,
         'price': price,
         'landArea': landArea,
-        'location' : location,
+        'location': location,
       };
 
   Feed copyWith({
