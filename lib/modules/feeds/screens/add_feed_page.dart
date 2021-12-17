@@ -169,7 +169,8 @@ class _AddFeedPageState extends State<AddFeedPage> {
     final landArea = int.tryParse(_landAreaController.text);
     final location = _cityController.text;
 
-    if (title.isNotEmpty && description.isNotEmpty && _files.isNotEmpty) {
+    if (title.isNotEmpty && description.isNotEmpty && _files.isNotEmpty && price.toString != null
+    && landArea != null && location.isNotEmpty) {
       context.read<AddFeedPageViewModel>().send(
             title: _titleController.text,
             description: _descController.text,
