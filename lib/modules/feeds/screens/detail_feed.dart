@@ -76,7 +76,7 @@ class DetailFeedsPage extends StatelessWidget {
               //     style: Theme.of(context).textTheme.bodyText1,
               //   ),
               // ),
-              _description(viewModel.project,context),
+              _description(viewModel.project, context),
               _myFeedActions(viewModel.project),
               _comments(context, projectRef)
             ],
@@ -108,27 +108,18 @@ class DetailFeedsPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: Container(
         width: MediaQuery.of(context).size.width,
-        child: Card(
-          elevation: 5,
-          child: Padding(
-            padding: EdgeInsets.only(left: 10, right: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 10),
-                Text(
-                  'Deskripsi',
-                  style: TextStyle(fontSize: 20),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  '$description',
-                  style: GoogleFonts.quicksand(fontSize: 16)
-                ),
-                SizedBox(height: 10),
-              ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 10),
+            Text(
+              'Deskripsi',
+              style: TextStyle(fontSize: 20),
             ),
-          ),
+            SizedBox(height: 10),
+            Text('$description', style: GoogleFonts.quicksand(fontSize: 16)),
+            SizedBox(height: 10),
+          ],
         ),
       ),
     );
@@ -152,10 +143,14 @@ class DetailFeedsPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: Row(
         children: [
-          Icon(Icons.location_on,size: 16,),
+          Icon(
+            Icons.location_on,
+            size: 16,
+          ),
           Padding(
             padding: EdgeInsets.all(3),
-            child: Text(project?.location ?? '',
+            child: Text(
+              project?.location ?? '',
               style: const TextStyle(fontSize: 16, fontFamily: 'ReadexPro'),
             ),
           ),
@@ -173,13 +168,18 @@ class DetailFeedsPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: Row(
         children: [
-          Icon(Icons.attach_money,size: 18  ,
+          Icon(
+            Icons.attach_money,
+            size: 18,
           ),
           Padding(
             padding: EdgeInsets.all(3),
             child: Text(
               formatCurrency.format(price),
-              style: const TextStyle(fontSize: 18, fontFamily: 'ReadexPro',fontWeight: FontWeight.w500),
+              style: const TextStyle(
+                  fontSize: 18,
+                  fontFamily: 'ReadexPro',
+                  fontWeight: FontWeight.w500),
             ),
           ),
         ],
