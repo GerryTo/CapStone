@@ -62,15 +62,18 @@ class DetailFeedsPage extends StatelessWidget {
                 child: _profile(viewModel),
               ),
               _photo(viewModel.project?.images ?? []),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _title(viewModel.project),
-                  _location(viewModel.project),
-                ],
-              ),
+              _title(viewModel.project),
+              _location(viewModel.project),
               _price(context, viewModel.project),
               _landArea(viewModel.project),
+              const SizedBox(height: 16),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  'Deskripsi',
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ),
               _description(viewModel.project),
               _myFeedActions(viewModel.project),
               _comments(context, projectRef)
@@ -98,10 +101,13 @@ class DetailFeedsPage extends StatelessWidget {
   }
 
   Widget _description(Feed? project) {
+    final String? description = project?.description;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Text(project?.description ?? '',
-          style: const TextStyle(fontSize: 16, fontFamily: 'ReadexPro')),
+      child: Text(
+        '$description',
+        style: const TextStyle(fontSize: 16, fontFamily: 'ReadexPro'),
+      ),
     );
   }
 
@@ -117,13 +123,13 @@ class DetailFeedsPage extends StatelessWidget {
   }
 
   Widget _location(Feed? project) {
+    final String? location = project?.location;
+    if (location == null || location.isEmpty) return const SizedBox.shrink();
     return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Row(
-        children: [
-          const Text('Lokasi ', style: TextStyle(fontSize: 16)),
-          Text('${project?.location}', style: const TextStyle(fontSize: 16)),
-        ],
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: Text(
+        'Lokasi : ${project?.location}',
+        style: const TextStyle(fontSize: 16),
       ),
     );
   }
