@@ -63,8 +63,8 @@ class DetailFeedsPage extends StatelessWidget {
               ),
               _photo(viewModel.project?.images ?? []),
               _title(viewModel.project),
-              _location(viewModel.project),
               _price(context, viewModel.project),
+              _location(viewModel.project),
               _landArea(viewModel.project),
               const SizedBox(height: 16),
               Padding(
@@ -126,7 +126,7 @@ class DetailFeedsPage extends StatelessWidget {
     final String? location = project?.location;
     if (location == null || location.isEmpty) return const SizedBox.shrink();
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Text(
         'Lokasi : ${project?.location}',
         style: const TextStyle(fontSize: 16),
@@ -140,7 +140,7 @@ class DetailFeedsPage extends StatelessWidget {
       return Container();
     }
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Text(
         formatCurrency.format(price),
         style: Theme.of(context).textTheme.headline6,
@@ -193,12 +193,9 @@ class DetailFeedsPage extends StatelessWidget {
     return project?.landArea != null
         ? Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Row(
-              children: [
-                const Text('Luas Tanah ', style: TextStyle(fontSize: 16)),
-                Text('${project?.landArea} m²',
-                    style: const TextStyle(fontSize: 16)),
-              ],
+            child: Text(
+              'Luas Tanah:\t${project?.landArea} m²',
+              style: const TextStyle(fontSize: 16),
             ),
           )
         : Container();
