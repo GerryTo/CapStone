@@ -11,13 +11,16 @@ class SearchViewModel extends ChangeNotifier {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   Status status = Status.init;
 
-  void search(String text) async {
-    _loading();
-    final query = algolia.instance.index('capstone_sib').query(text);
-    final AlgoliaQuerySnapshot snap = await query.getObjects();
-
-    projects.clear();
+  void search(String text, int landArea) async {
     try {
+      _loading();
+      final query = algolia.instance
+          .index('capstone_sib')
+          .query(text)
+          .filters("landArea=$landArea");
+      final AlgoliaQuerySnapshot snap = await query.getObjects();
+
+      projects.clear();
       if (snap.hasHits) {
         final hits = snap.hits;
         final List<Feed> projects = hits.map((hit) {

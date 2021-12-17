@@ -42,7 +42,7 @@ class _SearchPageState extends State<SearchPage> {
                       onSubmit: () {
                         setState(
                           () {
-                            viewModel.search(_searchController.text);
+                            viewModel.search(_searchController.text, 36);
                           },
                         );
                       },
