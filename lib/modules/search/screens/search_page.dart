@@ -111,39 +111,52 @@ class SearchBar extends StatelessWidget {
   Widget build(
     BuildContext context,
   ) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            Expanded(
-              child: TextField(
-                controller: searchController,
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.all(8.0),
-                  border: InputBorder.none,
-                  hintText: 'Nama proyek, Luas tanah, atau lain lainnya ',
-                  hintStyle:
-                      TextStyle(fontStyle: FontStyle.italic, fontSize: 14),
-                ),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: Colors.grey.shade300),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              controller: searchController,
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.all(8.0),
+                border: InputBorder.none,
+                hintText: 'Nama proyek, Luas tanah, atau lain lainnya ',
+                hintStyle: TextStyle(fontStyle: FontStyle.italic, fontSize: 14),
               ),
             ),
-            const SizedBox(
-              width: 16,
+          ),
+          const SizedBox(
+            width: 4,
+          ),
+          TextButton.icon(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.filter_alt,
+              size: 24,
             ),
-            Consumer<SearchViewModel>(
-              builder: (context, viewModel, _) {
-                return ElevatedButton(
-                  onPressed: onSubmit,
-                  child: const Icon(
-                    Icons.search,
-                    size: 32,
-                  ),
-                );
-              },
-            )
-          ],
-        ),
+            label: const Text('Filter'),
+            style: TextButton.styleFrom(
+              padding: const EdgeInsets.only(right: 8),
+            ),
+          ),
+          Container(
+            color: Theme.of(context).primaryColor,
+            child: IconButton(
+              onPressed: onSubmit,
+              icon: const Icon(
+                Icons.search,
+                size: 24,
+                color: Colors.white,
+              ),
+              // padding: EdgeInsets.zero,
+              // constraints: BoxConstraints(),
+            ),
+          ),
+        ],
       ),
     );
   }
