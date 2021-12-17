@@ -10,12 +10,12 @@ class CommentAvatar extends StatelessWidget {
     if (avatarUrl == null) {
       return const Icon(
         Icons.person,
-        size: 32,
+        size: 48,
       );
     } else {
       return CachedNetworkImage(
-        width: 32,
-        height: 32,
+        width: 48,
+        height: 48,
         fit: BoxFit.cover,
         imageUrl: avatarUrl!,
         errorWidget: (context, url, error) => const Icon(Icons.error),

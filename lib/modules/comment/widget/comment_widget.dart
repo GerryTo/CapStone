@@ -41,9 +41,11 @@ class CommentWidget extends StatelessWidget {
                             Routes.router.navigateTo(context, Routes.login);
                             return;
                           }
-                          showBottomSheet(
+                          showModalBottomSheet(
+                            isScrollControlled: true,
+                            isDismissible: true,
+                            barrierColor: Colors.black.withOpacity(0.5),
                             context: context,
-                            elevation: 10,
                             builder: (_) => CommentBottomSheet(viewModel),
                           );
                         });

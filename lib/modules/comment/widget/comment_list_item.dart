@@ -18,7 +18,9 @@ class CommentListItem extends StatelessWidget {
           final data = snapshot.data?.data() as Map<String, dynamic>?;
           if (data == null) return Container();
           final userInfo = User.fromMap(data);
+
           return ListTile(
+            contentPadding: EdgeInsets.zero,
             leading: CommentAvatar(userInfo.avatarUrl),
             title: Text(userInfo.name ?? ''),
             subtitle: Text(comment.body ?? ''),
