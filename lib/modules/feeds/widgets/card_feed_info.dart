@@ -3,9 +3,10 @@ import 'package:capstone/modules/feeds/model/feed.dart';
 import 'package:capstone/modules/feeds/widgets/card_feed_info_avatar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CardFeedInfo extends StatelessWidget {
-  const CardFeedInfo({
+  CardFeedInfo({
     required this.feed,
     required this.onProfileTap,
     Key? key,
@@ -13,6 +14,9 @@ class CardFeedInfo extends StatelessWidget {
 
   final Feed feed;
   final void Function() onProfileTap;
+  final formatCurrency =
+      NumberFormat.simpleCurrency(locale: 'id_ID', decimalDigits: 0);
+
   @override
   Widget build(BuildContext context) {
     final userRef = feed.userReference;
@@ -26,12 +30,36 @@ class CardFeedInfo extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                feed.title ?? "",
-                style: const TextStyle(
-                    fontSize: 24,
-                    fontFamily: 'ReadexPro',
-                    fontWeight: FontWeight.w700),
+              Row(
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width/2.5,
+                    child: Text(
+                      feed.title!.length > 10
+                          ? feed.title!.substring(0, 14)+'...'
+                          : feed.title ?? '' ,
+                      // overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'ReadexPro',
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  const Spacer(),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width/2.5,
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        formatCurrency.format(feed.price ?? 0),
+                        style: const TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'ReadexPro',
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 8),
               GestureDetector(
