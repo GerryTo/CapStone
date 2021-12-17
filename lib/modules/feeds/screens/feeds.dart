@@ -60,14 +60,17 @@ class Feeds extends StatelessWidget {
                           Routes.router.navigateTo(
                             context,
                             Routes.detailFeed,
-                            routeSettings: RouteSettings(arguments: feeds[index].ref),
+                            routeSettings:
+                                RouteSettings(arguments: feeds[index].ref),
                           );
                         },
                         child: CardFeed(feeds[index]),
                       ),
                     ),
                   ),
-                  SizedBox(height: 50,)
+                  SizedBox(
+                    height: 50,
+                  )
                 ],
               ),
             ),

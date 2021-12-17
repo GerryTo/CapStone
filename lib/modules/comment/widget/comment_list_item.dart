@@ -23,12 +23,17 @@ class CommentListItem extends StatelessWidget {
           return Card(
             color: Colors.white,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0 ),
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
               child: ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: CommentAvatar(userInfo.avatarUrl),
-                title: Text(userInfo.name ?? '',style:GoogleFonts.quicksand(fontSize: 16,fontWeight: FontWeight.w700)),
-                subtitle: Text(comment.body ?? '',style: TextStyle(fontSize: 14),),
+                title: Text(userInfo.name ?? '',
+                    style: GoogleFonts.quicksand(
+                        fontSize: 16, fontWeight: FontWeight.w700)),
+                subtitle: Text(
+                  comment.body ?? '',
+                  style: TextStyle(fontSize: 16),
+                ),
               ),
             ),
           );

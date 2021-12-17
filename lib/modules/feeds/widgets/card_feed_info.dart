@@ -33,11 +33,11 @@ class CardFeedInfo extends StatelessWidget {
               Row(
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width/2.5,
+                    width: MediaQuery.of(context).size.width / 2.5,
                     child: Text(
                       feed.title!.length > 10
-                          ? feed.title!.substring(0, 14)+'...'
-                          : feed.title ?? '' ,
+                          ? feed.title!.substring(0, 14) + '...'
+                          : feed.title ?? '',
                       // overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                           fontSize: 18,
@@ -47,7 +47,7 @@ class CardFeedInfo extends StatelessWidget {
                   ),
                   const Spacer(),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width/2.5,
+                    width: MediaQuery.of(context).size.width / 2.5,
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: Text(
