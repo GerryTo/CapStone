@@ -10,6 +10,7 @@ import 'package:capstone/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:provider/provider.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -23,26 +24,35 @@ class HomePage extends StatelessWidget {
     return StateNotifierProvider<HomeViewModel, HomeIndex>(
       create: (_) => HomeViewModel(0),
       builder: (context, __) {
-        return Scaffold(
-          body: _body(context),
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: context.watch<HomeIndex>().index,
-            type: BottomNavigationBarType.fixed,
-            onTap: (index) => onBottomNavTap(context, index),
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.feed),
-                label: 'feed',
+        return SafeArea(
+          child: Scaffold(
+            extendBody: true,
+            body: _body(context),
+            bottomNavigationBar: Theme(
+              data: Theme.of(context)
+                  .copyWith(iconTheme: IconThemeData(color: Colors.white)),
+              child: CurvedNavigationBar(
+                height: 50,
+                color: Theme.of(context).primaryColor,
+                backgroundColor: Colors.transparent,
+                index: context.watch<HomeIndex>().index,
+                onTap: (index) => onBottomNavTap(context, index),
+                items: const [
+                  Icon(
+                    Icons.feed,
+                    size: 35,
+                  ),
+                  Icon(
+                    Icons.search,
+                    size: 35,
+                  ),
+                  Icon(
+                    Icons.favorite,
+                    size: 35,
+                  ),
+                ],
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                label: 'search',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.favorite),
-                label: 'favorit',
-              ),
-            ],
+            ),
           ),
         );
       },
