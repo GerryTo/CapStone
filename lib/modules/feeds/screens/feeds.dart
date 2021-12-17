@@ -46,20 +46,29 @@ class Feeds extends StatelessWidget {
           }
           return RefreshIndicator(
             onRefresh: () => viewModel.getFeeds(),
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: List.generate(
-                feeds.length,
-                (index) => GestureDetector(
-                  onTap: () {
-                    Routes.router.navigateTo(
-                      context,
-                      Routes.detailFeed,
-                      routeSettings: RouteSettings(arguments: feeds[index].ref),
-                    );
-                  },
-                  child: CardFeed(feeds[index]),
-                ),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  ListView(
+                    physics: ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    padding: EdgeInsets.zero,
+                    children: List.generate(
+                      feeds.length,
+                      (index) => GestureDetector(
+                        onTap: () {
+                          Routes.router.navigateTo(
+                            context,
+                            Routes.detailFeed,
+                            routeSettings: RouteSettings(arguments: feeds[index].ref),
+                          );
+                        },
+                        child: CardFeed(feeds[index]),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 50,)
+                ],
               ),
             ),
           );

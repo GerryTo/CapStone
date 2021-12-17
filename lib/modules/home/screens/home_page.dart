@@ -40,15 +40,15 @@ class HomePage extends StatelessWidget {
                 items: const [
                   Icon(
                     Icons.feed,
-                    size: 30,
+                    size: 25,
                   ),
                   Icon(
                     Icons.search,
-                    size: 30,
+                    size: 25,
                   ),
                   Icon(
                     Icons.favorite,
-                    size: 30,
+                    size: 25,
                   ),
                 ],
               ),

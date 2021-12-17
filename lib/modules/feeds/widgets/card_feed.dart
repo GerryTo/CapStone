@@ -13,31 +13,29 @@ class CardFeed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userRef = feed.userReference;
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(8),
-        child: Card(
-          child: Column(
-            children: [
-              AspectRatio(
-                aspectRatio: 1,
-                child: CardFeedPhoto(feed.images?.first),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                child: CardFeedInfo(
-                  feed: feed,
-                  onProfileTap: () => Routes.router.navigateTo(
-                    context,
-                    Routes.profileUser,
-                    routeSettings: RouteSettings(
-                      arguments: userRef,
-                    ),
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: Card(
+        child: Column(
+          children: [
+            AspectRatio(
+              aspectRatio: 1,
+              child: CardFeedPhoto(feed.images?.first),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              child: CardFeedInfo(
+                feed: feed,
+                onProfileTap: () => Routes.router.navigateTo(
+                  context,
+                  Routes.profileUser,
+                  routeSettings: RouteSettings(
+                    arguments: userRef,
                   ),
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );
