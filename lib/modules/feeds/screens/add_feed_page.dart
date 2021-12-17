@@ -169,7 +169,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
     final landArea = int.tryParse(_landAreaController.text);
     final location = _cityController.text;
 
-    if (title.isNotEmpty && description.isNotEmpty && _files.isNotEmpty && price.toString != null
+    if (title.isNotEmpty && description.isNotEmpty && _files.isNotEmpty && price != null
     && landArea != null && location.isNotEmpty) {
       context.read<AddFeedPageViewModel>().send(
             title: _titleController.text,
@@ -182,6 +182,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
     } else {
       ScaffoldMessenger.of(context).showMaterialBanner(
         MaterialBanner(
+
           backgroundColor: Theme.of(context).backgroundColor,
           content: Text('Apakah anda sudah mengisi semua field dengan benar?',
               style: Theme.of(context).textTheme.subtitle2),
