@@ -125,10 +125,13 @@ class SearchResultItemPhoto extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (imageUrl == null) return const SizedBox.shrink();
-    return CachedNetworkImage(
-      imageUrl: imageUrl!,
-      width: 64,
-    );
+    if (imageUrl == null) {
+      return const SizedBox.shrink();
+    } else {
+      return CachedNetworkImage(
+        imageUrl: imageUrl!,
+        width: 64,
+      );
+    }
   }
 }
