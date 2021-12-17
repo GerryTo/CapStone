@@ -41,7 +41,7 @@ class DetailFeedsPage extends StatelessWidget {
   Scaffold _content(BuildContext context, DetailFeedViewModel viewModel) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(viewModel.project?.title ?? "Proyek",
+        title: Text('Detail projek',
             style: GoogleFonts.roboto(fontWeight: FontWeight.w900)),
         centerTitle: true,
       ),
@@ -63,18 +63,20 @@ class DetailFeedsPage extends StatelessWidget {
               ),
               _photo(viewModel.project?.images ?? []),
               _title(viewModel.project),
+              // Divider(height: 30,
+              //   color: Colors.black,
+              // ),
               _price(context, viewModel.project),
               _location(viewModel.project),
               _landArea(viewModel.project),
-              const SizedBox(height: 16),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Text(
-                  'Deskripsi',
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-              ),
-              _description(viewModel.project),
+              // Padding(
+              //   padding: const EdgeInsets.symmetric(horizontal: 16),
+              //   child: Text(
+              //     'Deskripsi',
+              //     style: Theme.of(context).textTheme.bodyText1,
+              //   ),
+              // ),
+              _description(viewModel.project,context),
               _myFeedActions(viewModel.project),
               _comments(context, projectRef)
             ],
@@ -100,20 +102,41 @@ class DetailFeedsPage extends StatelessWidget {
     );
   }
 
-  Widget _description(Feed? project) {
+  Widget _description(Feed? project, BuildContext context) {
     final String? description = project?.description;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Text(
-        '$description',
-        style: const TextStyle(fontSize: 16, fontFamily: 'ReadexPro'),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        child: Card(
+          elevation: 5,
+          child: Padding(
+            padding: EdgeInsets.only(left: 10, right: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 10),
+                Text(
+                  'Deskripsi',
+                  style: TextStyle(fontSize: 20),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  '$description',
+                  style: GoogleFonts.quicksand(fontSize: 16)
+                ),
+                SizedBox(height: 10),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
 
   Widget _title(Feed? project) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      padding: EdgeInsets.all(16),
       child: Text(
         project?.title ?? '',
         style: const TextStyle(
@@ -126,10 +149,17 @@ class DetailFeedsPage extends StatelessWidget {
     final String? location = project?.location;
     if (location == null || location.isEmpty) return const SizedBox.shrink();
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Text(
-        'Lokasi : ${project?.location}',
-        style: const TextStyle(fontSize: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      child: Row(
+        children: [
+          Icon(Icons.location_on,size: 16,),
+          Padding(
+            padding: EdgeInsets.all(3),
+            child: Text(project?.location ?? '',
+              style: const TextStyle(fontSize: 16, fontFamily: 'ReadexPro'),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -140,10 +170,19 @@ class DetailFeedsPage extends StatelessWidget {
       return Container();
     }
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Text(
-        formatCurrency.format(price),
-        style: Theme.of(context).textTheme.headline6,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      child: Row(
+        children: [
+          Icon(Icons.attach_money,size: 18  ,
+          ),
+          Padding(
+            padding: EdgeInsets.all(3),
+            child: Text(
+              formatCurrency.format(price),
+              style: const TextStyle(fontSize: 18, fontFamily: 'ReadexPro',fontWeight: FontWeight.w500),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -192,10 +231,13 @@ class DetailFeedsPage extends StatelessWidget {
   Widget _landArea(Feed? project) {
     return project?.landArea != null
         ? Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Text(
-              'Luas Tanah:\t${project?.landArea} m²',
-              style: const TextStyle(fontSize: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+            child: Padding(
+              padding: EdgeInsets.all(3),
+              child: Text(
+                'Luas Tanah:\t${project?.landArea} m²',
+                style: const TextStyle(fontSize: 16),
+              ),
             ),
           )
         : Container();

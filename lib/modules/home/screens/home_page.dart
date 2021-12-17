@@ -32,16 +32,16 @@ class HomePage extends StatelessWidget {
               data: Theme.of(context).copyWith(
                   iconTheme: const IconThemeData(color: Colors.white)),
               child: CurvedNavigationBar(
-                height: 36,
+                height: 45,
                 color: Theme.of(context).primaryColor,
-                buttonBackgroundColor: Colors.deepOrange,
+                // buttonBackgroundColor: Colors.deepOrange,
                 backgroundColor: Colors.transparent,
                 index: context.watch<HomeIndex>().index,
                 onTap: (index) => onBottomNavTap(context, index),
                 items: const [
-                  Icon(Icons.feed, size: 24),
-                  Icon(Icons.search, size: 24),
-                  Icon(Icons.favorite, size: 24),
+                  Icon(Icons.feed, size: 28),
+                  Icon(Icons.search, size: 28),
+                  Icon(Icons.favorite, size: 28),
                 ],
               ),
             ),
