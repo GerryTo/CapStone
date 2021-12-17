@@ -113,7 +113,7 @@ class DetailFeedsPage extends StatelessWidget {
 
   Widget _title(Feed? project) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: Text(
         project?.title ?? '',
         style: const TextStyle(
@@ -126,7 +126,7 @@ class DetailFeedsPage extends StatelessWidget {
     final String? location = project?.location;
     if (location == null || location.isEmpty) return const SizedBox.shrink();
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Text(
         'Lokasi : ${project?.location}',
         style: const TextStyle(fontSize: 16),
@@ -140,7 +140,7 @@ class DetailFeedsPage extends StatelessWidget {
       return Container();
     }
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Text(
         formatCurrency.format(price),
         style: Theme.of(context).textTheme.headline6,
