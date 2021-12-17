@@ -42,7 +42,7 @@ class _SearchPageState extends State<SearchPage> {
                       onSubmit: () {
                         setState(
                           () {
-                            viewModel.search(_searchController.text, 36);
+                            viewModel.search(_searchController.text);
                           },
                         );
                       },
@@ -52,10 +52,7 @@ class _SearchPageState extends State<SearchPage> {
                 const SizedBox(
                   height: 16,
                 ),
-                if (_searchController.text.isEmpty)
-                  const EmptySearchQuery()
-                else
-                  const SearchResult()
+                const SearchResult()
               ],
             ),
           ),
@@ -98,7 +95,7 @@ class EmptySearchQuery extends StatelessWidget {
 }
 
 class SearchBar extends StatelessWidget {
-  const SearchBar({
+  SearchBar({
     required this.searchController,
     required this.onSubmit,
     Key? key,
@@ -106,44 +103,83 @@ class SearchBar extends StatelessWidget {
 
   final TextEditingController searchController;
   final void Function() onSubmit;
+  final _landAreaController = TextEditingController();
 
   @override
   Widget build(
     BuildContext context,
   ) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            Expanded(
-              child: TextField(
-                controller: searchController,
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.all(8.0),
-                  border: InputBorder.none,
-                  hintText: 'Nama proyek, Luas tanah, atau lain lainnya ',
-                  hintStyle:
-                      TextStyle(fontStyle: FontStyle.italic, fontSize: 14),
-                ),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: Colors.grey.shade300),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              controller: searchController,
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.all(8.0),
+                border: InputBorder.none,
+                hintText: 'Nama proyek, Luas tanah, atau lain lainnya ',
+                hintStyle: TextStyle(fontStyle: FontStyle.italic, fontSize: 14),
               ),
             ),
-            const SizedBox(
-              width: 16,
+          ),
+          const SizedBox(
+            width: 4,
+          ),
+          TextButton.icon(
+            onPressed: () {
+              // context.read<SearchViewModel>().landArea = 36;
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return Dialog(
+                      child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextField(
+                          controller: _landAreaController,
+                          decoration: const InputDecoration(
+                              labelText: 'Luas tanah',
+                              suffix: Text('m2'),
+                              border:
+                                  OutlineInputBorder(borderSide: BorderSide())),
+                        ),
+                      ],
+                    ),
+                  ));
+                },
+              ).then((value) => context.read<SearchViewModel>().landArea =
+                  int.tryParse(_landAreaController.text));
+            },
+            icon: const Icon(
+              Icons.filter_alt,
+              size: 24,
             ),
-            Consumer<SearchViewModel>(
-              builder: (context, viewModel, _) {
-                return ElevatedButton(
-                  onPressed: onSubmit,
-                  child: const Icon(
-                    Icons.search,
-                    size: 32,
-                  ),
-                );
-              },
-            )
-          ],
-        ),
+            label: const Text('Filter'),
+            style: TextButton.styleFrom(
+              padding: const EdgeInsets.only(right: 8),
+            ),
+          ),
+          Container(
+            color: Theme.of(context).primaryColor,
+            child: IconButton(
+              onPressed: onSubmit,
+              icon: const Icon(
+                Icons.search,
+                size: 24,
+                color: Colors.white,
+              ),
+              // padding: EdgeInsets.zero,
+              // constraints: BoxConstraints(),
+            ),
+          ),
+        ],
       ),
     );
   }

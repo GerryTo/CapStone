@@ -11,13 +11,24 @@ class SearchViewModel extends ChangeNotifier {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   Status status = Status.init;
 
-  void search(String text, int landArea) async {
+  int? _landArea;
+  int? minPrice;
+  int? maxPrice;
+
+  set landArea(int? landArea) {
+    _landArea = landArea;
+    notifyListeners();
+  }
+
+  void search(String text) async {
     try {
       _loading();
-      final query = algolia.instance
-          .index('capstone_sib')
-          .query(text)
-          .filters("landArea=$landArea");
+      AlgoliaQuery query = algolia.instance.index('capstone_sib').query(text);
+
+      if (_landArea != null) {
+        query = query.filters("landArea=$_landArea");
+      }
+
       final AlgoliaQuerySnapshot snap = await query.getObjects();
 
       projects.clear();
@@ -37,6 +48,9 @@ class SearchViewModel extends ChangeNotifier {
       } else {
         _noData();
       }
+    } on AlgoliaError catch (e) {
+      status = Status.fail;
+      notifyListeners();
     } on Exception catch (_) {
       status = Status.fail;
       notifyListeners();

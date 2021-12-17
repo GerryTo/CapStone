@@ -7,35 +7,39 @@ class CommentBottomSheet extends StatelessWidget {
   final _commentTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return BottomSheet(
-      constraints:
-          BoxConstraints(maxHeight: MediaQuery.of(context).size.height / 3),
-      enableDrag: false,
-      onClosing: () => viewModel.getComments(),
-      builder: (context) {
-        return Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
-                minLines: 3,
-                maxLines: 5,
-                decoration: const InputDecoration(label: Text('Isi komentar')),
-                controller: _commentTextController,
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets,
+      child: BottomSheet(
+        constraints:
+            BoxConstraints(maxHeight: MediaQuery.of(context).size.height / 3),
+        enableDrag: false,
+        onClosing: () => viewModel.getComments(),
+        builder: (context) {
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  minLines: 3,
+                  maxLines: 5,
+                  decoration:
+                      const InputDecoration(label: Text('Isi komentar')),
+                  controller: _commentTextController,
+                ),
               ),
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                await viewModel.addComment(_commentTextController.text);
-                await viewModel
-                    .getComments()
-                    .then((_) => Navigator.of(context).pop());
-              },
-              child: const Text('Kirim'),
-            ),
-          ],
-        );
-      },
+              ElevatedButton(
+                onPressed: () async {
+                  await viewModel.addComment(_commentTextController.text);
+                  await viewModel
+                      .getComments()
+                      .then((_) => Navigator.of(context).pop());
+                },
+                child: const Text('Kirim'),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }

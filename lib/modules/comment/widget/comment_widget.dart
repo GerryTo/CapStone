@@ -4,6 +4,7 @@ import 'package:capstone/modules/comment/viewmodel/comment_viewmodel.dart';
 import 'package:capstone/modules/comment/widget/add_comment_button.dart';
 import 'package:capstone/modules/comment/widget/comment_bottom_sheet.dart';
 import 'package:capstone/modules/comment/widget/comment_list_item.dart';
+import 'package:capstone/routes/routes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,30 +22,56 @@ class CommentWidget extends StatelessWidget {
       ),
       child: Consumer<CommentViewModel>(
         builder: (context, viewModel, _) {
-          return Column(
-            children: [
-              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-              Consumer<CurrentUserInfo>(
-                builder: (context, userInfo, _) {
-                  if (userInfo.id == null) return const SizedBox.shrink();
-                  return AddCommentButton(onPress: () {
-                    showBottomSheet(
-                      context: context,
-                      elevation: 10,
-                      builder: (_) => CommentBottomSheet(viewModel),
-                    );
-                  });
-                },
-              ),
-              Expanded(child: _commentList(viewModel.comments)),
-            ],
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Komentar',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
+                    Consumer<CurrentUserInfo>(
+                      builder: (context, userInfo, _) {
+                        return AddCommentButton(onPress: () {
+                          if (userInfo.id == null) {
+                            Routes.router.navigateTo(context, Routes.login);
+                            return;
+                          }
+                          showModalBottomSheet(
+                            isScrollControlled: true,
+                            isDismissible: true,
+                            barrierColor: Colors.black.withOpacity(0.5),
+                            context: context,
+                            builder: (_) => CommentBottomSheet(viewModel),
+                          );
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                Expanded(child: _commentList(viewModel.comments)),
+              ],
+            ),
           );
         },
       ),
     );
   }
 
-  ListView _commentList(List<UserComment> comments) {
+  Widget _commentList(List<UserComment> comments) {
+    if (comments.isEmpty) {
+      return const Padding(
+        padding: EdgeInsets.only(top: 8.0),
+        child: Text(
+          'Belum Ada Komentar',
+          textAlign: TextAlign.center,
+        ),
+      );
+    }
     return ListView.builder(
       itemCount: comments.length,
       itemBuilder: (_, index) {
