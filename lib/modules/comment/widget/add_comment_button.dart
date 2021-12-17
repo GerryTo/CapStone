@@ -7,8 +7,8 @@ class AddCommentButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: onPress,
-      icon: const Icon(Icons.comment),
-      label: const Text('Tambahkan Komentar'),
+      icon: const Icon(Icons.add),
+      label: const Text('Komentar'),
     );
   }
 }
