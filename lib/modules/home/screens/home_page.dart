@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
             body: _body(context),
             bottomNavigationBar: Theme(
               data: Theme.of(context)
-                  .copyWith(iconTheme: IconThemeData(color: Colors.white)),
+                  .copyWith(iconTheme: const IconThemeData(color: Colors.white)),
               child: CurvedNavigationBar(
                 height: 50,
                 color: Theme.of(context).primaryColor,
