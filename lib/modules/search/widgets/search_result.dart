@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone/constants/status.enum.dart';
+import 'package:capstone/modules/feeds/model/feed.dart';
 import 'package:capstone/modules/search/viewmodel/search_viewmodel.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:flutter/material.dart';
@@ -74,25 +75,36 @@ class SearchResult extends StatelessWidget {
         itemCount: projects.length,
         itemBuilder: (context, index) {
           return Card(
-            child: ListTile(
-              leading: CachedNetworkImage(
-                imageUrl: projects[index].images?.first ?? '',
-                width: 64,
-              ),
-              onTap: () => Routes.router.navigateTo(
-                context,
-                Routes.detailFeed,
-                routeSettings: RouteSettings(arguments: projects[index].ref),
-              ),
-              title: Text(projects[index].title ?? 'no title'),
-              subtitle: Text(
-                _cutText(projects[index].description ?? ''),
-              ),
-            ),
+            child: SearchResultItem(project: projects[index]),
           );
         },
       );
     });
+  }
+}
+
+class SearchResultItem extends StatelessWidget {
+  const SearchResultItem({
+    Key? key,
+    required this.project,
+  }) : super(key: key);
+
+  final Feed project;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: SearchResultItemPhoto(imageUrl: project.images?.first),
+      onTap: () => Routes.router.navigateTo(
+        context,
+        Routes.detailFeed,
+        routeSettings: RouteSettings(arguments: project.ref),
+      ),
+      title: Text(project.title ?? 'no title'),
+      subtitle: Text(
+        _cutText(project.description ?? ''),
+      ),
+    );
   }
 
   String _cutText(String text) {
@@ -100,5 +112,26 @@ class SearchResult extends StatelessWidget {
       return text.substring(0, 75);
     }
     return text;
+  }
+}
+
+class SearchResultItemPhoto extends StatelessWidget {
+  const SearchResultItemPhoto({
+    Key? key,
+    required this.imageUrl,
+  }) : super(key: key);
+
+  final String? imageUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    if (imageUrl == null) {
+      return const SizedBox.shrink();
+    } else {
+      return CachedNetworkImage(
+        imageUrl: imageUrl!,
+        width: 64,
+      );
+    }
   }
 }
