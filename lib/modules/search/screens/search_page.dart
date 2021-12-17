@@ -42,7 +42,7 @@ class _SearchPageState extends State<SearchPage> {
                       onSubmit: () {
                         setState(
                           () {
-                            viewModel.search(_searchController.text, 36);
+                            viewModel.search(_searchController.text);
                           },
                         );
                       },
@@ -52,10 +52,7 @@ class _SearchPageState extends State<SearchPage> {
                 const SizedBox(
                   height: 16,
                 ),
-                if (_searchController.text.isEmpty)
-                  const EmptySearchQuery()
-                else
-                  const SearchResult()
+                const SearchResult()
               ],
             ),
           ),
@@ -98,7 +95,7 @@ class EmptySearchQuery extends StatelessWidget {
 }
 
 class SearchBar extends StatelessWidget {
-  const SearchBar({
+  SearchBar({
     required this.searchController,
     required this.onSubmit,
     Key? key,
@@ -106,6 +103,7 @@ class SearchBar extends StatelessWidget {
 
   final TextEditingController searchController;
   final void Function() onSubmit;
+  final _landAreaController = TextEditingController();
 
   @override
   Widget build(
@@ -133,7 +131,32 @@ class SearchBar extends StatelessWidget {
             width: 4,
           ),
           TextButton.icon(
-            onPressed: () {},
+            onPressed: () {
+              // context.read<SearchViewModel>().landArea = 36;
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return Dialog(
+                      child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextField(
+                          controller: _landAreaController,
+                          decoration: const InputDecoration(
+                              labelText: 'Luas tanah',
+                              suffix: Text('m2'),
+                              border:
+                                  OutlineInputBorder(borderSide: BorderSide())),
+                        ),
+                      ],
+                    ),
+                  ));
+                },
+              ).then((value) => context.read<SearchViewModel>().landArea =
+                  int.tryParse(_landAreaController.text));
+            },
             icon: const Icon(
               Icons.filter_alt,
               size: 24,
