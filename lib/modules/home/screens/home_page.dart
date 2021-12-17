@@ -29,27 +29,19 @@ class HomePage extends StatelessWidget {
             extendBody: true,
             body: _body(context),
             bottomNavigationBar: Theme(
-              data: Theme.of(context)
-                  .copyWith(iconTheme: const IconThemeData(color: Colors.white)),
+              data: Theme.of(context).copyWith(
+                  iconTheme: const IconThemeData(color: Colors.white)),
               child: CurvedNavigationBar(
-                height: 45,
+                height: 36,
                 color: Theme.of(context).primaryColor,
+                buttonBackgroundColor: Colors.deepOrange,
                 backgroundColor: Colors.transparent,
                 index: context.watch<HomeIndex>().index,
                 onTap: (index) => onBottomNavTap(context, index),
                 items: const [
-                  Icon(
-                    Icons.feed,
-                    size: 25,
-                  ),
-                  Icon(
-                    Icons.search,
-                    size: 25,
-                  ),
-                  Icon(
-                    Icons.favorite,
-                    size: 25,
-                  ),
+                  Icon(Icons.feed, size: 24),
+                  Icon(Icons.search, size: 24),
+                  Icon(Icons.favorite, size: 24),
                 ],
               ),
             ),
