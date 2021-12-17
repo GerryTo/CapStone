@@ -3,6 +3,7 @@ import 'package:capstone/modules/comment/model/comment.dart';
 import 'package:capstone/modules/comment/widget/comment_avatar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CommentListItem extends StatelessWidget {
   const CommentListItem(this.comment, {Key? key}) : super(key: key);
@@ -19,11 +20,17 @@ class CommentListItem extends StatelessWidget {
           if (data == null) return Container();
           final userInfo = User.fromMap(data);
 
-          return ListTile(
-            contentPadding: EdgeInsets.zero,
-            leading: CommentAvatar(userInfo.avatarUrl),
-            title: Text(userInfo.name ?? ''),
-            subtitle: Text(comment.body ?? ''),
+          return Card(
+            color: Colors.white,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0 ),
+              child: ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: CommentAvatar(userInfo.avatarUrl),
+                title: Text(userInfo.name ?? '',style:GoogleFonts.quicksand(fontSize: 16,fontWeight: FontWeight.w700)),
+                subtitle: Text(comment.body ?? '',style: TextStyle(fontSize: 14),),
+              ),
+            ),
           );
         }
         return Container();
