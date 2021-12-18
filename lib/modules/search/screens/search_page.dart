@@ -1,4 +1,5 @@
 import 'package:capstone/modules/search/viewmodel/search_viewmodel.dart';
+import 'package:capstone/modules/search/widgets/filter_dialog.dart';
 import 'package:capstone/modules/search/widgets/search_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -118,23 +119,7 @@ class SearchBar extends StatelessWidget {
               showDialog(
                 context: context,
                 builder: (context) {
-                  return Dialog(
-                      child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        TextField(
-                          controller: _landAreaController,
-                          decoration: const InputDecoration(
-                              labelText: 'Luas tanah',
-                              suffix: Text('m2'),
-                              border:
-                                  OutlineInputBorder(borderSide: BorderSide())),
-                        ),
-                      ],
-                    ),
-                  ));
+                  return FilterDialog(landAreaController: _landAreaController);
                 },
               ).then((value) => context.read<SearchViewModel>().landArea =
                   int.tryParse(_landAreaController.text));
