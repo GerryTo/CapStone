@@ -12,8 +12,8 @@ class SearchViewModel extends ChangeNotifier {
   Status status = Status.init;
 
   int? _landArea;
-  int? minPrice;
-  int? maxPrice;
+  int? _minPrice;
+  int? _maxPrice;
 
   set landArea(int? landArea) {
     _landArea = landArea;
@@ -22,21 +22,45 @@ class SearchViewModel extends ChangeNotifier {
 
   int? get landArea => _landArea;
 
+  set maxPrice(int? maxPrice) {
+    _maxPrice = maxPrice;
+    notifyListeners();
+  }
+
+  int? get maxPrice => _maxPrice;
+
+  set minPrice(int? minPrice) {
+    _minPrice = minPrice;
+    notifyListeners();
+  }
+
+  int? get minPrice => _minPrice;
+
+  String _filterBuilder() {
+    final List<String> filters = [];
+    if (_landArea != null) {
+      filters.add('landArea=$_landArea');
+    }
+
+    if (_maxPrice != null) {
+      filters.add('price<=$_maxPrice');
+    }
+
+    if (_minPrice != null) {
+      filters.add('price>=$_minPrice');
+    }
+
+    return filters.join(" AND ");
+  }
+
   void search(String text) async {
     try {
       _loading();
       AlgoliaQuery query = algolia.instance.index('capstone_sib').query(text);
 
-      if (_landArea != null) {
-        query = query.filters("landArea=$_landArea");
-      }
-
-      if (maxPrice != null) {
-        query = query.filters("price<=$maxPrice");
-      }
-
-      if (minPrice != null) {
-        query = query.filters("price>=$minPrice");
+      final filters = _filterBuilder();
+      if (filters.isNotEmpty) {
+        query = query.filters(filters);
       }
 
       final AlgoliaQuerySnapshot snap = await query.getObjects();

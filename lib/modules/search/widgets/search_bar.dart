@@ -3,7 +3,7 @@ import 'package:capstone/modules/search/widgets/filter_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class SearchBar extends StatefulWidget {
+class SearchBar extends StatelessWidget {
   final TextEditingController searchController;
   final void Function() onSubmit;
 
@@ -12,25 +12,6 @@ class SearchBar extends StatefulWidget {
     required this.onSubmit,
     Key? key,
   }) : super(key: key);
-
-  @override
-  State<SearchBar> createState() => _SearchBarState();
-}
-
-class _SearchBarState extends State<SearchBar> {
-  final _landAreaController = TextEditingController();
-
-  final _maxPriceController = TextEditingController();
-
-  final _minPriceController = TextEditingController();
-
-  @override
-  void dispose() {
-    super.dispose();
-    _landAreaController.dispose();
-    _maxPriceController.dispose();
-    _minPriceController.dispose();
-  }
 
   @override
   Widget build(
@@ -45,7 +26,7 @@ class _SearchBarState extends State<SearchBar> {
         children: [
           Expanded(
             child: TextField(
-              controller: widget.searchController,
+              controller: searchController,
               decoration: const InputDecoration(
                 contentPadding: EdgeInsets.all(8.0),
                 border: InputBorder.none,
@@ -57,32 +38,35 @@ class _SearchBarState extends State<SearchBar> {
           const SizedBox(
             width: 4,
           ),
-          TextButton.icon(
-            onPressed: () {
-              // context.read<SearchViewModel>().landArea = 36;
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return FilterDialog(landAreaController: _landAreaController);
-                },
-              ).then((value) {
-                return context.read<SearchViewModel>().landArea =
-                    int.tryParse(_landAreaController.text);
-              });
-            },
-            icon: const Icon(
-              Icons.filter_alt,
-              size: 24,
-            ),
-            label: const Text('Filter'),
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.only(right: 8),
-            ),
-          ),
+          Builder(builder: (context) {
+            return TextButton.icon(
+              onPressed: () {
+                final searchViewModel =
+                    Provider.of<SearchViewModel>(context, listen: false);
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return ChangeNotifierProvider.value(
+                      value: searchViewModel,
+                      child: FilterDialog(),
+                    );
+                  },
+                );
+              },
+              icon: const Icon(
+                Icons.filter_alt,
+                size: 24,
+              ),
+              label: const Text('Filter'),
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.only(right: 8),
+              ),
+            );
+          }),
           Container(
             color: Theme.of(context).primaryColor,
             child: IconButton(
-              onPressed: widget.onSubmit,
+              onPressed: onSubmit,
               icon: const Icon(
                 Icons.search,
                 size: 24,

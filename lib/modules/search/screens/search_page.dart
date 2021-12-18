@@ -55,13 +55,39 @@ class _SearchPageState extends State<SearchPage> {
                 Consumer<SearchViewModel>(
                   builder: (context, viewModel, _) {
                     final landArea = viewModel.landArea;
-                    if (landArea == null) return const SizedBox.shrink();
-                    return Chip(
-                      label: Text('Luas Tanah $landArea'),
-                      deleteIcon: const Icon(Icons.close),
-                      onDeleted: () {
-                        viewModel.landArea = null;
-                      },
+                    final maxPrice = viewModel.maxPrice;
+                    final minPrice = viewModel.minPrice;
+
+                    return Wrap(
+                      children: [
+                        (landArea != null)
+                            ? Chip(
+                                label: Text('Luas Tanah $landArea'),
+                                deleteIcon: const Icon(Icons.close),
+                                onDeleted: () {
+                                  viewModel.landArea = null;
+                                },
+                              )
+                            : const SizedBox.shrink(),
+                        (minPrice != null)
+                            ? Chip(
+                                label: Text('Harga Terrendah $minPrice'),
+                                deleteIcon: const Icon(Icons.close),
+                                onDeleted: () {
+                                  viewModel.minPrice = null;
+                                },
+                              )
+                            : const SizedBox.shrink(),
+                        (maxPrice != null)
+                            ? Chip(
+                                label: Text('Luas Tanah $maxPrice'),
+                                deleteIcon: const Icon(Icons.close),
+                                onDeleted: () {
+                                  viewModel.maxPrice = null;
+                                },
+                              )
+                            : const SizedBox.shrink(),
+                      ],
                     );
                   },
                 ),
