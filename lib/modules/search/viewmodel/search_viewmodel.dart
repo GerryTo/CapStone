@@ -20,6 +20,8 @@ class SearchViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  int? get landArea => _landArea;
+
   void search(String text) async {
     try {
       _loading();

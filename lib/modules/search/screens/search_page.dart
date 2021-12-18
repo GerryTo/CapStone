@@ -34,17 +34,31 @@ class _SearchPageState extends State<SearchPage> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Builder(builder: (context) {
+                  return SearchBar(
+                    searchController: _searchController,
+                    onSubmit: () {
+                      setState(
+                        () {
+                          context
+                              .read<SearchViewModel>()
+                              .search(_searchController.text);
+                        },
+                      );
+                    },
+                  );
+                }),
                 Consumer<SearchViewModel>(
                   builder: (context, viewModel, _) {
-                    return SearchBar(
-                      searchController: _searchController,
-                      onSubmit: () {
-                        setState(
-                          () {
-                            viewModel.search(_searchController.text);
-                          },
-                        );
+                    final landArea = viewModel.landArea;
+                    if (landArea == null) return const SizedBox.shrink();
+                    return Chip(
+                      label: Text('Luas Tanah $landArea'),
+                      deleteIcon: const Icon(Icons.close),
+                      onDeleted: () {
+                        viewModel.landArea = null;
                       },
                     );
                   },
