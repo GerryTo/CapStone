@@ -3,10 +3,13 @@ import 'package:capstone/constants/status.enum.dart';
 import 'package:capstone/modules/feeds/model/feed.dart';
 import 'package:capstone/modules/search/screens/search_page.dart';
 import 'package:capstone/modules/search/viewmodel/search_viewmodel.dart';
+import 'package:capstone/modules/search/widgets/search_result_item.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+
+import 'empty_search_query.dart';
 
 class SearchResult extends StatelessWidget {
   const SearchResult({Key? key}) : super(key: key);
@@ -85,92 +88,5 @@ class SearchResult extends StatelessWidget {
         },
       );
     });
-  }
-}
-
-class SearchResultItem extends StatelessWidget {
-  const SearchResultItem({
-    Key? key,
-    required this.project,
-  }) : super(key: key);
-
-  final Feed project;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Routes.router.navigateTo(
-        context,
-        Routes.detailFeed,
-        routeSettings: RouteSettings(arguments: project.ref),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SearchResultItemPhoto(imageUrl: project.images?.first),
-          Flexible(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    project.title ?? 'no title',
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                  Text(
-                    _cutText(
-                      project.description ?? '',
-                    ),
-                    style: Theme.of(context).textTheme.bodyText2,
-                  ),
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-
-    // return ListTile(
-    //   leading:
-    //   onTap: () => Routes.router.navigateTo(
-    //     context,
-    //     Routes.detailFeed,
-    //     routeSettings: RouteSettings(arguments: project.ref),
-    //   ),
-    //   title: Text(project.title ?? 'no title'),
-    //   subtitle: Text(
-    //     _cutText(project.description ?? ''),
-    //   ),
-    // );
-  }
-
-  String _cutText(String text) {
-    if (text.length > 75) {
-      return text.substring(0, 75);
-    }
-    return text;
-  }
-}
-
-class SearchResultItemPhoto extends StatelessWidget {
-  const SearchResultItemPhoto({
-    Key? key,
-    required this.imageUrl,
-  }) : super(key: key);
-
-  final String? imageUrl;
-
-  @override
-  Widget build(BuildContext context) {
-    if (imageUrl == null) {
-      return const SizedBox.shrink();
-    } else {
-      return CachedNetworkImage(
-        imageUrl: imageUrl!,
-        width: 96,
-      );
-    }
   }
 }
