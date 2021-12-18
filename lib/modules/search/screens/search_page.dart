@@ -1,5 +1,6 @@
 import 'package:capstone/modules/search/viewmodel/search_viewmodel.dart';
 import 'package:capstone/modules/search/widgets/filter_dialog.dart';
+import 'package:capstone/modules/search/widgets/search_bar.dart';
 import 'package:capstone/modules/search/widgets/search_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -72,81 +73,6 @@ class _SearchPageState extends State<SearchPage> {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class SearchBar extends StatelessWidget {
-  SearchBar({
-    required this.searchController,
-    required this.onSubmit,
-    Key? key,
-  }) : super(key: key);
-
-  final TextEditingController searchController;
-  final void Function() onSubmit;
-  final _landAreaController = TextEditingController();
-
-  @override
-  Widget build(
-    BuildContext context,
-  ) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.grey.shade300),
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: TextField(
-              controller: searchController,
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.all(8.0),
-                border: InputBorder.none,
-                hintText: 'Nama proyek, Luas tanah, atau lain lainnya ',
-                hintStyle: TextStyle(fontStyle: FontStyle.italic, fontSize: 14),
-              ),
-            ),
-          ),
-          const SizedBox(
-            width: 4,
-          ),
-          TextButton.icon(
-            onPressed: () {
-              // context.read<SearchViewModel>().landArea = 36;
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return FilterDialog(landAreaController: _landAreaController);
-                },
-              ).then((value) => context.read<SearchViewModel>().landArea =
-                  int.tryParse(_landAreaController.text));
-            },
-            icon: const Icon(
-              Icons.filter_alt,
-              size: 24,
-            ),
-            label: const Text('Filter'),
-            style: TextButton.styleFrom(
-              padding: const EdgeInsets.only(right: 8),
-            ),
-          ),
-          Container(
-            color: Theme.of(context).primaryColor,
-            child: IconButton(
-              onPressed: onSubmit,
-              icon: const Icon(
-                Icons.search,
-                size: 24,
-                color: Colors.white,
-              ),
-              // padding: EdgeInsets.zero,
-              // constraints: BoxConstraints(),
-            ),
-          ),
-        ],
       ),
     );
   }

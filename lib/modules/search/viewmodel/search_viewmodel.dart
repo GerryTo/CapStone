@@ -31,6 +31,14 @@ class SearchViewModel extends ChangeNotifier {
         query = query.filters("landArea=$_landArea");
       }
 
+      if (maxPrice != null) {
+        query = query.filters("price<=$maxPrice");
+      }
+
+      if (minPrice != null) {
+        query = query.filters("price>=$minPrice");
+      }
+
       final AlgoliaQuerySnapshot snap = await query.getObjects();
 
       projects.clear();
