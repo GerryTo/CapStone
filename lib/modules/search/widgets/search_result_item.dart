@@ -46,19 +46,6 @@ class SearchResultItem extends StatelessWidget {
         ],
       ),
     );
-
-    // return ListTile(
-    //   leading:
-    //   onTap: () => Routes.router.navigateTo(
-    //     context,
-    //     Routes.detailFeed,
-    //     routeSettings: RouteSettings(arguments: project.ref),
-    //   ),
-    //   title: Text(project.title ?? 'no title'),
-    //   subtitle: Text(
-    //     _cutText(project.description ?? ''),
-    //   ),
-    // );
   }
 
   String _cutText(String text) {
