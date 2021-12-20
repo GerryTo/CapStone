@@ -19,8 +19,8 @@ class SearchBar extends StatelessWidget {
   ) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.grey.shade300),
+        color: Theme.of(context).dialogBackgroundColor,
+        border: Border.all(color: Theme.of(context).focusColor),
       ),
       child: Row(
         children: [
