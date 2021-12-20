@@ -43,9 +43,20 @@ class FavoriteViewModel extends ChangeNotifier {
           await favoriteCollection.where("user", isEqualTo: userRef).get();
       final docs = snapshot.docs;
 
-      final job =
-          await Future.forEach<QueryDocumentSnapshot<Map<String, dynamic>>>(
-              docs, (doc) async {
+      await _fetchProjectData(docs);
+      status = Status.success;
+    } on Exception catch (e) {
+      status = Status.fail;
+      log(e.toString(), name: tag);
+    } finally {
+      notifyListeners();
+    }
+  }
+
+  Future<void> _fetchProjectData(
+      List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) async {
+    for (final doc in docs) {
+      try {
         final DocumentReference projectRef = doc.data()['project'];
         final projectSnapshot = await projectRef.get();
         final projectData = projectSnapshot.data() as Map<String, dynamic>?;
@@ -54,15 +65,9 @@ class FavoriteViewModel extends ChangeNotifier {
             Feed.fromMap(projectData).copyWith(ref: projectSnapshot.reference);
         log(project.toString(), name: tag);
         favorites.add(project);
-      });
-      if (job == null) {
-        status = Status.success;
+      } on Exception catch (_) {
+        rethrow;
       }
-    } on Exception catch (e) {
-      status = Status.fail;
-      log(e.toString(), name: tag);
-    } finally {
-      notifyListeners();
     }
   }
 }
