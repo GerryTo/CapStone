@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
             create: (_) => ThemeNotifier()),
       ],
       builder: (context, _) => MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Gazebo',
         theme: AppThemes.lightTheme,
         darkTheme: AppThemes.darkTheme,
