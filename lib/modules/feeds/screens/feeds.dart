@@ -46,33 +46,28 @@ class Feeds extends StatelessWidget {
           }
           return RefreshIndicator(
             onRefresh: () => viewModel.getFeeds(),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  ListView(
-                    physics: ClampingScrollPhysics(),
-                    shrinkWrap: true,
-                    padding: EdgeInsets.zero,
-                    children: List.generate(
-                      feeds.length,
-                      (index) => GestureDetector(
-                        onTap: () {
-                          Routes.router.navigateTo(
-                            context,
-                            Routes.detailFeed,
-                            routeSettings:
-                                RouteSettings(arguments: feeds[index].ref),
-                          );
-                        },
-                        child: CardFeed(feeds[index]),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 50,
-                  )
-                ],
-              ),
+            child: ListView.builder(
+              shrinkWrap: true,
+              padding: EdgeInsets.zero,
+              //ditambah satu untuk menambah sizedbox di akhir
+              itemCount: feeds.length + 1,
+              itemBuilder: (context, index) {
+                ///item terakhir adalah sizedbox agar listview tidak ditutupi
+                /// oleh navbar
+                if (index == feeds.length) {
+                  return const SizedBox(height: 64);
+                }
+                return GestureDetector(
+                  onTap: () {
+                    Routes.router.navigateTo(
+                      context,
+                      Routes.detailFeed,
+                      routeSettings: RouteSettings(arguments: feeds[index].ref),
+                    );
+                  },
+                  child: CardFeed(feeds[index]),
+                );
+              },
             ),
           );
         },

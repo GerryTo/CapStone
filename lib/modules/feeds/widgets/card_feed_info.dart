@@ -31,12 +31,12 @@ class CardFeedInfo extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 2.5,
+                  Flexible(
                     child: Text(
-                      feed.title!.length > 10
-                          ? feed.title!.substring(0, 14) + '...'
+                      feed.title!.length > 35
+                          ? feed.title!.substring(0, 35) + '...'
                           : feed.title ?? '',
                       // overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -45,18 +45,15 @@ class CardFeedInfo extends StatelessWidget {
                           fontWeight: FontWeight.w700),
                     ),
                   ),
-                  const Spacer(),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width / 2.5,
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        formatCurrency.format(feed.price ?? 0),
-                        style: const TextStyle(
-                            fontSize: 14,
-                            fontFamily: 'ReadexPro',
-                            fontWeight: FontWeight.w700),
-                      ),
+                  const SizedBox(width: 16),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      formatCurrency.format(feed.price ?? 0),
+                      style: const TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'ReadexPro',
+                          fontWeight: FontWeight.w700),
                     ),
                   ),
                 ],
