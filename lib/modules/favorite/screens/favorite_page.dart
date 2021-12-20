@@ -20,6 +20,14 @@ class FavoritePage extends StatelessWidget {
           style: GoogleFonts.roboto(fontWeight: FontWeight.w900, fontSize: 20),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Routes.router.navigateTo(context, Routes.settings);
+            },
+            icon: const Icon(Icons.menu),
+          ),
+        ],
       ),
       body: Consumer<FavoriteViewModel>(
         builder: (context, viewmodel, _) {
