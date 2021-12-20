@@ -55,8 +55,8 @@ class FavoriteViewModel extends ChangeNotifier {
 
   Future<void> _fetchProjectData(
       List<QueryDocumentSnapshot<Map<String, dynamic>>> docs) async {
-    for (final doc in docs) {
-      try {
+    try {
+      for (final doc in docs) {
         final DocumentReference projectRef = doc.data()['project'];
         final projectSnapshot = await projectRef.get();
         final projectData = projectSnapshot.data() as Map<String, dynamic>?;
@@ -65,9 +65,9 @@ class FavoriteViewModel extends ChangeNotifier {
             Feed.fromMap(projectData).copyWith(ref: projectSnapshot.reference);
         log(project.toString(), name: tag);
         favorites.add(project);
-      } on Exception catch (_) {
-        rethrow;
       }
+    } on Exception catch (e) {
+      rethrow;
     }
   }
 }
