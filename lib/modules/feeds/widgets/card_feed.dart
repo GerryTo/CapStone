@@ -16,6 +16,10 @@ class CardFeed extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        clipBehavior: Clip.hardEdge,
         child: Column(
           children: [
             AspectRatio(
