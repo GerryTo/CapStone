@@ -9,12 +9,9 @@ class FavoriteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<DetailFeedViewModel>(builder: (context, viewmodel, _) {
       return FloatingActionButton(
-        backgroundColor: Colors.white,
-        child: Icon(
-            viewmodel.isFavorite
-                ? Icons.bookmark_rounded
-                : Icons.bookmark_outline_rounded,
-            color: Colors.black),
+        backgroundColor: Theme.of(context).buttonTheme.colorScheme?.surface,
+        child: Icon(Icons.favorite_rounded,
+            color: viewmodel.isFavorite ? Colors.pink : Colors.grey),
         onPressed: () {
           viewmodel.toggleFavorite();
         },
