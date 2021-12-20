@@ -24,7 +24,7 @@ class SearchResult extends StatelessWidget {
       }
 
       if (viewModel.status == Status.loading) {
-        return const CircularProgressIndicator();
+        return const LinearProgressIndicator();
       }
 
       if (viewModel.status == Status.noData) {
