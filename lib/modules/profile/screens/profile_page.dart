@@ -58,7 +58,8 @@ class ProfilePage extends StatelessWidget {
                 child: _profileButtons(context, viewModel),
                 width: double.infinity,
               ),
-              ProfileFeedGrid(projects),
+              //membalik projects agar yang tampil yang lebih baru
+              ProfileFeedGrid(projects.reversed.toList()),
             ],
           ),
         ),

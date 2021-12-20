@@ -8,7 +8,6 @@ enum ShowDataStatus { init, loading, success, fail }
 
 class ProfileViewModel extends ChangeNotifier {
   ProfileViewModel(this.userRef) {
-    log(userRef.toString(), name: "USER_PROFILE");
     getData();
   }
 
@@ -18,17 +17,21 @@ class ProfileViewModel extends ChangeNotifier {
   var status = ShowDataStatus.init;
   Future<void> getData() async {
     try {
+      //loading
       status = ShowDataStatus.loading;
       notifyListeners();
+
+      //mengambil data dari backend
       final userSnapshot = await userRef?.get();
       final data = userSnapshot?.data() as Map<String, dynamic>?;
       if (data == null) return;
       user = User.fromMap(data);
-      log(user.toString(), name: "USER_PROFILE");
+
+      //sukses
       status = ShowDataStatus.success;
       notifyListeners();
     } catch (e) {
-      log(e.toString(), name: "USER_PROFILE");
+      // gagal
       status = ShowDataStatus.fail;
       notifyListeners();
     }
