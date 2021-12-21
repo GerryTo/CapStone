@@ -2,8 +2,10 @@ import 'package:capstone/modules/search/viewmodel/search_viewmodel.dart';
 import 'package:capstone/modules/search/widgets/filter_dialog.dart';
 import 'package:capstone/modules/search/widgets/search_bar.dart';
 import 'package:capstone/modules/search/widgets/search_result.dart';
+import 'package:capstone/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class SearchPage extends StatefulWidget {
@@ -28,7 +30,20 @@ class _SearchPageState extends State<SearchPage> {
       create: (context) => SearchViewModel(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Search'),
+          title: Text(
+            'Search',
+            style:
+                GoogleFonts.roboto(fontWeight: FontWeight.w900, fontSize: 20),
+          ),
+          centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: () {
+                Routes.router.navigateTo(context, Routes.settings);
+              },
+              icon: const Icon(Icons.menu),
+            ),
+          ],
         ),
         body: SingleChildScrollView(
           physics: const ScrollPhysics(),

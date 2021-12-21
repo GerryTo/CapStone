@@ -45,42 +45,40 @@ class DetailFeedsPage extends StatelessWidget {
             style: GoogleFonts.roboto(fontWeight: FontWeight.w900)),
         centerTitle: true,
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              GestureDetector(
-                onTap: () => Routes.router.navigateTo(
-                  context,
-                  Routes.profileUser,
-                  routeSettings: RouteSettings(
-                    arguments: viewModel.project?.userReference,
-                  ),
+      body: SingleChildScrollView(
+        physics: const ClampingScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            GestureDetector(
+              onTap: () => Routes.router.navigateTo(
+                context,
+                Routes.profileUser,
+                routeSettings: RouteSettings(
+                  arguments: viewModel.project?.userReference,
                 ),
-                child: _profile(viewModel),
               ),
-              _photo(viewModel.project?.images ?? []),
-              _title(viewModel.project),
-              // Divider(height: 30,
-              //   color: Colors.black,
-              // ),
-              _price(context, viewModel.project),
-              _location(viewModel.project),
-              _landArea(viewModel.project),
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(horizontal: 16),
-              //   child: Text(
-              //     'Deskripsi',
-              //     style: Theme.of(context).textTheme.bodyText1,
-              //   ),
-              // ),
-              _description(viewModel.project, context),
-              _myFeedActions(viewModel.project),
-              _comments(context, projectRef)
-            ],
-          ),
+              child: _profile(viewModel),
+            ),
+            _photo(viewModel.project?.images ?? []),
+            _title(viewModel.project),
+            // Divider(height: 30,
+            //   color: Colors.black,
+            // ),
+            _price(context, viewModel.project),
+            _location(viewModel.project),
+            _landArea(viewModel.project),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 16),
+            //   child: Text(
+            //     'Deskripsi',
+            //     style: Theme.of(context).textTheme.bodyText1,
+            //   ),
+            // ),
+            _description(viewModel.project, context),
+            _myFeedActions(viewModel.project),
+            _comments(context, projectRef)
+          ],
         ),
       ),
       floatingActionButton: _myFavoriteBottons(viewModel.project),

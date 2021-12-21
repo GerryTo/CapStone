@@ -9,21 +9,17 @@ class ProfileFeedGrid extends StatelessWidget {
   final List<DocumentReference<Object?>>? projects;
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisSpacing: 5,
+        mainAxisSpacing: 5,
+        crossAxisCount: 3,
+      ),
       shrinkWrap: true,
       primary: false,
       padding: const EdgeInsets.all(5),
-      crossAxisSpacing: 5,
-      mainAxisSpacing: 5,
-      crossAxisCount: 3,
-      children: _projectList(context),
-    );
-  }
-
-  List<Widget> _projectList(BuildContext context) {
-    return List.generate(
-      projects?.length ?? 0,
-      (index) {
+      itemCount: projects?.length,
+      itemBuilder: (context, index) {
         final project = projects?[index];
         if (project == null) {
           return Container();
