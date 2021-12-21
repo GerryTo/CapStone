@@ -28,9 +28,11 @@ class AddFeedCarousel extends StatelessWidget {
         items: files.map((file) {
           return Stack(
             children: [
-              Image.file(
-                File(file.path),
-                fit: BoxFit.cover,
+              Center(
+                child: Image.file(
+                  File(file.path),
+                  fit: BoxFit.cover,
+                ),
               ),
               _removeButton(),
             ],

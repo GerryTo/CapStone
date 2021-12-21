@@ -117,7 +117,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
         onPressed: () async {
           final files = await _picker.pickMultiImage() ?? [];
           setState(() {
-            _files.addAll(files);
+            _files.insertAll(0, files);
           });
         },
         child: Icon(
@@ -186,7 +186,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
     } else {
       ScaffoldMessenger.of(context).showMaterialBanner(
         MaterialBanner(
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme.of(context).dialogBackgroundColor,
           content: Text('Apakah anda sudah mengisi semua field dengan benar?',
               style: Theme.of(context).textTheme.subtitle2),
           actions: [
