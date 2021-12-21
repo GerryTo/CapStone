@@ -21,7 +21,6 @@ class CommentListItem extends StatelessWidget {
           final userInfo = User.fromMap(data);
 
           return Card(
-            color: Colors.white,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: ListTile(
