@@ -82,7 +82,7 @@ class SearchViewModel extends ChangeNotifier {
       } else {
         _noData();
       }
-    } on AlgoliaError catch (e) {
+    } on AlgoliaError {
       status = Status.fail;
       notifyListeners();
     } on Exception catch (_) {

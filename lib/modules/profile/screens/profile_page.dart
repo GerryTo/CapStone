@@ -9,7 +9,6 @@ import 'package:capstone/modules/profile/widgets/profile_feed_grid.dart';
 import 'package:capstone/modules/profile/widgets/share_button.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';

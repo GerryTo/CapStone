@@ -1,6 +1,5 @@
 import 'package:capstone/config/themes/app_colors.dart';
 import 'package:capstone/routes/routes.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PreregisterPage extends StatelessWidget {

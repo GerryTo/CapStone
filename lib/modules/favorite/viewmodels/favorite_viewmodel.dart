@@ -66,7 +66,7 @@ class FavoriteViewModel extends ChangeNotifier {
         log(project.toString(), name: tag);
         favorites.add(project);
       }
-    } on Exception catch (e) {
+    } on Exception {
       rethrow;
     }
   }

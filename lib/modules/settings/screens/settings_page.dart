@@ -114,7 +114,7 @@ class EditProfileTile extends StatelessWidget {
       padding: const EdgeInsets.only(top: 16),
       child: ListTile(
         title: Text(context.watch<SettingsViewModel>().user?.name ?? 'no name',
-            style: TextStyle(fontSize: 18, fontFamily: 'ReadexPro')),
+            style: const TextStyle(fontSize: 18, fontFamily: 'ReadexPro')),
         leading: AspectRatio(aspectRatio: 1, child: _avatar(context)),
         onTap: () => role == 'Architect' ? _navigateToProfile(context) : null,
         trailing: IconButton(

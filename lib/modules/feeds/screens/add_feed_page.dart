@@ -48,7 +48,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
             ],
           ),
           body: SingleChildScrollView(
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             child: Column(
               children: [
                 Builder(builder: (context) {
@@ -210,7 +210,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
   }
 
   Widget _priceField() {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width / 2,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -225,7 +225,7 @@ class _AddFeedPageState extends State<AddFeedPage> {
   }
 
   Widget _landAreaField() {
-    return Container(
+    return SizedBox(
       width: MediaQuery.of(context).size.width / 2,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -241,10 +241,10 @@ class _AddFeedPageState extends State<AddFeedPage> {
 
   Widget _locationField() {
     return Padding(
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       child: Row(
         children: [
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width - 16,
             child: TypeAheadField<String>(
               textFieldConfiguration: TextFieldConfiguration(

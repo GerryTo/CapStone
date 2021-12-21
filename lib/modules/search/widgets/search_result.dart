@@ -1,10 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:capstone/constants/status.enum.dart';
-import 'package:capstone/modules/feeds/model/feed.dart';
-import 'package:capstone/modules/search/screens/search_page.dart';
 import 'package:capstone/modules/search/viewmodel/search_viewmodel.dart';
 import 'package:capstone/modules/search/widgets/search_result_item.dart';
-import 'package:capstone/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';

@@ -10,7 +10,6 @@ import 'package:capstone/modules/feeds/widgets/my_feed_actions.dart';
 import 'package:capstone/routes/routes.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -104,19 +103,19 @@ class DetailFeedsPage extends StatelessWidget {
     final String? description = project?.description;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      child: Container(
+      child: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               'Deskripsi',
               style: TextStyle(fontSize: 20),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text('$description', style: GoogleFonts.quicksand(fontSize: 16)),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
           ],
         ),
       ),
@@ -125,7 +124,7 @@ class DetailFeedsPage extends StatelessWidget {
 
   Widget _title(Feed? project) {
     return Padding(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Text(
         project?.title ?? '',
         style: const TextStyle(
@@ -141,12 +140,12 @@ class DetailFeedsPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: Row(
         children: [
-          Icon(
+          const Icon(
             Icons.location_on,
             size: 16,
           ),
           Padding(
-            padding: EdgeInsets.all(3),
+            padding: const EdgeInsets.all(3),
             child: Text(
               project?.location ?? '',
               style: const TextStyle(fontSize: 16, fontFamily: 'ReadexPro'),
@@ -166,12 +165,12 @@ class DetailFeedsPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: Row(
         children: [
-          Icon(
+          const Icon(
             Icons.attach_money,
             size: 18,
           ),
           Padding(
-            padding: EdgeInsets.all(3),
+            padding: const EdgeInsets.all(3),
             child: Text(
               formatCurrency.format(price),
               style: const TextStyle(
@@ -231,7 +230,7 @@ class DetailFeedsPage extends StatelessWidget {
         ? Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
             child: Padding(
-              padding: EdgeInsets.all(3),
+              padding: const EdgeInsets.all(3),
               child: Text(
                 'Luas Tanah:\t${project?.landArea} m²',
                 style: const TextStyle(fontSize: 16),

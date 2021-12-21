@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:capstone/modules/auth/model/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';

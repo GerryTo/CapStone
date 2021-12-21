@@ -1,5 +1,4 @@
 import 'package:capstone/modules/feeds/viewmodel/detail_feed_viewmodel.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

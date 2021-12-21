@@ -23,7 +23,7 @@ class CommentListItem extends StatelessWidget {
           return Card(
             color: Colors.white,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: ListTile(
                 contentPadding: EdgeInsets.zero,
                 leading: CommentAvatar(userInfo.avatarUrl),
@@ -32,7 +32,7 @@ class CommentListItem extends StatelessWidget {
                         fontSize: 16, fontWeight: FontWeight.w700)),
                 subtitle: Text(
                   comment.body ?? '',
-                  style: TextStyle(fontSize: 16),
+                  style: const TextStyle(fontSize: 16),
                 ),
               ),
             ),

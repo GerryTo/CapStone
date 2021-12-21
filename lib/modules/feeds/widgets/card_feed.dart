@@ -3,8 +3,6 @@ import 'package:capstone/modules/feeds/widgets/card_feed_info.dart';
 import 'package:capstone/modules/feeds/widgets/card_feed_photo.dart';
 
 import 'package:capstone/routes/routes.dart';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CardFeed extends StatelessWidget {

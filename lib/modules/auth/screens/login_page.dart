@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:capstone/config/themes/app_colors.dart';
 import 'package:capstone/routes/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
