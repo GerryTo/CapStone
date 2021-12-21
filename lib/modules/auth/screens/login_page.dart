@@ -216,8 +216,17 @@ class _LoginPageState extends State<LoginPage> {
       Routes.router
           .navigateTo(context, Routes.home, replace: true, clearStack: true);
     } catch (e) {
-      final snackbar = SnackBar(content: Text(e.toString()));
-      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      var error = e.toString();
+      var splitErrorMassage = error.split("] ");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            splitErrorMassage[1],
+            style: const TextStyle(color: Colors.black),
+          ),
+          backgroundColor: Colors.white,
+        ),
+      );
     }
   }
 
