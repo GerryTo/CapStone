@@ -1,4 +1,5 @@
 import 'package:capstone/modules/search/viewmodel/search_viewmodel.dart';
+import 'package:capstone/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +23,9 @@ class FilterDialog extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Consumer<SearchViewModel>(
           builder: (context, viewModel, child) {
+            _landAreaController.text = viewModel.landArea?.toString() ?? '';
+            _minPriceController.text = viewModel.minPrice?.toString() ?? '';
+            _maxPriceController.text = viewModel.maxPrice?.toString() ?? '';
             return Form(
               key: _formKey,
               child: Column(
@@ -71,6 +75,7 @@ class FilterDialog extends StatelessWidget {
                           int.tryParse(_maxPriceController.text);
                       viewModel.minPrice =
                           int.tryParse(_minPriceController.text);
+                      Routes.router.pop(context);
                     },
                     child: const Text('Simpan Filter'),
                   ),
